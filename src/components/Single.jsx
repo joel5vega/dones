@@ -5,7 +5,7 @@ import "react-input-range/lib/css/index.css";
 function Single(props) {
   return (
     <div className="pregunta">
-      <h3>{props.id} {props.pregunta}</h3>
+      <h3>{props.pregunta}</h3>
       <div className="input-range">
         <InputRange
           name={props.pregunta}
