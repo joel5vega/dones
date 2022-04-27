@@ -9,7 +9,7 @@ import {
   Legend
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-
+import Don from "./Don";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -60,6 +60,11 @@ function Results(props) {
       {props.show && (
         <div>
           <Bar options={options} data={data} />
+          <div className="dones">
+            {dones.map((don) => (
+              <Don data={don} />
+            ))}
+          </div>
         </div>
       )}
     </div>
