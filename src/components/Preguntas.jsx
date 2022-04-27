@@ -53,7 +53,7 @@ function Preguntas() {
       })),
         setDones(actDones);
       if (puntaje) {
-        console.log("actualiza", categoria.name, actDones);
+        // console.log("actualiza", categoria.name, actDones);
       }
     });
     setResult(!result);
@@ -62,25 +62,35 @@ function Preguntas() {
   return (
     <div>
       {!result && (
-        <div className="preguntas">
-          {answers.map((item) => (
-            <div key={item.id}>
-              <Single
-                id={item.id}
-                pregunta={item.pregunta}
-                valor={item.respuesta || 0}
-                onChange={handleChange}
-              />
-            </div>
-          ))}
+        <div>
+          <div className="instrucciones">
+            <p>Responde honestamente </p>
+            <p>1:Totalmente en desacuerdo</p>
+            <p>5:Totalmente de acuerdo</p>
+          </div>
+          <div className="preguntas">
+            {answers.map((item) => (
+              <div key={item.id}>
+                <Single
+                  id={item.id}
+                  pregunta={item.pregunta}
+                  valor={item.respuesta || 0}
+                  onChange={handleChange}
+                />
+              </div>
+            ))}
+          </div>
         </div>
       )}
       <div className="boton" onClick={buscarDon}>
         Buscar mi Don
       </div>
-      <Results show={result} dones={dones.sort(function(a,b){
-        return b.score - a.score
-      })}/>
+      <Results
+        show={result}
+        dones={dones.sort(function (a, b) {
+          return b.score - a.score;
+        })}
+      />
     </div>
   );
 }

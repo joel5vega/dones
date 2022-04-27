@@ -16,7 +16,6 @@ function Single(props) {
           minValue={0}
           value={props.valor}
           onChange={(value) => props.onChange(props.id, value)}
-          
           classNames={{
              activeTrack: "input-tange__track input-range__track--active",
              disabledInputRange: "input-range input-range--disabled",

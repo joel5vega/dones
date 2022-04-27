@@ -22,12 +22,13 @@
     "url": "https://github.com/joel5vega/dones/issues"
   },
   "dependencies": {
+    "chart.js": "^3.7.1",
     "gh-pages": "^3.2.3",
     "react": "^18.0.0",
+    "react-chartjs-2": "^4.1.0",
     "react-dom": "^18.0.0",
     "react-input-range": "^1.3.0",
-    "react-scripts": "^5.0.1",
-    "recharts": "^2.1.9"
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

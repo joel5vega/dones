@@ -1,37 +1,65 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
   Tooltip,
-  Legend,
-  ResponsiveContainer
-} from "recharts";
+  Legend
+} from "chart.js";
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const options = {
+  indexAxis: "y",
+  elements: {
+    bar: {
+      borderWidth: 2
+    }
+  },
+  responsive: true,
+  plugins: {
+    datalabels: {
+      display: true
+    },
+    legend: {
+      display: false
+    },
+    title: {
+      display: true,
+      text: "Mis dones",
+      fontSize: 20
+    }
+  }
+};
+
 function Results(props) {
+  var dones = props.dones;
+  var labels = props.dones.map((don) => don.name);
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: "Dones",
+        data: dones.map((don) => don.score),
+        backgroundColor: "#3952b2"
+      }
+    ]
+  };
   return (
     <div>
       {props.show && (
         <div>
-          <h1>Resultados</h1>
-           <ResponsiveContainer width="100%" height={300}>
-            <BarChart width={150} height={300} data={props.dones}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis angle={270} dataKey="name" interval={0}/>
-              <YAxis />
-              <Tooltip />
-              {/* <Legend /> */}
-              <Bar dataKey="score" fill="#8884d8" label={{position:'top'}}/>
-            </BarChart>
-          </ResponsiveContainer>
-          {props.dones.map((don) => (
-            <div key={don.id}>
-              <h3>{don.name}:{don.score}</h3>
-            </div>
-          ))}
-         
+          <Bar options={options} data={data} />
         </div>
       )}
     </div>

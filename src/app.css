@@ -16,21 +16,37 @@
 .body{
     background: var(--fondo);
 }
+.instrucciones{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background: var(--fondo);
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    padding: 0.5rem;
+    width: 80%;
+    border-radius: 2rem;
+    border:1px solid var(--primario);
+}
 .preguntas{
     /* background: red; */
+    margin-top:2rem;
     display: flex;
-    /* flex-direction: column; */
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 .pregunta{
-    padding: 0.5rem;
+    padding: 0.1rem;
+    
     border: 1px solid #ccc;
     flex-wrap: wrap;
     width: auto;
     margin: 0.1rem;
     border-radius: 1rem;
-    /* min-width: 150px; */
-    /* max-width: 150px ; */
+    min-width: 10rem;
+    max-width: fit-content;
     overflow: hidden;
     background-color: var(--fondo);
  
@@ -57,4 +73,28 @@
     background-color: var(--fondo);
     color:var(--activo);
     border:1px solid var(--activo);
+}
+@media screen and (min-width: 800px) {
+    
+    .preguntas{
+        grid-template-columns: auto auto auto;
+        border: #3952b2;
+        font-size: 1rem;
+        /* background: red; */
+    }
+    .pregunta{
+        font-size: 1rem;
+        max-width: 250px ;
+    }
+    .pregunta h3{
+        font-size: 1rem;
+        margin: 0.5rem;
+        color:var(--primario)
+    }
+    .input-range{
+        max-width: 100px ;
+    }
+    .boton{
+        max-width: 100px ;
+    }
 }
