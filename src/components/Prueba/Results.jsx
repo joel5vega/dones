@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -18,7 +18,12 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+import {
+  exportComponentAsJPEG,
+  exportComponentAsPNG
+} from "react-component-export-image";
 
+import { Button } from "@mui/material";
 export const options = {
   indexAxis: "y",
   // maintainAspectRatio: false,
@@ -43,30 +48,46 @@ export const options = {
   }
 };
 
+const ComponentToPrint = React.forwardRef((props, ref) => (
+  <div ref={ref} className="results">
+    <Bar options={props.options} data={props.data} />
+    <div className="dones">
+      {props.dones.slice(0, 4).map((don, index) => (
+        <Don key={index} data={don} />
+      ))}
+    </div>
+    Fuente: joelvega.me/dones
+  </div>
+));
+
 function Results(props) {
   var dones = props.dones;
-  var labels = props.dones.map((don) => don.name).slice(0, 5);
+  var labels = props.dones.map((don) => don.name).slice(0, 4);
+  const componentRef = useRef();
   const data = {
     labels,
     datasets: [
       {
         label: "Dones",
-        data: dones.map((don) => don.score).slice(0, 5),
+        data: dones.map((don) => don.score).slice(0, 4),
         backgroundColor: "#3952b2"
       }
     ]
   };
   return (
-    <div className="results">
+    <div >
       {props.show && (
-        <div>
-          <Bar options={options} data={data} />
-          <div className="dones">
-            {dones.slice(0, 5).map((don, index) => (
-              <Don key={index}data={don} />
-            ))}
-          </div>
-        </div>
+        <React.Fragment>
+          <ComponentToPrint ref={componentRef} options={options} data={data}dones={dones}/>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => exportComponentAsJPEG(componentRef,{fileName: "misdones"})}
+          >
+            Exportar a JPEG
+          </Button>
+          
+        </React.Fragment>
       )}
     </div>
   );
