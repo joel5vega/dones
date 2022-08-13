@@ -6,34 +6,37 @@ import { Button } from "@mui/material";
 import Popover from "./Popover";
 import { height } from "@mui/system";
 
-export default function ImageAvatars() {
+export default function ImageAvatars(props) {
   return (
-    <Stack
-      sx={{
-        alignItems: "center",
-        background: "var(--fondo)",
-        position: "fixed",
-        zIndex: "1",
-        top: "0",
-        height:"3rem"
-      }}
-      direction="row"
-      spacing={2}
-    >
-      <Button href="/">
-        <Avatar alt="Remy Sharp" src={DonesEspirituales} />
-      </Button>
-      <h2>Test de dones</h2>
-      <Popover
-        title="Instrucciones"
-        content={
-          <div className="instruccioness">
-            <p>Responde honestamente </p>
-            <p>1:Totalmente en desacuerdo</p>
-            <p>5:Totalmente de acuerdo</p>
-          </div>
-        }
-      />
-    </Stack>
+    <>
+      <Stack
+        sx={{
+          alignItems: "center",
+          background: "var(--fondo)",
+          position: "fixed",
+          zIndex: "1",
+          top: "0",
+          height: "3rem"
+        }}
+        direction="row"
+        spacing={2}
+      >
+        <Button href="/">
+          <Avatar alt="Remy Sharp" src={DonesEspirituales} />
+        </Button>
+        <h2>Test de dones</h2>
+        <Popover
+          title="?"
+          content={
+            <div className="instruccioness">
+              <p>Responde honestamente </p>
+              <p>No: Totalmente en desacuerdo</p>
+              <p>Si: Totalmente de acuerdo</p>
+            </div>
+          }
+        />
+        
+      </Stack>
+    </>
   );
 }

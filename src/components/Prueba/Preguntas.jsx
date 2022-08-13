@@ -2,27 +2,31 @@ import React, { useState } from "react";
 import PreguntasData from "../../data/PreguntasData";
 import CategoriaData from "../../data/CategoriasData";
 import Single from "./Single";
-import Results from "../Results";
+import Results from "./Results";
 import NavBar from "../NavBar";
 
 function Preguntas() {
   const [answers, setAnswers] = useState(PreguntasData);
   const [dones, setDones] = useState(CategoriaData);
   const [result, setResult] = useState(false);
+  const [progreso, setProgreso] = useState(0);
+
   const handleChange = (id, value) => {
-    const valor =value.target.value
-    console.log(id,valor)
+    const valor = value.target.value;
+    console.log(id, valor);
     var newAnswers = [];
     (newAnswers = answers.map((answer) => {
       if (answer.id === id) {
         return {
           ...answer,
-          respuesta: value
+          respuesta: valor
         };
       }
+
       return answer;
     })),
       setAnswers(newAnswers);
+    // setProgreso(progreso + 1);
   };
 
   const buscarDon = () => {
@@ -64,32 +68,30 @@ function Preguntas() {
 
   return (
     <div>
-      {!result && (
-        <div>
-          <NavBar/>
-          <div className="preguntas">
-            {answers.map((item) => (
-              <div key={item.id}>
-                <Single
-                  id={item.id}
-                  pregunta={item.pregunta}
-                  valor={item.respuesta || 0}
-                  onChange={handleChange}
-                />
-              </div>
-            ))}
-          </div>
+      <NavBar  />
+      {!result ? (
+        <div className="preguntas">
+          {answers.map((item) => (
+            <Single
+              key={item.id}
+              id={item.id}
+              pregunta={item.pregunta}
+              valor={item.respuesta || 0}
+              onChange={handleChange}
+            />
+          ))}
         </div>
+      ) : (
+        <Results
+          show={result}
+          dones={dones.sort(function (a, b) {
+            return b.score - a.score;
+          })}
+        />
       )}
       <div className="boton" onClick={buscarDon}>
         Buscar mi Don
       </div>
-      <Results
-        show={result}
-        dones={dones.sort(function (a, b) {
-          return b.score - a.score;
-        })}
-      />
     </div>
   );
 }

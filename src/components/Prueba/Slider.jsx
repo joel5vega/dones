@@ -8,15 +8,14 @@ const marks = [
     label: "No"
   },
   {
-    value: 1
+    value: 1.25
     // label: '20°C',
   },
-  { value: 2 },
+  { value: 2.5 },
   {
-    value: 3
+    value: 3.75
     // label: '37°C',
   },
-  { value: 4 },
   {
     value: 5,
     label: "Si"
@@ -29,15 +28,15 @@ function valuetext(value) {
 
 export default function DiscreteSliderLabel(props) {
   return (
-    <Box sx={{ padding: "0.5rem",maxWidth: 360 }}>
+    <Box sx={{ height:55,maxWidth: 100 }}>
       <Slider
         aria-label="Always visible"
         defaultValue={0}
         getAriaValueText={valuetext}
-        step={1}
+        step={1.25}
         marks={marks}
-        value={props.value|0}
-        valueLabelDisplay="on"
+        value={props.valor}
+        // valueLabelDisplay="on"
         onChange={props.onChange}
         max={5}
       />

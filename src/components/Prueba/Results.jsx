@@ -9,7 +9,7 @@ import {
   Legend
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import Don from "./Don";
+import Don from "../Dones/Don";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,9 +21,10 @@ ChartJS.register(
 
 export const options = {
   indexAxis: "y",
+  // maintainAspectRatio: false,
   elements: {
     bar: {
-      borderWidth: 2
+      borderWidth: 1
     }
   },
   responsive: true,
@@ -37,32 +38,32 @@ export const options = {
     title: {
       display: true,
       text: "Mis dones",
-      fontSize: 20
+      fontSize: 18
     }
   }
 };
 
 function Results(props) {
   var dones = props.dones;
-  var labels = props.dones.map((don) => don.name);
+  var labels = props.dones.map((don) => don.name).slice(0, 5);
   const data = {
     labels,
     datasets: [
       {
         label: "Dones",
-        data: dones.map((don) => don.score),
+        data: dones.map((don) => don.score).slice(0, 5),
         backgroundColor: "#3952b2"
       }
     ]
   };
   return (
-    <div>
+    <div className="results">
       {props.show && (
         <div>
           <Bar options={options} data={data} />
           <div className="dones">
-            {dones.map((don) => (
-              <Don data={don} />
+            {dones.slice(0, 5).map((don, index) => (
+              <Don key={index}data={don} />
             ))}
           </div>
         </div>

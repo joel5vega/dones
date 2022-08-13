@@ -15,7 +15,6 @@
 
 .body {
   background: var(--fondo);
-  
 }
 section {
   background: var(--fondo);
@@ -32,19 +31,19 @@ section {
   font-style: italic;
   color: var(--primario);
 }
-.versiculo-cita{
+.versiculo-cita {
   font-size: 1.1rem;
   font-weight: bold;
   font-style: italic;
   color: var(--primario);
   text-align: center;
 }
-p{
+p {
   color: var(--texto);
   font-size: 1.065rem;
   margin-top: 0.2rem;
 }
-.stack{
+.stack {
   margin: 1rem;
   display: flex;
   flex-direction: row;
@@ -70,15 +69,16 @@ p{
   /* background: red; */
   margin-top: 3rem;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
 }
 .pregunta {
   padding: 0.1rem;
-
-  border: 1px solid #ccc;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  /* border: 1px solid #ccc; */
+  flex-wrap: no-wrap;
   width: auto;
   margin: 0.1rem;
   border-radius: 1rem;
@@ -86,6 +86,13 @@ p{
   max-width: fit-content;
   overflow: hidden;
   background-color: var(--fondo);
+}
+.pregunta p {
+  /* color: red; */
+  align-items: center;
+  font-size: 1rem;
+  margin-top: 0.2rem;
+  min-width: 15rem;
 }
 .pregunta h3 {
   font-size: 0.7rem;
@@ -96,7 +103,15 @@ p{
   padding: 0.5rem;
   max-width: 100px;
 }
-
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 3rem;
+}
 .don {
   border: 1px solid var(--primario);
   border-radius: 1rem;
@@ -104,6 +119,8 @@ p{
   margin: 0.5rem;
   width: fit-content;
   background-color: var(--fondo);
+  display: flex;
+  gap:1rem;
 }
 .boton {
   padding: 0.5rem;
@@ -130,8 +147,8 @@ p{
     font-size: 1rem;
     max-width: 250px;
   }
-  .dones{
-    display:grid;
+  .dones {
+    display: grid;
     grid-template-columns: auto auto auto;
     justify-content: space-between;
     width: 100%;
@@ -147,4 +164,9 @@ p{
   .boton {
     max-width: 100px;
   }
+}
+.icon {
+  width: 5rem;
+  height: 5rem;
+  /* margin-right: 0.5rem; */
 }
