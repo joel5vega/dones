@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-import PreguntasData from "../data/PreguntasData";
-import CategoriaData from "../data/CategoriasData";
+import PreguntasData from "../../data/PreguntasData";
+import CategoriaData from "../../data/CategoriasData";
 import Single from "./Single";
-import Results from "./Results";
+import Results from "../Results";
+import NavBar from "../NavBar";
 
 function Preguntas() {
   const [answers, setAnswers] = useState(PreguntasData);
   const [dones, setDones] = useState(CategoriaData);
   const [result, setResult] = useState(false);
   const handleChange = (id, value) => {
+    const valor =value.target.value
+    console.log(id,valor)
     var newAnswers = [];
     (newAnswers = answers.map((answer) => {
       if (answer.id === id) {
@@ -63,11 +66,7 @@ function Preguntas() {
     <div>
       {!result && (
         <div>
-          <div className="instrucciones">
-            <p>Responde honestamente </p>
-            <p>1:Totalmente en desacuerdo</p>
-            <p>5:Totalmente de acuerdo</p>
-          </div>
+          <NavBar/>
           <div className="preguntas">
             {answers.map((item) => (
               <div key={item.id}>

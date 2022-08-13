@@ -1,13 +1,14 @@
 import React from "react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
-
+import Slide from "./Slider"
 function Single(props) {
   return (
     <div className="pregunta">
-      <h3>{props.pregunta}</h3>
+      <p>{props.pregunta}</p>
+      <Slide value={props.valor} onChange={(value) => props.onChange(props.id, value)}/>
       <div className="input-range">
-        <InputRange
+        {/* <InputRange
           name={props.pregunta}
           // formatLabel={(value) => `${value}`}
           maxValue={5}
@@ -30,7 +31,7 @@ function Single(props) {
              valueLabel: "input-range__label--value"
           }}
           
-        />
+        /> */}
       </div>
     </div>
   );
