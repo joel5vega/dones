@@ -75,18 +75,20 @@ function Results(props) {
     ]
   };
   return (
-    <div >
+    <div className="resultados" >
       {props.show && (
         <React.Fragment>
           <ComponentToPrint ref={componentRef} options={options} data={data}dones={dones}/>
-          <Button
-            variant="contained"
-            color="primary"
+          <div className="boton"
             onClick={() => exportComponentAsJPEG(componentRef,{fileName: "misdones"})}
           >
-            Exportar a JPEG
-          </Button>
-          
+            Descargar resultados
+          </div>
+          <a className="boton" href="/lista"
+            onClick={() => exportComponentAsJPEG(componentRef,{fileName: "misdones"})}
+          >
+            Ver listado de todos los dones
+          </a>
         </React.Fragment>
       )}
     </div>

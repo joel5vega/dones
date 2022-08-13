@@ -11,12 +11,16 @@ export default function ImageAvatars(props) {
     <>
       <Stack
         sx={{
+          display: "flex",
+          justifyContent: "space-between",
           alignItems: "center",
           background: "var(--fondo)",
           position: "fixed",
           zIndex: "1",
           top: "0",
-          height: "3rem"
+          height: "3rem",
+          width: "100%",
+          maxWidth: "100%",
         }}
         direction="row"
         spacing={2}
@@ -24,18 +28,24 @@ export default function ImageAvatars(props) {
         <Button href="/">
           <Avatar alt="Remy Sharp" src={DonesEspirituales} />
         </Button>
-        <h2>Test de dones</h2>
-        <Popover
-          title="?"
-          content={
-            <div className="instruccioness">
-              <p>Responde honestamente </p>
-              <p>No: Totalmente en desacuerdo</p>
-              <p>Si: Totalmente de acuerdo</p>
-            </div>
-          }
-        />
-        
+        <h2>{props.title}</h2>
+        {!props.result ? (
+          <Popover
+            title="?"
+            content={
+              <div className="instruccioness">
+                <p>Responde honestamente </p>
+                <p>No: Totalmente en desacuerdo</p>
+                <p>Si: Totalmente de acuerdo</p>
+              </div>
+            }
+          />
+        ) : (
+
+          <a className="boton" variant="contained" href="test" >
+         Nuevo Test
+        </a>
+        )}
       </Stack>
     </>
   );

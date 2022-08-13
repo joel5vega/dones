@@ -83,6 +83,7 @@ function Home() {
         
       </article>
       <Button href="test" sx={{"margin":"2rem","color":"var(--fondo)","background":"var(--activo)"}} variant="contained">Ir al Test de dones</Button>
+      <Button href="lista" sx={{"margin":"2rem","color":"var(--fondo)","background":"var(--activo)"}} variant="contained">Ver lista de dones</Button>
     </section>
   );
 }

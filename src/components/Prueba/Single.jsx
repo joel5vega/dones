@@ -3,11 +3,13 @@ import Slide from "./Slider";
 function Single(props) {
   return (
     <div className="pregunta">
-      <p>{props.pregunta}</p>
-      <Slide
-        value={props.valor}
-        onChange={(value) => props.onChange(props.id, value)}
-      />
+      <div className="pregunta-text">{props.pregunta}</div>
+      <div className="respuesta">
+        <Slide
+          value={props.valor}
+          onChange={(value) => props.onChange(props.id, value)}
+        />
+      </div>
     </div>
   );
 }

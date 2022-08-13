@@ -68,19 +68,24 @@ function Preguntas() {
 
   return (
     <div>
-      <NavBar  />
+      <NavBar title="Test Dones" result={result} />
       {!result ? (
-        <div className="preguntas">
-          {answers.map((item) => (
-            <Single
-              key={item.id}
-              id={item.id}
-              pregunta={item.pregunta}
-              valor={item.respuesta || 0}
-              onChange={handleChange}
-            />
-          ))}
-        </div>
+        <>
+          <div className="preguntas">
+            {answers.map((item) => (
+              <Single
+                key={item.id}
+                id={item.id}
+                pregunta={item.pregunta}
+                valor={item.respuesta || 0}
+                onChange={handleChange}
+              />
+            ))}
+          </div>{" "}
+          <div className="boton" onClick={buscarDon}>
+            Buscar mi Don
+          </div>
+        </>
       ) : (
         <Results
           show={result}
@@ -89,9 +94,6 @@ function Preguntas() {
           })}
         />
       )}
-      <div className="boton" onClick={buscarDon}>
-        Buscar mi Don
-      </div>
     </div>
   );
 }
