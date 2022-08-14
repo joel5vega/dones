@@ -84,7 +84,7 @@ function Results(props) {
           >
             Descargar resultados
           </div>
-          <a className="boton" href="/lista"
+          <a className="boton" href="/dones/lista"
             onClick={() => exportComponentAsJPEG(componentRef,{fileName: "misdones"})}
           >
             Ver listado de todos los dones
