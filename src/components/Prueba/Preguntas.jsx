@@ -28,7 +28,9 @@ function Preguntas() {
       setAnswers(newAnswers);
     // setProgreso(progreso + 1);
   };
-
+const action = () => {
+  setResult(!result);
+}
   const buscarDon = () => {
     // alert("Buscar don");
     // buscamos entre todos los dones para cada categoria
@@ -68,7 +70,7 @@ function Preguntas() {
 
   return (
     <div>
-      <NavBar title="Test Dones" result={result} />
+      <NavBar title="Test Dones" result={result} action={action}/>
       {!result ? (
         <>
           <div className="preguntas">

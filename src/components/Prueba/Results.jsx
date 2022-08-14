@@ -76,21 +76,36 @@ function Results(props) {
     ]
   };
   return (
-    <div className="resultados" >
+    <div className="resultados">
       {props.show && (
         <React.Fragment>
-          <ComponentToPrint ref={componentRef} options={options} data={data}dones={dones}/>
-          <div className="boton"
-            onClick={() => exportComponentAsJPEG(componentRef,{fileName: "misdones"})}
+          <ComponentToPrint
+            ref={componentRef}
+            options={options}
+            data={data}
+            dones={dones}
+          />
+          <div
+            className="boton"
+            onClick={() =>
+              exportComponentAsJPEG(componentRef, { fileName: "misdones" })
+            }
           >
             Descargar resultados
           </div>
-          <Link  style={{
-          margin: "2rem",
-          color: "var(--fondo)",
-          background: "var(--activo)"
-        }} to="/lista"
-            onClick={() => exportComponentAsJPEG(componentRef,{fileName: "misdones"})}
+          <Link
+            style={{
+              margin: "2rem",
+              color: "var(--fondo)",
+              background: "var(--activo)",
+              padding: "1rem",
+              minHeight: "1rem ",
+              borderRadius: "1rem"
+            }}
+            to="/lista"
+            onClick={() =>
+              exportComponentAsJPEG(componentRef, { fileName: "misdones" })
+            }
           >
             Ver listado de todos los dones
           </Link>

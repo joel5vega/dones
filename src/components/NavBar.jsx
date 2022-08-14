@@ -43,9 +43,9 @@ export default function ImageAvatars(props) {
             }
           />
         ) : (
-          <a className="boton" variant="contained" href="test">
+          <div className="boton" variant="contained" onClick={props.action}>
             Nuevo Test
-          </a>
+          </div>
         )}
       </Stack>
     </>
