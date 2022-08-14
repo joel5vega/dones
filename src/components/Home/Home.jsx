@@ -3,6 +3,7 @@ import Popover from "../Popover";
 import DonesEspirituales from "../../assets/pictures/dones-espirituales.png";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import { padding } from "@mui/system";
 const Referencias = [
   {
     title: "Romanos 12:6-8",
@@ -94,7 +95,9 @@ function Home() {
         style={{
           margin: "2rem",
           color: "var(--fondo)",
-          background: "var(--activo)"
+          background: "var(--activo)", padding:"1rem",
+          minHeight:"1rem ",
+          borderRadius:"1rem"
         }}
         to="/test"
       >
@@ -106,7 +109,10 @@ function Home() {
         style={{
           margin: "2rem",
           color: "var(--fondo)",
-          background: "var(--activo)"
+          background: "var(--activo)",
+          padding:"1rem",
+          minHeight:"1rem ",
+          borderRadius:"1rem"
         }}
       >
         Ver lista de dones

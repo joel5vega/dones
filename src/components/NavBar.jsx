@@ -25,11 +25,7 @@ export default function ImageAvatars(props) {
         spacing={2}
       >
         <Link
-          style={{
-            margin: "2rem",
-            color: "var(--fondo)",
-            background: "var(--activo)"
-          }}
+          
           to="/"
         >
           <Avatar alt="dones" src={DonesEspirituales} />
