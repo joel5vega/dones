@@ -4,8 +4,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import Popover from "./Popover";
-import { height } from "@mui/system";
-
+import { Link } from "react-router-dom";
 export default function ImageAvatars(props) {
   return (
     <>
@@ -20,14 +19,21 @@ export default function ImageAvatars(props) {
           top: "0",
           height: "3rem",
           width: "100%",
-          maxWidth: "100%",
+          maxWidth: "100%"
         }}
         direction="row"
         spacing={2}
       >
-        <Button href="/dones">
+        <Link
+          style={{
+            margin: "2rem",
+            color: "var(--fondo)",
+            background: "var(--activo)"
+          }}
+          to="/"
+        >
           <Avatar alt="dones" src={DonesEspirituales} />
-        </Button>
+        </Link>
         <h2>{props.title}</h2>
         {!props.result ? (
           <Popover
@@ -41,10 +47,9 @@ export default function ImageAvatars(props) {
             }
           />
         ) : (
-
-          <a className="boton" variant="contained" href="test" >
-         Nuevo Test
-        </a>
+          <a className="boton" variant="contained" href="test">
+            Nuevo Test
+          </a>
         )}
       </Stack>
     </>

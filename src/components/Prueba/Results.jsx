@@ -9,6 +9,7 @@ import {
   Legend
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import { Link } from "react-router-dom";
 import Don from "../Dones/Don";
 ChartJS.register(
   CategoryScale,
@@ -84,11 +85,15 @@ function Results(props) {
           >
             Descargar resultados
           </div>
-          <a className="boton" href="/dones/lista"
+          <Link  style={{
+          margin: "2rem",
+          color: "var(--fondo)",
+          background: "var(--activo)"
+        }} to="/lista"
             onClick={() => exportComponentAsJPEG(componentRef,{fileName: "misdones"})}
           >
             Ver listado de todos los dones
-          </a>
+          </Link>
         </React.Fragment>
       )}
     </div>
