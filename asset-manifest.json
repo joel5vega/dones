@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/dones/static/css/main.defd04a3.css",
-    "main.js": "/dones/static/js/main.b38cf94c.js",
+    "main.js": "/dones/static/js/main.42843dba.js",
     "static/js/58.6dc5bef1.chunk.js": "/dones/static/js/58.6dc5bef1.chunk.js",
     "static/js/434.01493fab.chunk.js": "/dones/static/js/434.01493fab.chunk.js",
     "static/js/611.b560388b.chunk.js": "/dones/static/js/611.b560388b.chunk.js",
@@ -24,7 +24,7 @@
     "static/media/evangelismo.png": "/dones/static/media/evangelismo.95b46cbad14c881d38fc.png",
     "index.html": "/dones/index.html",
     "main.defd04a3.css.map": "/dones/static/css/main.defd04a3.css.map",
-    "main.b38cf94c.js.map": "/dones/static/js/main.b38cf94c.js.map",
+    "main.42843dba.js.map": "/dones/static/js/main.42843dba.js.map",
     "58.6dc5bef1.chunk.js.map": "/dones/static/js/58.6dc5bef1.chunk.js.map",
     "434.01493fab.chunk.js.map": "/dones/static/js/434.01493fab.chunk.js.map",
     "611.b560388b.chunk.js.map": "/dones/static/js/611.b560388b.chunk.js.map",
@@ -33,6 +33,6 @@
   },
   "entrypoints": [
     "static/css/main.defd04a3.css",
-    "static/js/main.b38cf94c.js"
+    "static/js/main.42843dba.js"
   ]
 }
