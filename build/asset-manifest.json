@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/dones/static/css/main.defd04a3.css",
-    "main.js": "/dones/static/js/main.6216826d.js",
-    "static/js/58.db3bbc88.chunk.js": "/dones/static/js/58.db3bbc88.chunk.js",
+    "main.css": "/dones/static/css/main.ab67a6aa.css",
+    "main.js": "/dones/static/js/main.965dd6fd.js",
+    "static/js/58.ba799c4a.chunk.js": "/dones/static/js/58.ba799c4a.chunk.js",
     "static/js/434.01493fab.chunk.js": "/dones/static/js/434.01493fab.chunk.js",
     "static/js/611.b560388b.chunk.js": "/dones/static/js/611.b560388b.chunk.js",
     "static/js/501.720f21a5.chunk.js": "/dones/static/js/501.720f21a5.chunk.js",
-    "static/js/477.55f9a044.chunk.js": "/dones/static/js/477.55f9a044.chunk.js",
+    "static/js/477.6a9e6696.chunk.js": "/dones/static/js/477.6a9e6696.chunk.js",
     "static/media/dones-espirituales.png": "/dones/static/media/dones-espirituales.5a6e2bbd33f30fa1f143.png",
     "static/media/enseñanza.png": "/dones/static/media/enseñanza.28c5125ba878a338b7f3.png",
     "static/media/exhortacion.png": "/dones/static/media/exhortacion.8b7db95b3c24e2762bee.png",
@@ -23,16 +23,16 @@
     "static/media/dar.png": "/dones/static/media/dar.a56fecde93fd19b9db8f.png",
     "static/media/evangelismo.png": "/dones/static/media/evangelismo.95b46cbad14c881d38fc.png",
     "index.html": "/dones/index.html",
-    "main.defd04a3.css.map": "/dones/static/css/main.defd04a3.css.map",
-    "main.6216826d.js.map": "/dones/static/js/main.6216826d.js.map",
-    "58.db3bbc88.chunk.js.map": "/dones/static/js/58.db3bbc88.chunk.js.map",
+    "main.ab67a6aa.css.map": "/dones/static/css/main.ab67a6aa.css.map",
+    "main.965dd6fd.js.map": "/dones/static/js/main.965dd6fd.js.map",
+    "58.ba799c4a.chunk.js.map": "/dones/static/js/58.ba799c4a.chunk.js.map",
     "434.01493fab.chunk.js.map": "/dones/static/js/434.01493fab.chunk.js.map",
     "611.b560388b.chunk.js.map": "/dones/static/js/611.b560388b.chunk.js.map",
     "501.720f21a5.chunk.js.map": "/dones/static/js/501.720f21a5.chunk.js.map",
-    "477.55f9a044.chunk.js.map": "/dones/static/js/477.55f9a044.chunk.js.map"
+    "477.6a9e6696.chunk.js.map": "/dones/static/js/477.6a9e6696.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.defd04a3.css",
-    "static/js/main.6216826d.js"
+    "static/css/main.ab67a6aa.css",
+    "static/js/main.965dd6fd.js"
   ]
 }

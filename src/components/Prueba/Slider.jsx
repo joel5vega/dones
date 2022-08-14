@@ -28,7 +28,7 @@ function valuetext(value) {
 
 export default function DiscreteSliderLabel(props) {
   return (
-    <Box sx={{ height:55,maxWidth: 100 }}>
+    <Box sx={{ height:55,maxWidth: 100,color:"var(--activo)" }}>
       <Slider
         aria-label="Always visible"
         defaultValue={0}
@@ -39,6 +39,7 @@ export default function DiscreteSliderLabel(props) {
         // valueLabelDisplay="on"
         onChange={props.onChange}
         max={5}
+        color="primary"
       />
     </Box>
   );

@@ -24,10 +24,7 @@ export default function ImageAvatars(props) {
         direction="row"
         spacing={2}
       >
-        <Link
-          
-          to="/"
-        >
+        <Link to="/">
           <Avatar alt="dones" src={DonesEspirituales} />
         </Link>
         <h2>{props.title}</h2>
@@ -43,9 +40,11 @@ export default function ImageAvatars(props) {
             }
           />
         ) : (
-          <div className="boton" variant="contained" onClick={props.action}>
-            Nuevo Test
-          </div>
+          <Link to="/test">
+            <div className="boton" variant="contained" onClick={props.action}>
+              Nuevo Test
+            </div>
+          </Link>
         )}
       </Stack>
     </>
