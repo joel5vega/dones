@@ -1,12 +1,12 @@
 {
   "files": {
     "main.css": "/dones/static/css/main.defd04a3.css",
-    "main.js": "/dones/static/js/main.63c1a5d3.js",
+    "main.js": "/dones/static/js/main.f8af9823.js",
     "static/js/58.c1d41a88.chunk.js": "/dones/static/js/58.c1d41a88.chunk.js",
     "static/js/434.01493fab.chunk.js": "/dones/static/js/434.01493fab.chunk.js",
     "static/js/611.b560388b.chunk.js": "/dones/static/js/611.b560388b.chunk.js",
     "static/js/501.720f21a5.chunk.js": "/dones/static/js/501.720f21a5.chunk.js",
-    "static/js/477.62721c6f.chunk.js": "/dones/static/js/477.62721c6f.chunk.js",
+    "static/js/477.c2a8ac02.chunk.js": "/dones/static/js/477.c2a8ac02.chunk.js",
     "static/media/dones-espirituales.png": "/dones/static/media/dones-espirituales.5a6e2bbd33f30fa1f143.png",
     "static/media/enseñanza.png": "/dones/static/media/enseñanza.28c5125ba878a338b7f3.png",
     "static/media/exhortacion.png": "/dones/static/media/exhortacion.8b7db95b3c24e2762bee.png",
@@ -24,15 +24,15 @@
     "static/media/evangelismo.png": "/dones/static/media/evangelismo.95b46cbad14c881d38fc.png",
     "index.html": "/dones/index.html",
     "main.defd04a3.css.map": "/dones/static/css/main.defd04a3.css.map",
-    "main.63c1a5d3.js.map": "/dones/static/js/main.63c1a5d3.js.map",
+    "main.f8af9823.js.map": "/dones/static/js/main.f8af9823.js.map",
     "58.c1d41a88.chunk.js.map": "/dones/static/js/58.c1d41a88.chunk.js.map",
     "434.01493fab.chunk.js.map": "/dones/static/js/434.01493fab.chunk.js.map",
     "611.b560388b.chunk.js.map": "/dones/static/js/611.b560388b.chunk.js.map",
     "501.720f21a5.chunk.js.map": "/dones/static/js/501.720f21a5.chunk.js.map",
-    "477.62721c6f.chunk.js.map": "/dones/static/js/477.62721c6f.chunk.js.map"
+    "477.c2a8ac02.chunk.js.map": "/dones/static/js/477.c2a8ac02.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.defd04a3.css",
-    "static/js/main.63c1a5d3.js"
+    "static/js/main.f8af9823.js"
   ]
 }
