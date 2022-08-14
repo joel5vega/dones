@@ -25,8 +25,8 @@ export default function ImageAvatars(props) {
         direction="row"
         spacing={2}
       >
-        <Button href="/">
-          <Avatar alt="Remy Sharp" src={DonesEspirituales} />
+        <Button href="/dones">
+          <Avatar alt="dones" src={DonesEspirituales} />
         </Button>
         <h2>{props.title}</h2>
         {!props.result ? (

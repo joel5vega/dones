@@ -12,10 +12,10 @@ function App() {
   return (
     <Router>
       <Suspense fallback={<Loader/>}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/test" element={<Preguntas />} />
-          <Route path="/lista" element={<Dones />} />
+        <Routes >
+          <Route path="/dones" element={<Home />} />
+          <Route path="/dones/test" element={<Preguntas />} />
+          <Route path="/dones/lista" element={<Dones />} />
         </Routes>
       </Suspense>
 
