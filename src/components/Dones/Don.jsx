@@ -26,13 +26,13 @@ const iconObj = {
   d7: discernimiento,
   d8: exhortacion,
   d9: pastor,
-  d10: fe,
-  d11: evangelismo,
-  d12: misionero,
-  d13: servicio,
-  d14: misericordia,
-  d15: dar,
-  d16: hospitalidad
+  d16: fe,
+  d10: evangelismo,
+  d11: misionero,
+  d12: servicio,
+  d13: misericordia,
+  d14: dar,
+  d15: hospitalidad
 };
 function Don(props) {
   const { id, name, score, definicion, texto } = props.data;
