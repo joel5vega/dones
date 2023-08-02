@@ -5,6 +5,23 @@ import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import Popover from "./Popover";
 import { Link } from "react-router-dom";
+import GoogleSignInButton from "./GoogleSignInButton";
+
+const LoginPage = () => {
+  const handleGoogleSignIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider)
+      .then((result) => {
+        // User is signed in
+        const user = result.user;
+      })
+      .catch((error) => {
+        // Handle error
+      });
+  };
+
+
 export default function ImageAvatars(props) {
   return (
     <>
@@ -28,6 +45,7 @@ export default function ImageAvatars(props) {
           <Avatar alt="dones" src={DonesEspirituales} />
         </Link>
         <h2>{props.title}</h2>
+        <GoogleSignInButton onClick={handleGoogleSignIn} />
         {!props.result ? (
           <Popover
             title="?"
@@ -46,6 +64,7 @@ export default function ImageAvatars(props) {
             </div>
           </Link>
         )}
+        
       </Stack>
     </>
   );
