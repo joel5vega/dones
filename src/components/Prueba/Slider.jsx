@@ -29,12 +29,12 @@ export default function DiscreteSliderLabel(props) {
         aria-label="Always visible"
         defaultValue={0}
         getAriaValueText={valuetext}
-        step={1}
+        step={1.25}
         marks={marks}
         value={props.valor}
         // valueLabelDisplay="on"
         onChange={props.onChange}
-        max={3}
+        max={4}
         color="primary"
       />
     </Box>
