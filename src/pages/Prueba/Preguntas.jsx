@@ -3,7 +3,7 @@ import PreguntasData from "../../data/PreguntasData";
 import CategoriaData from "../../data/CategoriasData";
 import Single from "./Single";
 import Results from "./Results";
-import NavBar from "../NavBar";
+import NavBar from "../../components/NavBar";
 
 function Preguntas() {
   const [answers, setAnswers] = useState(PreguntasData);

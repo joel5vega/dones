@@ -1,5 +1,5 @@
 import React from "react";
-import Popover from "../Popover";
+import Popover from "../components/Popover";
 import DonesEspirituales from "../../assets/pictures/dones-espirituales.png";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";

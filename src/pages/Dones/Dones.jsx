@@ -1,7 +1,7 @@
 import React from "react";
 import CategoriaData from "../../data/CategoriasData";
 import Don from "./Don";
-import NavBar from "../NavBar";
+import NavBar from "../../components/NavBar";
 function Dones() {
   return (
     <div className="resultados">
