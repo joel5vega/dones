@@ -8,6 +8,7 @@ import "./app.css";
 import { BrowserRouter as Router, Route,Routes, Link } from "react-router-dom";
 import Firebase from "./services/Firebase";
 import GoogleSigIn from "./services/GoogleSigIn"
+import LoginPage from "./pages/LoginPage";
 const Preguntas = lazy(() => import("./pages/Prueba/Preguntas"));
 const Dones = lazy(() => import("./pages/Dones/Dones"));
 function App() {
@@ -18,7 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/test" element={<Preguntas />} />
           <Route path="/lista" element={<Dones />} />
-          <Route path="/login" element={<GoogleSigIn />} />
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Suspense>
 

@@ -9,3 +9,4 @@ firebase.auth().signInWithPopup(provider)
   .catch((error) => {
     // Handle error
   });
+  export default GoogleSignIn
