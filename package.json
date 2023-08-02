@@ -28,6 +28,7 @@
     "@mui/material": "^5.10.0",
     "@mui/styled-engine-sc": "^5.10.0",
     "chart.js": "^3.7.1",
+    "firebase": "^10.1.0",
     "gh-pages": "^3.2.3",
     "react": "^18.0.0",
     "react-chartjs-2": "^4.1.0",
