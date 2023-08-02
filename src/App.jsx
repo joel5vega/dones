@@ -6,6 +6,8 @@ import Loader from "./components/Loader/Loader";
 import Home from "./components/Home/Home";
 import "./app.css";
 import { BrowserRouter as Router, Route,Routes, Link } from "react-router-dom";
+import Firebase from "./components/Firebase/Firebase";
+
 const Preguntas = lazy(() => import("./components/Prueba/Preguntas"));
 const Dones = lazy(() => import("./components/Dones/Dones"));
 function App() {
