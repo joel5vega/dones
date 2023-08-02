@@ -34,7 +34,7 @@ export default function DiscreteSliderLabel(props) {
         value={props.valor}
         // valueLabelDisplay="on"
         onChange={props.onChange}
-        max={4}
+        max={3}
         color="primary"
       />
     </Box>
