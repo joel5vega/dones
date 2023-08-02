@@ -7,17 +7,13 @@ const marks = [
     value: 0,
     label: "No"
   },
+
+  { value: 1 },
   {
-    value: 1.25
-    // label: '20°C',
-  },
-  { value: 2.5 },
-  {
-    value: 3.75
-    // label: '37°C',
+    value: 3
   },
   {
-    value: 5,
+    value: 4,
     label: "Si"
   }
 ];
@@ -33,12 +29,12 @@ export default function DiscreteSliderLabel(props) {
         aria-label="Always visible"
         defaultValue={0}
         getAriaValueText={valuetext}
-        step={1.25}
+        step={1}
         marks={marks}
         value={props.valor}
         // valueLabelDisplay="on"
         onChange={props.onChange}
-        max={5}
+        max={4}
         color="primary"
       />
     </Box>
