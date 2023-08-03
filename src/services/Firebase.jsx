@@ -21,4 +21,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const analytics = getAnalytics(app);
+
+const connectedRef = firebase.database().ref('.info/connected');
+connectedRef.on('value', (snap) => {
+  if (snap.val() === true) {
+    console.log('Firebase is connected');
+  } else {
+    console.log('Firebase is not connected');
+  }
+});
 export default db;
