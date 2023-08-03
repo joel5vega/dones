@@ -1,4 +1,3 @@
-// import firebase from 'firebase/app';
 import {getAuth,GoogleAuthProvider,signInWithPopup}from 'firebase/auth';
 const auth = getAuth();
 
@@ -12,4 +11,4 @@ signInWithPopup(provider)
   .catch((error) => {
     // Handle error
   });
-  export default GoogleSignIn
+  export default auth
