@@ -158,6 +158,12 @@ a{
   gap:1rem;
   justify-content: center;
 }
+.profile-picture {
+  border-radius: 50%; /* Make the image circular */
+  object-fit: contain; /* Make the image contained */
+  height: 100%; /* Set the height of the image to 100% of its parent */
+  width: 100%; /* Set the width of the image to 100% of its parent */
+}
 @media screen and (min-width: 800px) {
   .preguntas {
     display: flex;
