@@ -1,8 +1,10 @@
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 import {getAuth,GoogleAuthProvider,signInWithPopup}from 'firebase/auth';
-const provider = new firebase.auth.GoogleAuthProvider();
+const auth = getAuth();
 
-firebase.auth().signInWithPopup(provider)
+const provider = new GoogleAuthProvider();
+
+signInWithPopup(provider)
   .then((result) => {
     // User is signed in
     const user = result.user;
