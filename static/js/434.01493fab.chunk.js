@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkdones=self.webpackChunkdones||[]).push([[434],{9434:function(s,e,n){n.r(e);n(2791);var t=n(1373),a=n(9974),u=n(6641),d=n(184);e.default=function(){return(0,d.jsxs)("div",{className:"resultados",children:[(0,d.jsx)(u.Z,{title:"Lista de Dones",result:!0}),(0,d.jsx)("div",{className:"dones",children:t.Z.map((function(s,e){return(0,d.jsx)(a.Z,{data:s},e)}))})]})}}}]);
-//# sourceMappingURL=434.01493fab.chunk.js.map
