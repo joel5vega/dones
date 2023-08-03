@@ -9,7 +9,7 @@ import {getDatabase,ref,set} from "firebase/database";
 import {getAuth} from "firebase/auth";
 
 
-const user = auth().currentUser;
+const user = getAuth().currentUser;
 const userId = user.uid;
 function Preguntas() {
   const [answers, setAnswers] = useState(PreguntasData);
