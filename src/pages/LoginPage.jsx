@@ -5,7 +5,7 @@ import GoogleSignInButton from '../components/GoogleSignInButton';
 
 const LoginPage = () => {
   const handleGoogleSignIn = () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new GoogleAuthProvider();
 
     signInWithPopup(provider)
       .then((result) => {
