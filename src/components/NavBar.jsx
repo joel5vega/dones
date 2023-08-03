@@ -5,8 +5,7 @@ import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import Popover from "./Popover";
 import { Link } from "react-router-dom";
-import GoogleSignInButton from "./auth/GoogleSignInButton";
-
+import LoginPage from "./auth/LoginPage";
 
 export default function ImageAvatars(props) {
   return (
@@ -31,6 +30,7 @@ export default function ImageAvatars(props) {
           <Avatar alt="dones" src={DonesEspirituales} />
         </Link>
         <h2>{props.title}</h2>
+        <h2><LoginPage/></h2>
         {!props.result ? (
           <Popover
             title="?"
