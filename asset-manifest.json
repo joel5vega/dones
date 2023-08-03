@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/dones/static/css/main.ab67a6aa.css",
-    "main.js": "/dones/static/js/main.cce70473.js",
+    "main.css": "/dones/static/css/main.61ccd8f4.css",
+    "main.js": "/dones/static/js/main.14aec97a.js",
     "static/js/538.c5800f96.chunk.js": "/dones/static/js/538.c5800f96.chunk.js",
     "static/js/226.8b2600cf.chunk.js": "/dones/static/js/226.8b2600cf.chunk.js",
     "static/js/611.b560388b.chunk.js": "/dones/static/js/611.b560388b.chunk.js",
     "static/js/501.b02db36d.chunk.js": "/dones/static/js/501.b02db36d.chunk.js",
-    "static/js/694.4a51dc56.chunk.js": "/dones/static/js/694.4a51dc56.chunk.js",
+    "static/js/694.64fbc0b6.chunk.js": "/dones/static/js/694.64fbc0b6.chunk.js",
     "static/media/dones-espirituales.png": "/dones/static/media/dones-espirituales.5a6e2bbd33f30fa1f143.png",
     "static/media/enseñanza.png": "/dones/static/media/enseñanza.28c5125ba878a338b7f3.png",
     "static/media/exhortacion.png": "/dones/static/media/exhortacion.8b7db95b3c24e2762bee.png",
@@ -23,16 +23,16 @@
     "static/media/dar.png": "/dones/static/media/dar.a56fecde93fd19b9db8f.png",
     "static/media/evangelismo.png": "/dones/static/media/evangelismo.95b46cbad14c881d38fc.png",
     "index.html": "/dones/index.html",
-    "main.ab67a6aa.css.map": "/dones/static/css/main.ab67a6aa.css.map",
-    "main.cce70473.js.map": "/dones/static/js/main.cce70473.js.map",
+    "main.61ccd8f4.css.map": "/dones/static/css/main.61ccd8f4.css.map",
+    "main.14aec97a.js.map": "/dones/static/js/main.14aec97a.js.map",
     "538.c5800f96.chunk.js.map": "/dones/static/js/538.c5800f96.chunk.js.map",
     "226.8b2600cf.chunk.js.map": "/dones/static/js/226.8b2600cf.chunk.js.map",
     "611.b560388b.chunk.js.map": "/dones/static/js/611.b560388b.chunk.js.map",
     "501.b02db36d.chunk.js.map": "/dones/static/js/501.b02db36d.chunk.js.map",
-    "694.4a51dc56.chunk.js.map": "/dones/static/js/694.4a51dc56.chunk.js.map"
+    "694.64fbc0b6.chunk.js.map": "/dones/static/js/694.64fbc0b6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ab67a6aa.css",
-    "static/js/main.cce70473.js"
+    "static/css/main.61ccd8f4.css",
+    "static/js/main.14aec97a.js"
   ]
 }
