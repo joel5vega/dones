@@ -118,7 +118,7 @@ const action = () => {
               />
             ))}
           </div>{" "}
-          {!userId?<SaveProgressButton onClick={handleSaveProgress} />:"inicie sesion para guardar progreso""}
+          {!userId?<SaveProgressButton onClick={handleSaveProgress} />:"inicie sesion para guardar progreso"}
           
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
