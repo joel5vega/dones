@@ -23,7 +23,7 @@ function Preguntas() {
       const collectionRef = collection(db, 'users');
       const snapshot = await getDocs(collectionRef);
       setData(snapshot.docs.map(doc => doc.data()));
-      console.log(snapshot.docs.map(doc => doc.data())
+      console.log(snapshot);
     };
 
     fetchData();
