@@ -5,7 +5,7 @@ import Single from "./Single";
 import Results from "./Results";
 import NavBar from "../../components/NavBar";
 import SaveProgressButton from "../../components/auth/SaveProgressButton";
-import {getDatabase,ref,set} from "firebase/database";
+import {getDatabase,ref,set,onValue} from "firebase/database";
 import {getAuth} from "firebase/auth";
 
 
@@ -20,6 +20,15 @@ function Preguntas() {
   const handleSaveProgress = () => {
     console.log("saving...")
     const db = getDatabase();
+    const connectedRef = ref(db, '.info/connected');
+    onValue(connectedRef, (snap) => {
+      if (snap.val() === true) {
+        console.log("connected");
+      } else {
+        console.log("not connected");
+      }
+    });
+    
     set(ref(db, 'users/' + userId), {
       answers: answers,
       dones: dones,
