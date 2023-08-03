@@ -24,7 +24,7 @@ function Preguntas() {
       dones: dones,
       result: result,
       progreso: progreso
-    });
+    }).then((result) => {console.log("saved")}).catch((error) => console.log(error) ) ;
   };
 
   useEffect(() => {
@@ -108,6 +108,7 @@ const action = () => {
               />
             ))}
           </div>{" "}
+          <SaveProgressButton onClick={handleSaveProgress} />
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
           </div>
