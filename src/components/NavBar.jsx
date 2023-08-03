@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import Popover from "./Popover";
 import { Link } from "react-router-dom";
-import GoogleSignInButton from "./GoogleSignInButton";
+import GoogleSignInButton from "./auth/GoogleSignInButton";
 
 
 export default function ImageAvatars(props) {
