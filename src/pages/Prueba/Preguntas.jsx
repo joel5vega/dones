@@ -6,7 +6,7 @@ import Results from "./Results";
 import NavBar from "../../components/NavBar";
 import SaveProgressButton from "../../components/auth/SaveProgressButton";
 import {getDatabase,ref,set} from "firebase/database";
-import {getAuth,auth} from "firebase/auth";
+import {getAuth} from "firebase/auth";
 
 
 const user = auth().currentUser;
