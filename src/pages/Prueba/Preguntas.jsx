@@ -18,6 +18,7 @@ function Preguntas() {
   const [progreso, setProgreso] = useState(0);
   //save to firebase
   const handleSaveProgress = () => {
+    console.log("saving...")
     const db = getDatabase();
     set(ref(db, 'users/' + userId), {
       answers: answers,
