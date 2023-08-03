@@ -19,7 +19,7 @@ function Preguntas() {
   //save to firebase
   const handleSaveProgress = () => {
     console.log("saving...")
-    const db = getDatabase();
+    const db = getDatabase(app);
     const connectedRef = ref(db, '.info/connected');
     onValue(connectedRef, (snap) => {
       if (snap.val() === true) {
@@ -28,7 +28,7 @@ function Preguntas() {
         console.log("not connected");
       }
     });
-    
+
     set(ref(db, 'users/' + userId), {
       answers: answers,
       dones: dones,
