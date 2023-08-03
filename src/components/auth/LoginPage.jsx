@@ -23,7 +23,6 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h1>Login</h1>
       {user ? (
         <UserProfile user={user} />
       ) : (
