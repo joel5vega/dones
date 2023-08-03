@@ -7,7 +7,7 @@ import NavBar from "../../components/NavBar";
 import SaveProgressButton from "../../components/auth/SaveProgressButton";
 import {getDatabase,ref,set,onValue} from "firebase/database";
 import {getAuth} from "firebase/auth";
-import {db} from "../../services/Firebase";
+import db from "../../services/Firebase";
 
 
 const user = getAuth().currentUser;
