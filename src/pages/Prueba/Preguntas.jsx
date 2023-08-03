@@ -18,6 +18,16 @@ function Preguntas() {
   const [result, setResult] = useState(false);
   const [progreso, setProgreso] = useState(0);
   //save to firebase
+  useEffect(() => {
+    const fetchData = async () => {
+      const collectionRef = collection(db, 'users');
+      const snapshot = await getDocs(collectionRef);
+      setData(snapshot.docs.map(doc => doc.data()));
+      console.log(snapshot.docs.map(doc => doc.data())
+    };
+
+    fetchData();
+  }, []);
   const handleSaveProgress = () => {
     console.log("saving...")
     // const db = getDatabase(app);
