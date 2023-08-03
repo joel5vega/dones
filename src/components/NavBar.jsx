@@ -30,7 +30,8 @@ export default function ImageAvatars(props) {
           <Avatar alt="dones" src={DonesEspirituales} />
         </Link>
         <h2>{props.title}</h2>
-        <Avatar alt="user" src={<LoginPage/>} />
+       <LoginPage/>
+
         {!props.result ? (
           <Popover
             title="?"
