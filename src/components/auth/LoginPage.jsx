@@ -12,11 +12,12 @@ const LoginPage = () => {
 
     signInWithPopup(auth, provider)
       .then((result) => {
-        // User is signed in
+        console.log( "User is signed in")
+        
         setUser(result.user);
       })
       .catch((error) => {
-        // Handle error
+        console.error(error.message)
       });
   };
 
