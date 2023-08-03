@@ -6,8 +6,6 @@ import Loader from "./components/Loader/Loader";
 import Home from "./pages/Home/Home";
 import "./app.css";
 import { BrowserRouter as Router, Route,Routes, Link } from "react-router-dom";
-import Firebase from "./services/Firebase";
-import GoogleSigIn from "./services/GoogleSigIn"
 import LoginPage from "./components/auth/LoginPage";
 const Preguntas = lazy(() => import("./pages/Prueba/Preguntas"));
 const Dones = lazy(() => import("./pages/Dones/Dones"));

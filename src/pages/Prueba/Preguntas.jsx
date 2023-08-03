@@ -7,7 +7,7 @@ import NavBar from "../../components/NavBar";
 import SaveProgressButton from "../../components/auth/SaveProgressButton";
 import {getDatabase,ref,set,onValue} from "firebase/database";
 import {getAuth} from "firebase/auth";
-
+import LoginPage from "../../components/auth/LoginPage";
 
 const user = getAuth().currentUser;
 const userId = user?user.uid:null;
@@ -118,7 +118,8 @@ const action = () => {
               />
             ))}
           </div>{" "}
-          <SaveProgressButton onClick={handleSaveProgress} />
+          {!userId?<SaveProgressButton onClick={handleSaveProgress} />:<LoginPage/>}
+          
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
           </div>
