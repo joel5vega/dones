@@ -1,11 +1,12 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import Button from '@mui/material/Button';
 const GoogleSignInButton = ({ onClick }) => {
   return (
-    <button onClick={onClick}>
+    <Button variant="contained" onClick={onClick}>
       <FontAwesomeIcon icon={faGoogle} />
-    </button>
+    </Button>
   );
 };
 
