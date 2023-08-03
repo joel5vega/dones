@@ -7,7 +7,7 @@ import NavBar from "../../components/NavBar";
 import SaveProgressButton from "../../components/auth/SaveProgressButton";
 import {getDatabase,ref,set,onValue} from "firebase/database";
 import {getAuth} from "firebase/auth";
-import LoginPage from "../../components/auth/LoginPage";
+import {app} from "../../services/Firebase";
 
 const user = getAuth().currentUser;
 const userId = user?user.uid:null;
@@ -118,7 +118,7 @@ const action = () => {
               />
             ))}
           </div>{" "}
-          {!userId?<SaveProgressButton onClick={handleSaveProgress} />:<LoginPage/>}
+          {!userId?<SaveProgressButton onClick={handleSaveProgress} />:"inicie sesion para guardar progreso""}
           
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
