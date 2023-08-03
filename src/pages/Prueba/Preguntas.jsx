@@ -21,10 +21,19 @@ function Preguntas() {
   //save to firebase
   useEffect(() => {
     const fetchData = async () => {
+      const connectedRef = ref(db, '.info/connected');
+    onValue(connectedRef, (snap) => {
+      if (snap.val() === true) {
+        console.log("connected");
+      } else {
+        console.log("not connected");
+      }
+    });
       const collectionRef = collection(db, 'users');
       const snapshot = await getDocs(collectionRef);
       setData(snapshot.docs.map(doc => doc.data()));
       console.log(snapshot);
+      console.log("fethced")
     };
 
     fetchData();
