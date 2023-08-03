@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSave } from '@fortawesome/free-brands-svg-icons';
+import { faSave } from '@fortawesome/free-svg-icons';
 import Button from '@mui/material/Button';
 const SaveProgressButton = ({ onClick }) => {
   return (
