@@ -117,6 +117,19 @@ function Home() {
       >
         Ver lista de dones
       </Link>
+      <Link
+        to="/login"
+        style={{
+          margin: "2rem",
+          color: "var(--fondo)",
+          background: "var(--activo)",
+          padding:"1rem",
+          minHeight:"1rem ",
+          borderRadius:"1rem"
+        }}
+      >
+        Iniciar
+      </Link>
     </section>
   );
 }
