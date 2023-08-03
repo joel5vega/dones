@@ -1,15 +1,38 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import PreguntasData from "../../data/PreguntasData";
 import CategoriaData from "../../data/CategoriasData";
 import Single from "./Single";
 import Results from "./Results";
 import NavBar from "../../components/NavBar";
+import SaveProgressButton from "../../components/auth/SaveProgressButton";
+import {getDatabase,ref,set} from "firebase/database";
+import {getAuth} from "firebase/auth";
 
+
+const user = auth().currentUser;
+const userId = user.uid;
 function Preguntas() {
   const [answers, setAnswers] = useState(PreguntasData);
   const [dones, setDones] = useState(CategoriaData);
   const [result, setResult] = useState(false);
   const [progreso, setProgreso] = useState(0);
+  //save to firebase
+  const handleSaveProgress = () => {
+    const db = getDatabase();
+    set(ref(db, 'users/' + userId), {
+      answers: answers,
+      dones: dones,
+      result: result,
+      progreso: progreso
+    });
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {handleSaveProgress()}, 12000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  /////
 
   const handleChange = (id, value) => {
     const valor = value.target.value;
@@ -28,6 +51,7 @@ function Preguntas() {
       setAnswers(newAnswers);
     // setProgreso(progreso + 1);
   };
+  
 const action = () => {
   setResult(!result);
 }
