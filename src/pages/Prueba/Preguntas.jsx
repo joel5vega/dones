@@ -7,7 +7,8 @@ import NavBar from "../../components/NavBar";
 import SaveProgressButton from "../../components/auth/SaveProgressButton";
 import {getDatabase,ref,set,onValue} from "firebase/database";
 import {getAuth} from "firebase/auth";
-import "../../services/Firebase";
+import {db} from "../../services/Firebase";
+
 
 const user = getAuth().currentUser;
 const userId = user?user.uid:null;
@@ -19,7 +20,7 @@ function Preguntas() {
   //save to firebase
   const handleSaveProgress = () => {
     console.log("saving...")
-    const db = getDatabase(app);
+    // const db = getDatabase(app);
     const connectedRef = ref(db, '.info/connected');
     onValue(connectedRef, (snap) => {
       if (snap.val() === true) {
