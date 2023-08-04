@@ -4,76 +4,92 @@ import CategoriaData from "../../data/CategoriasData";
 import Single from "./Single";
 import Results from "./Results";
 import NavBar from "../../components/NavBar";
-import { getAuth,GoogleAuthProvider,signInWithPopup } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import db from "../../services/Firebase";
-import { collection, doc, getDocs,setDoc, onSnapshot } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  setDoc,
+  onSnapshot, 
+} from "firebase/firestore";
 
 function Preguntas() {
   const [user, setUser] = useState(null);
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
+  const fetchData = async (userId) => {
+    console.log("fetching data for ", userId);
+    const docRef = doc(db, 'users', userId);
+    const docSnap = await getDoc(docRef);
+    
+    setData(docSnap.data());
+    console.log("data is",docSnap.data());
+    if (!docSnap.exists()) {
+      console.log("no data");
+    }
+    else {
+    // setData(docSnap.data());
+    
+    console.log("fetched");
+    return docSnap.data();
+    }
+  };
+
   const handleGoogleSignIn = () => {
-    console.log("signing in")
+    console.log("signing in");
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
+        console.log("excelente ingresaste")
+        fetchData(result.user.uid).then((data) => {
+          console.log("data", data);
+          setAnswers(data.answers);
+          // setDones(data.dones);
+          // setResult(data.result);
+          setProgreso(data.progreso);
+          setLoggedIn(true);
+        });
       })
       .catch((error) => {
-        console.error(error.message)
+        console.error(error.message);
       });
-  }
-  // const user = useContext(UserContext);
-  //  const user = getAuth().currentUser;
-  
+      console.log("user", userId);
+    //* cargar al inicio
+      
+   
+    //*/
+  };
+
   const userId = user ? user.uid : null;
-  console.log("user",userId)
-  // console.log(userId)
-  const [answers, setAnswers] = useState(PreguntasData);
+  const [data,setData] = useState({});
+  const [answers, setAnswers] = useState(userId?data.answers:PreguntasData);
   const [dones, setDones] = useState(CategoriaData);
   const [result, setResult] = useState(false);
   const [progreso, setProgreso] = useState(0);
-  //save to firebase
-  /* cargar al inicio
-  useEffect(() => {
-    const fetchData = async () => {
-     
-      const connectedRef = doc(db, '.info/connected');
-      onSnapshot(connectedRef, (doc) => {
-          if (doc.data().connected === true) {
-              console.log("connected");
-          } else {
-              console.log("not connected");
-          }
-      });
-  
-  
-      const collectionRef = collection(db, 'users');
-      const snapshot = await getDocs(collectionRef);
-      setData(snapshot.docs.map(doc => doc.data()));
-      console.log(snapshot);
-      console.log("fethced")
-    };
+  const [loggedIn, setLoggedIn] = useState(false);
+  // useEffect(() => {
 
-    fetchData();
-  }, []);
-*/
+  // },loggedIn);
+  //save to firebase
+
   const handleSaveProgress = async () => {
     console.log("saving for user", userId);
     // const db = getFirestore(app);
-    
-    const docRef = doc(db, 'users', userId);
+
+    const docRef = doc(db, "users", userId);
     try {
-        await setDoc(docRef, {
-            answers: answers,
-            dones: dones,
-            result: result,
-            progreso: progreso
-        });
-        console.log("saved");
+      await setDoc(docRef, {
+        email: user.email,
+        answers: answers,
+        dones: dones,
+        result: result,
+        progreso: progreso
+      });
+      console.log("saved");
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-    
   };
 
   /* keep every 2 min
@@ -107,6 +123,7 @@ function Preguntas() {
   };
   const buscarDon = () => {
     // alert("Buscar don");
+
     // buscamos entre todos los dones para cada categoria
     var actDones = dones;
     CategoriaData.map((categoria) => {
@@ -140,11 +157,19 @@ function Preguntas() {
       }
     });
     setResult(!result);
+    handleSaveProgress();
   };
 
   return (
     <div>
-      <NavBar title="Test Dones" result={result} action={action} handleGoogleSignIn={handleGoogleSignIn} user={user} handleSaveProgress={handleSaveProgress}/>
+      <NavBar
+        title="Test Dones"
+        result={result}
+        action={action}
+        handleGoogleSignIn={handleGoogleSignIn}
+        user={user}
+        handleSaveProgress={handleSaveProgress}
+      />
       {!result ? (
         <>
           <div className="preguntas">
@@ -158,7 +183,7 @@ function Preguntas() {
               />
             ))}
           </div>
-        
+
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
           </div>
