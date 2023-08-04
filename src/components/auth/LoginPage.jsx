@@ -3,18 +3,18 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import GoogleSignInButton from './GoogleSignInButton';
 import UserProfile from './UserProfile';
 
+//usar contexto para exportar usuario
+const UserContext = React.createContext();
+
 const LoginPage = () => {
   const [user, setUser] = useState(null);
-
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
   const handleGoogleSignIn = () => {
-    const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log( "User is signed in")
-        
         setUser(result.user);
+        console.log( user,"is signed in")
       })
       .catch((error) => {
         console.error(error.message)
@@ -22,6 +22,7 @@ const LoginPage = () => {
   };
 
   return (
+    <UserContext.Provider value ={user}>
     <div>
       {user ? (
         <UserProfile user={user} />
@@ -29,7 +30,10 @@ const LoginPage = () => {
         <GoogleSignInButton onClick={handleGoogleSignIn} />
       )}
     </div>
+    </UserContext.Provider>
   );
+  
 };
-
-export default LoginPage;
+console.log(UserContext.Consumer)
+// export default LoginPage;
+export { UserContext}

@@ -1,34 +1,52 @@
-import React, { useState ,useEffect} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PreguntasData from "../../data/PreguntasData";
 import CategoriaData from "../../data/CategoriasData";
 import Single from "./Single";
 import Results from "./Results";
 import NavBar from "../../components/NavBar";
-import SaveProgressButton from "../../components/auth/SaveProgressButton";
-import {getDatabase,ref,set,onValue} from "firebase/database";
-import {getAuth} from "firebase/auth";
+import { getAuth,GoogleAuthProvider,signInWithPopup } from "firebase/auth";
 import db from "../../services/Firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs,setDoc, onSnapshot } from "firebase/firestore";
 
-
-const user = getAuth().currentUser;
-const userId = user?user.uid:null;
 function Preguntas() {
+  const [user, setUser] = useState(null);
+  const auth = getAuth();
+  const provider = new GoogleAuthProvider();
+  const handleGoogleSignIn = () => {
+    console.log("signing in")
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        setUser(result.user);
+      })
+      .catch((error) => {
+        console.error(error.message)
+      });
+  }
+  // const user = useContext(UserContext);
+  //  const user = getAuth().currentUser;
+  
+  const userId = user ? user.uid : null;
+  console.log("user",userId)
+  // console.log(userId)
   const [answers, setAnswers] = useState(PreguntasData);
   const [dones, setDones] = useState(CategoriaData);
   const [result, setResult] = useState(false);
   const [progreso, setProgreso] = useState(0);
   //save to firebase
+  /* cargar al inicio
   useEffect(() => {
     const fetchData = async () => {
-      const connectedRef = ref(db, '.info/connected');
-    onValue(connectedRef, (snap) => {
-      if (snap.val() === true) {
-        console.log("connected");
-      } else {
-        console.log("not connected");
-      }
-    });
+     
+      const connectedRef = doc(db, '.info/connected');
+      onSnapshot(connectedRef, (doc) => {
+          if (doc.data().connected === true) {
+              console.log("connected");
+          } else {
+              console.log("not connected");
+          }
+      });
+  
+  
       const collectionRef = collection(db, 'users');
       const snapshot = await getDocs(collectionRef);
       setData(snapshot.docs.map(doc => doc.data()));
@@ -38,31 +56,32 @@ function Preguntas() {
 
     fetchData();
   }, []);
-  const handleSaveProgress = () => {
-    console.log("saving...")
-    // const db = getDatabase(app);
-    const connectedRef = ref(db, '.info/connected');
-    onValue(connectedRef, (snap) => {
-      if (snap.val() === true) {
-        console.log("connected");
-      } else {
-        console.log("not connected");
-      }
-    });
-
-    set(ref(db, 'users/' + userId), {
-      answers: answers,
-      dones: dones,
-      result: result,
-      progreso: progreso
-    }).then((result) => {console.log("saved")}).catch((error) => console.log(error) ) ;
+*/
+  const handleSaveProgress = async () => {
+    console.log("saving for user", userId);
+    // const db = getFirestore(app);
+    
+    const docRef = doc(db, 'users', userId);
+    try {
+        await setDoc(docRef, {
+            answers: answers,
+            dones: dones,
+            result: result,
+            progreso: progreso
+        });
+        console.log("saved");
+    } catch (error) {
+        console.log(error);
+    }
+    
   };
 
+  /* keep every 2 min
   useEffect(() => {
     const interval = setInterval(() => {handleSaveProgress()}, 12000);
     return () => clearInterval(interval);
   }, []);
-  
+  */
   /////
 
   const handleChange = (id, value) => {
@@ -82,10 +101,10 @@ function Preguntas() {
       setAnswers(newAnswers);
     // setProgreso(progreso + 1);
   };
-  
-const action = () => {
-  setResult(!result);
-}
+
+  const action = () => {
+    setResult(!result);
+  };
   const buscarDon = () => {
     // alert("Buscar don");
     // buscamos entre todos los dones para cada categoria
@@ -125,7 +144,7 @@ const action = () => {
 
   return (
     <div>
-      <NavBar title="Test Dones" result={result} action={action}/>
+      <NavBar title="Test Dones" result={result} action={action} handleGoogleSignIn={handleGoogleSignIn} user={user} handleSaveProgress={handleSaveProgress}/>
       {!result ? (
         <>
           <div className="preguntas">
@@ -138,9 +157,8 @@ const action = () => {
                 onChange={handleChange}
               />
             ))}
-          </div>{" "}
-          {!userId?<SaveProgressButton onClick={handleSaveProgress} />:"inicie sesion para guardar progreso"}
-          
+          </div>
+        
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
           </div>

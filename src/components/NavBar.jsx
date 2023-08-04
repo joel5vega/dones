@@ -6,6 +6,10 @@ import { Button } from "@mui/material";
 import Popover from "./Popover";
 import { Link } from "react-router-dom";
 import LoginPage from "./auth/LoginPage";
+import UserProfile from "./auth/UserProfile";
+import { Save } from "@mui/icons-material";
+import SaveProgressButton from "./auth/SaveProgressButton";
+
 
 export default function ImageAvatars(props) {
   return (
@@ -50,7 +54,12 @@ export default function ImageAvatars(props) {
             </div>
           </Link>
         )}
-       <LoginPage/> 
+        {props.user?
+        <SaveProgressButton onClick={props.handleSaveProgress} />
+        :
+        <h5>Inicie sesión</h5>
+        }
+        <UserProfile user={props.user} handleGoogleSignIn={props.handleGoogleSignIn}/>
       </Stack>
     </>
   );

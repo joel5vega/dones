@@ -1,9 +1,13 @@
-import React from 'react';
-
-const UserProfile = ({ user }) => {
+import React from "react";
+import GoogleSignInButton from "./GoogleSignInButton";
+const UserProfile = ({ user ,handleGoogleSignIn}) => {
   return (
     <div>
-      <img src={user.photoURL} alt="Profile" className='profile-picture'/>
+      {user ? (
+        <img src={user.photoURL} alt="Profile" className="profile-picture" />
+      ) : (
+        <GoogleSignInButton onClick={handleGoogleSignIn} />
+      )}
     </div>
   );
 };

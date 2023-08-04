@@ -1,11 +1,11 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
 import Button from '@mui/material/Button';
 const SaveProgressButton = ({ onClick }) => {
   return (
     <Button variant="contained" onClick={onClick}>
-        <FontAwesomeIcon icon={faGoogle} />
+        Guardar <FontAwesomeIcon icon={faCloudUploadAlt} /> 
     </Button>
   );
 };
