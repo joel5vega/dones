@@ -27,7 +27,7 @@ export default function DiscreteSliderLabel(props) {
     <Box sx={{ height:55,maxWidth: 100,color:"var(--activo)" }}>
       <Slider
         aria-label="Always visible"
-        defaultValue={0}
+        // defaultValue={0}
         getAriaValueText={valuetext}
         step={1.25}
         marks={marks}

@@ -34,6 +34,6 @@ const LoginPage = () => {
   );
   
 };
-console.log(UserContext.Consumer)
+// console.log(UserContext.Consumer)
 // export default LoginPage;
 export { UserContext}

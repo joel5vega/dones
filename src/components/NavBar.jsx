@@ -54,10 +54,10 @@ export default function ImageAvatars(props) {
             </div>
           </Link>
         )}
-        {props.user?
+        {props.user ?
         <SaveProgressButton onClick={props.handleSaveProgress} />
         :
-        <h5>Inicie sesión</h5>
+        <></>
         }
         <UserProfile user={props.user} handleGoogleSignIn={props.handleGoogleSignIn}/>
       </Stack>
