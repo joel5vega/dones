@@ -5,6 +5,7 @@ function Single(props) {
   return (
     <div className="pregunta">
       <div className="pregunta-text">{props.pregunta}</div>
+      <div className="pregunta-text">{props.valor}</div>
       <div className="respuesta">
         <Slide
           value={props.valor}
