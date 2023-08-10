@@ -1,24 +1,15 @@
-import Single from "./Single";
-import PreguntasData from "../../data/PreguntasData";
-import LoginPage from "../../components/auth/GoogleSignInButton";
+import Slider from "./SliderSimple";
 function Preguntas(props) {
   return (
     <div className="preguntas">
       {props.answers !== undefined ? (
         <div className="preguntas">
           {props.answers.map((item) => (
-            <Single
-              key={item.id}
-              id={item.id}
-              pregunta={item.pregunta}
-              valor={item.respuesta ? item.respuesta : 0}
-              onChange={props.onChange}
-            />
+            <Slider  key={item.id} pregunta ={item.pregunta} id={item.id} value={item.respuesta ? item.respuesta : 0} onChange={props.onChange} />
           ))}
         </div>
       ) : (
         <div>
-          {/* <LoginPage /> */}
           no puedes ver preguntas
         </div>
       )}
