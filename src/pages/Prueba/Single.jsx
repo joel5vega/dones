@@ -4,9 +4,9 @@ function Single(props) {
   
   return (
     <div className="pregunta">
-      <div className="pregunta-text">{props.pregunta}</div>
+      {/* <div className="pregunta-text">{props.pregunta}</div> */}
       <div className="respuesta">
-      <Slider id={props.id} value={props.valor} onChange={props.onChange} />
+      <Slider pregunta ={props.pregunta} id={props.id} value={props.valor} onChange={props.onChange} />
       </div>
     </div>
   );

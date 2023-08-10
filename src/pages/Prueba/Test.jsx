@@ -32,8 +32,6 @@ function Test(props) {
   };
 
   const buscarDon = () => {
-    // alert("Buscar don");
-
     // buscamos entre todos los dones para cada categoria
     var actDones = dones;
     CategoriaData.map((categoria) => {
@@ -67,12 +65,11 @@ function Test(props) {
       }
     });
     setResult(!result);
-    handleSaveProgress();
+    props.handleSaveProgress();
   };
 
   return (
     <div>
-      <h1>Bienvenido</h1>
       {!result ? (
         <>
           <Preguntas answers={props.answers} onChange={handleChange} />

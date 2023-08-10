@@ -1,0 +1,24 @@
+.slider-container {
+    display: flex;
+    align-items: center;
+    padding-bottom:0.3rem ;
+    /* margin:1rem; */
+  }
+  
+  .slider-label {
+    margin-left:10px;
+    margin-right: 10px;
+    min-width: 100px;
+    /* text-align: right; */
+  }
+  
+  .slider-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+  }
+  
+  .slider-input-container span {
+    margin: 0 10px;
+  }
