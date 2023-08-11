@@ -10,14 +10,16 @@
 }
 :root {
   --primario: #131112;
-  --fondo: #d3e1fa;
+  --fondo: white;
   --activo: #4db5ff;
+  --informacion:#0a3f64;
 }
 
 .body {
   background: var(--fondo);
 }
 section {
+  margin-top: 2rem;
   background: var(--fondo);
   display: flex;
   flex-direction: column;
@@ -31,6 +33,7 @@ section {
   font-weight: bold;
   font-style: italic;
   color: var(--primario);
+  text-align: center;
 }
 .versiculo-cita {
   font-size: 1.1rem;
@@ -57,6 +60,9 @@ a{
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+}
+.portada{
+  max-height: 100px;
 }
 .instrucciones {
   display: flex;

@@ -34,7 +34,7 @@ function App() {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        console.log("excelente ingresaste");
+        
         fetchData(result.user.uid).then((data) => {
           console.log("data", data);
           setAnswers(data.answers);
@@ -42,6 +42,7 @@ function App() {
           // setResult(data.result);
           setProgreso(data.progreso);
           setLoggedIn(true);
+          console.log("excelente ingresaste");
         });
       })
       .catch((error) => {
@@ -94,7 +95,7 @@ function App() {
   return (
     <Router basename="/dones">
       <NavBar
-        // title={user ? user.email : "Dones espirituales"}
+        title="Test de Dones"
         result={true}
         action={action}
         handleGoogleSignIn={handleGoogleSignIn}
@@ -106,7 +107,7 @@ function App() {
           <Route path="/" element={<Home />} />
           {loggedIn ? (
           <Route
-            path="/test"
+            path="/testo"
             element={
               <Test 
               user={user} 

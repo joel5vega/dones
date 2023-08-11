@@ -20,7 +20,7 @@ export default function BasicPopover(props) {
 
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick} sx={{"color":"var(--fondo)","background":"var(--activo)","textTransform":"capitalize","fontSize":"0.8rem"}}>
+      <Button aria-describedby={id} variant="contained" onClick={handleClick} sx={{"color":"var(--fondo)","background":"var(--informacion)","textTransform":"capitalize","fontSize":"0.8rem"}}>
         {props.title}
       </Button>
       <Popover

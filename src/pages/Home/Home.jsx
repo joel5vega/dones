@@ -1,5 +1,5 @@
 import React from "react";
-import Popover from "../../components/Popover"
+import Popover from "../../components/Popover";
 import DonesEspirituales from "../../assets/pictures/dones-espirituales.png";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -30,8 +30,8 @@ const Referencias = [
 function Home() {
   return (
     <section>
-      <h1>Dones espirituales</h1>
-      <img src={DonesEspirituales} alt="dones espirituales" />
+      {/* <h1>Dones espirituales</h1> */}
+
       <article>
         <p className="versiculo">
           "Pero a cada uno se le da la manifestación del Espíritu para el bien
@@ -50,74 +50,75 @@ function Home() {
         </div>
 
         <p>
-          Encontré un artículo interesante acerca del{" "}
+          Encontré un artículo sobre el{" "}
           <a
             href="https://www.coalicionporelevangelio.org/articulo/dones-espirituales-proposito/"
             target="_blank"
           >
             propósito
           </a>{" "}
-          de los dones espirituales, que resalta el hecho de que los dones son
-          para la edificación de la iglesia.
+          de los dones espirituales, que resalta que son para edificar la
+          iglesia.
+        </p>
+        <p>Dios los da de manera soberana y con un propósito.</p>
+        <p>
+          La mejor manera de conocer nuestros dones es ejerciéndolos, y
+          recibiendo confirmación de nuestros hermanos. de Dios, nuestra iglesia
+          y comunidad.
         </p>
         <p>
-          Dios da los dones, de manera soberana y nos los provee con un
-          propósito.
-        </p>
-        <p>
-          Según mi criterio, la mejor manera de conocer que Dios nos ha dado un
-          don es ejerciendo el don y recibiendo la confirmación de Dios, de
-          nuestra iglesia y comunidad y en nosotros mismos.
-        </p>
-        <p>
-          Sin embargo, muchas veces no sabemos por donde empezar. El presente
-          test es un intento de apoyar y orientar a los cristianos a conocer los
-          dones espirituales para así poder ejercerlos en beneficio de la
-          iglesia.{" "}
-        </p>
-        <p>
-          Fue diseñado por Recurso Cristianos, puedes encontrar el artículo{" "}
+          Adapté el presente test del{" "}
           <a
             href="https://www.accounseling.org/wp-content/uploads/2018/04/Spiritual_Gifts_Survey-_spanish.pdf"
             target="_blank"
           >
-            aquí
-          </a>
-          .{" "}
+            original
+          </a>{" "}
+          diseñado por Recursos Cristianos y busca orientar a los cristianos a
+          conocer sus dones espirituales para ejercerlos en beneficio de la
+          iglesia.{" "}
+        </p>
+
+        <p>
+          Mi labor fue automatizar el cuestionario y simplificarlo para que
+          pueda ser de beneficio a todo el pueblo cristiano.
         </p>
         <p>
-          Mi labor fue automatizar el cuestionario y mostrarlo de una manera más
-          sencilla para que pueda ser accedido por muchas personas.
+          Recuerda que los resultados son simplemente una guía pero espero pueda
+          serte de ayuda.
         </p>
         <p>¡Que Dios te bendiga!</p>
       </article>
-      <Link
-        style={{
-          margin: "2rem",
-          color: "var(--fondo)",
-          background: "var(--activo)", padding:"1rem",
-          minHeight:"1rem ",
-          borderRadius:"1rem"
-        }}
-        to="/test"
-      >
-        Ir al Test de dones
-      </Link>
+      <div className="stack">
+        <Link
+          style={{
+            margin: "1rem",
+            color: "var(--fondo)",
+            background: "var(--activo)",
+            padding: "1rem",
+            minHeight: "1rem ",
+            borderRadius: "1rem"
+          }}
+          to="/test"
+        >
+          Ir al Test de dones
+        </Link>
 
-      <Link
-        to="/lista"
-        style={{
-          margin: "2rem",
-          color: "var(--fondo)",
-          background: "var(--activo)",
-          padding:"1rem",
-          minHeight:"1rem ",
-          borderRadius:"1rem"
-        }}
-      >
-        Ver lista de dones
-      </Link>
-     
+        <Link
+          to="/lista"
+          style={{
+            margin: "1rem",
+            color: "var(--fondo)",
+            background: "var(--informacion)",
+            padding: "1rem",
+            minHeight: "1rem ",
+            borderRadius: "1rem"
+          }}
+        >
+          Ver lista de dones
+        </Link>
+      </div>
+      <img src={DonesEspirituales} alt="dones espirituales" className="portada" />
     </section>
   );
 }
