@@ -20,8 +20,8 @@
 }
 
 .footer {
-  background-color: var(--fondo);
-  position: absolute;
+  /* background-color: var(--fondo); */
+  /* position: absolute; */
   bottom: 0;
   width: 100%;
   color: var(--informacion);
