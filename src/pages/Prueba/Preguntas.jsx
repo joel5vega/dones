@@ -11,7 +11,7 @@ function Preguntas(props) {
     props.handleSaveProgress();
   };
 
-  const totalPages = Math.ceil(props.answers.length / itemsPerPage);
+  const totalPages = Math.ceil(props.answers?props.answers.length / itemsPerPage:1);
 
   return (
     <div className="preguntas">

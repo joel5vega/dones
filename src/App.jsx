@@ -1,4 +1,5 @@
 import React, { useState, Suspense, lazy } from "react";
+import PreguntasData from "./data/PreguntasData";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader/Loader";
@@ -34,13 +35,18 @@ function App() {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        
-        fetchData(result.user.uid).then((data) => {
+        console.log(result.user);
+        fetchData(result.user).then((data) => {
           console.log("data", data);
-          setAnswers(data.answers);
+          if (data) {
+            setAnswers(data.answers);
+          } else {
+            handleSignUp(result.user)
+          }
+          console.log(answers)
           // setDones(data.dones);
           // setResult(data.result);
-          setProgreso(data.progreso);
+          // setProgreso(data.progreso);
           setLoggedIn(true);
           console.log("excelente ingresaste");
         });
@@ -51,9 +57,10 @@ function App() {
     console.log("user", userId);
   };
   // Obtener datos
-  const fetchData = async (userId) => {
-    console.log("fetching data for ", userId);
-    const docRef = doc(db, "users", userId);
+  const fetchData = async (user) => {
+    console.log(user)
+    console.log("fetching data for ", user.uid);
+    const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       console.log("cargando data");
@@ -64,13 +71,34 @@ function App() {
     }
 
     if (!docSnap.exists()) {
-      console.log("no data");
+      console.log("no data, registering");
+      handleSignUp(user)
     } else {
       // setData(docSnap.data());
 
       console.log("fetched");
       return docSnap.data();
     }
+  };
+  //sign up
+  const handleSignUp = async (user) => {
+    console.log("registering for user", user.uid);
+
+    const docRef = doc(db, "users", user.uid);
+    try {
+      await setDoc(docRef, {
+        email: user.email,
+        photo: user.photoURL,
+        name: user.displayName,
+        phoneNumber: user.phoneNumber,
+        answers: PreguntasData,
+      });
+      setAnswers(data.answers);
+      console.log("saved");
+    } catch (error) {
+      console.log(error);
+    }
+
   };
   //guardar progreso
   const handleSaveProgress = async (data) => {
@@ -80,6 +108,9 @@ function App() {
     try {
       await setDoc(docRef, {
         email: user.email,
+        photo: user.photoURL,
+        name: user.displayName,
+        phoneNumber: user.phoneNumber,
         answers: answers,
         // dones: dones,
         result: result
@@ -106,17 +137,20 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           {loggedIn ? (
-          <Route
-            path="/testo"
-            element={
-              <Test 
-              user={user} 
-              handleSaveProgress={handleSaveProgress} 
-              answers={answers}
-              setAnswers={setAnswers}
-              />
-            }
-          />):()=><div>no estas logueado</div>}
+            <Route
+              path="/test"
+              element={
+                <Test
+                  user={user}
+                  handleSaveProgress={handleSaveProgress}
+                  answers={answers? answers : PreguntasData}
+                  setAnswers={setAnswers}
+                />
+              }
+            />
+          ) : (
+            () => <div>no estas logueado</div>
+          )}
           <Route path="/lista" element={<Dones />} />
         </Routes>
       </Suspense>
