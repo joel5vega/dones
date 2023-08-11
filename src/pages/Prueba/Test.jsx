@@ -6,6 +6,7 @@ import Results from "./Results";
 const Preguntas = lazy(() => import("./Preguntas"));
 function Test(props) {
   const [data, setData] = useState({});
+  const [resultado, setResultado] = useState([]);
   const [answers, setAnswers] = useState(
     props.user ? props.answers : PreguntasData
   );
@@ -14,7 +15,31 @@ function Test(props) {
   const [progreso, setProgreso] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
   const userId = props.user ? props.user.uid : null;
+  const subgroups = {
+    Liderazgo: 'Mayordomia',
+    Administración: 'Mayordomia',
+    Pastoreo: 'Mayordomia',
+    
 
+    Enseñanza: 'Comunicar',
+    Conocimiento: 'Comunicar',
+    Sabiduría: 'Comunicar',
+    Profecía: 'Comunicar',
+
+    Evangelismo: 'Comunicar',
+    Apostolado: 'Comunicar',
+    
+    Fe: 'Poder',
+
+    Discernimiento: 'Poder',
+    
+    Exhortación: 'Ministrar',
+    Servicio: 'Ministrar',
+    Misericordia: 'Ministrar',
+    Dar: 'Ministrar',
+    Hospitalidad: 'Ministrar',
+    
+  };
   const handleChange = (id, value) => {
     // console.log(id, value);
     var newAnswers = [];
@@ -33,6 +58,7 @@ function Test(props) {
 
   const buscarDon = () => {
     // buscamos entre todos los dones para cada categoria
+    let resultado = { id: new Date().toISOString().slice(0, 10) };
     var actDones = dones;
     CategoriaData.map((categoria) => {
       //buscamos entre todas las respustas
@@ -48,7 +74,8 @@ function Test(props) {
           }
         });
       });
-      // console.log(categoria.name, puntaje);
+      console.log(categoria.name, puntaje);
+      resultado[categoria.name] = puntaje;
       (actDones = actDones.map((don) => {
         if (don.id == categoria.id) {
           return {
@@ -60,13 +87,19 @@ function Test(props) {
         return don;
       })),
         setDones(actDones);
+      props.setDones(actDones);
       if (puntaje) {
-        // console.log("actualiza", categoria.name, actDones);
+        console.log("actualiza", categoria.name, actDones);
       }
     });
     setResult(!result);
+    console.log("res", resultado);
+    setResultado(resultado);
+    props.setResultado(resultado);
     props.handleSaveProgress();
+    props.handleSaveResultado(dones, resultado);
   };
+  //resetear respuestas
   const handleResetClick = () => {
     props.answers.forEach((item) => {
       handleChange(item.id, 0);
@@ -88,6 +121,10 @@ function Test(props) {
         </>
       ) : (
         <Results
+          resultado={resultado?resultado:[]}
+          subgroups={subgroups}
+          user={props.user}
+          name={props.user.displayName}
           show={result}
           dones={dones.sort(function (a, b) {
             return b.score - a.score;

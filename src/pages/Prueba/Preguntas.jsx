@@ -4,14 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 function Preguntas(props) {
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 10;
+  const itemsPerPage = 12;
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
     props.handleSaveProgress();
   };
 
-  const totalPages = Math.ceil(props.answers?props.answers.length / itemsPerPage:1);
+  const totalPages = Math.ceil(
+    props.answers ? props.answers.length / itemsPerPage : 1
+  );
 
   return (
     <div className="preguntas">
@@ -33,8 +35,8 @@ function Preguntas(props) {
                 />
               ))}
           </div>
+          <div className="action-bar">
           <div className="pagination">
-           
             {[...Array(totalPages).keys()].map((pageNumber) => (
               <button
                 key={pageNumber}
@@ -53,19 +55,17 @@ function Preguntas(props) {
           </div>
           {currentPage === totalPages - 1 && (
             <>
-            <button onClick={props.buscarDon} className="boton">
-              <FontAwesomeIcon icon={faSearch} />
-               Buscar mi don
-            </button>
-            {/* <button onClick={props.handleResetClick} className="boton">Reset</button> */}
-            
+              <button onClick={props.buscarDon} className="boton">
+                <div className="boton-parte"><FontAwesomeIcon icon={faSearch} /></div>
+                <div className="boton-parte">Buscar mi don</div>
+              </button>
+              {/* <button onClick={props.handleResetClick} className="boton">Reset</button> */}
             </>
           )}
+          </div>
         </>
       ) : (
-        <section>
-       
-          no puedes ver preguntas</section>
+        <section>no puedes ver preguntas</section>
       )}
     </div>
   );

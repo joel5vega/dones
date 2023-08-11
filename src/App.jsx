@@ -20,6 +20,8 @@ function App() {
   const [user, setUser] = useState(null);
   const [answers, setAnswers] = useState([]);
   const [progreso, setProgreso] = useState(0);
+  const [resultado, setResultado] = useState([]);
+  const [dones, setDones] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
   const userId = user ? user.uid : null;
   const auth = getAuth();
@@ -87,14 +89,9 @@ function App() {
     const docRef = doc(db, "users", userId);
     try {
       await setDoc(docRef, {
-        email: user.email,
-        photo: user.photoURL,
-        name: user.displayName,
-        phoneNumber: user.phoneNumber,
         answers: answers,
-        // dones: dones,
-        result: result
-        // progreso: progreso
+        result: result,
+        progreso: progreso
       });
       console.log("saved");
     } catch (error) {
@@ -102,7 +99,23 @@ function App() {
     }
   };
   ///
-
+  const handleSaveResultado = async (dones,resultado) => {
+    // console.log(dones,resultado)
+    setDones(dones)
+    setResultado(resultado)
+    const docRef = doc(db, "users", userId);
+    try {
+      await setDoc(docRef, {
+        answers: answers,
+        dones: dones,
+        resultado: resultado,
+      });
+      console.log("saved");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+////
   return (
     <Router basename="/dones">
       <NavBar
@@ -112,6 +125,7 @@ function App() {
         handleGoogleSignIn={handleGoogleSignIn}
         user={user}
         handleSaveProgress={handleSaveProgress}
+        handleSaveResultado={handleSaveResultado}
       />
       <Suspense fallback={<Loader />}>
         <Routes>
@@ -125,6 +139,10 @@ function App() {
                   handleSaveProgress={handleSaveProgress}
                   answers={answers ? answers : PreguntasData}
                   setAnswers={setAnswers}
+                  setDones={setDones}
+                  setResultado={setResultado}
+                  resultado={resultado?resultado:[]}
+                  handleSaveResultado={handleSaveResultado}
                 />
               }
             />
