@@ -72,11 +72,11 @@ function Test(props) {
     <div>
       {!result ? (
         <>
-          <Preguntas answers={props.answers} onChange={handleChange} />
-
+          <Preguntas answers={props.answers} onChange={handleChange} handleSaveProgress={props.handleSaveProgress} />
+{/* 
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
-          </div>
+          </div> */}
         </>
       ) : (
         <Results
