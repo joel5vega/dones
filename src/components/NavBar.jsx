@@ -1,16 +1,17 @@
 import * as React from "react";
-import DonesEspirituales from "../assets/pictures/dones-espirituales.png";
+import DonesEspirituales from "../assets/pictures/dones-espirituales.svg";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import { Button } from "@mui/material";
-import Popover from "./Popover";
-import { Link } from "react-router-dom";
-import LoginPage from "./auth/LoginPage";
+import { Link, useNavigate } from "react-router-dom";
 import UserProfile from "./auth/UserProfile";
-import { Save } from "@mui/icons-material";
-import SaveProgressButton from "./auth/SaveProgressButton";
 
 export default function ImageAvatars(props) {
+  const navigate = useNavigate();
+  const onLogin = () => {
+    navigate("/test");
+    console.log("login exitoso");
+    props.handleGoogleSignIn();
+  };
   return (
     <>
       <Stack
@@ -25,8 +26,7 @@ export default function ImageAvatars(props) {
           height: "3rem",
           width: "100%",
           maxWidth: "100%",
-          padding: "10px",
-
+          padding: "10px"
         }}
         direction="row"
         spacing={2}
@@ -35,35 +35,7 @@ export default function ImageAvatars(props) {
           <Avatar alt="dones" src={DonesEspirituales} />
         </Link>
         <h2>{props.title}</h2>
-        {/* {!props.result ? (
-          <Popover
-            title="?"
-            content={
-              <div className="instruccioness">
-                <p>Responde honestamente </p>
-                <p>No: Totalmente en desacuerdo</p>
-                <p>Si: Totalmente de acuerdo</p>
-              </div>
-            }
-          />
-        ) : (
-          <Link to="/test">
-            <div className="boton" variant="contained" onClick={props.action}>
-              Nuevo Test
-            </div>
-          </Link>
-        )} */}
-        {/* {props.user ? (
-          <div className="justify-right">
-            <SaveProgressButton onClick={props.handleSaveProgress} />
-          </div>
-        ) : (
-          <></>
-        )} */}
-        <UserProfile
-          user={props.user}
-          handleGoogleSignIn={props.handleGoogleSignIn}
-        />
+        <UserProfile user={props.user} handleGoogleSignIn={onLogin} />
       </Stack>
     </>
   );

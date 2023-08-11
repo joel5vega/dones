@@ -1,4 +1,4 @@
-import React, { useState, lazy, useEffect, useContext } from "react";
+import React, { useState, lazy } from "react";
 import PreguntasData from "../../data/PreguntasData";
 import CategoriaData from "../../data/CategoriasData";
 import Results from "./Results";
@@ -16,7 +16,7 @@ function Test(props) {
   const userId = props.user ? props.user.uid : null;
 
   const handleChange = (id, value) => {
-    console.log(id, value);
+    // console.log(id, value);
     var newAnswers = [];
     (newAnswers = answers.map((answer) => {
       if (answer.id === id) {
@@ -48,7 +48,7 @@ function Test(props) {
           }
         });
       });
-      console.log(categoria.name, puntaje);
+      // console.log(categoria.name, puntaje);
       (actDones = actDones.map((don) => {
         if (don.id == categoria.id) {
           return {
@@ -71,7 +71,7 @@ function Test(props) {
     props.answers.forEach((item) => {
       handleChange(item.id, 0);
     });
-    console.log(props.answers)
+    console.log(props.answers);
     props.handleSaveProgress();
   };
   return (
@@ -85,10 +85,6 @@ function Test(props) {
             buscarDon={buscarDon}
             handleResetClick={handleResetClick}
           />
-          {/* 
-          <div className="boton" onClick={buscarDon}>
-            Buscar mi Don
-          </div> */}
         </>
       ) : (
         <Results

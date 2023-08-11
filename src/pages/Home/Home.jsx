@@ -1,6 +1,6 @@
 import React from "react";
 import Popover from "../../components/Popover";
-import DonesEspirituales from "../../assets/pictures/dones-espirituales.png";
+import DonesEspirituales from "../../assets/pictures/dones-espirituales.svg";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { padding } from "@mui/system";
@@ -94,7 +94,6 @@ function Home(props) {
         
           <Link
             style={{
-              margin: "1rem",
               color: "var(--fondo)",
               background: "var(--activo)",
               padding: "1rem",
@@ -117,7 +116,6 @@ function Home(props) {
         <Link
           to="/lista"
           style={{
-            margin: "1rem",
             color: "var(--fondo)",
             background: "var(--informacion)",
             padding: "1rem",

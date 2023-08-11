@@ -1,12 +1,12 @@
 import React, { useState, Suspense, lazy } from "react";
 import PreguntasData from "./data/PreguntasData";
-import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader/Loader";
 import Home from "./pages/Home/Home";
 import NavBar from "./components/NavBar";
+
 import "./app.css";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import db from "./services/Firebase";
@@ -24,6 +24,7 @@ function App() {
   const userId = user ? user.uid : null;
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
+
   //funciones extras
 
   const action = () => {
@@ -31,58 +32,41 @@ function App() {
   };
   //Iniciar sesion
   const handleGoogleSignIn = () => {
-    console.log("signing in");
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        console.log(result.user);
         fetchData(result.user).then((data) => {
-          console.log("data", data);
           if (data) {
             setAnswers(data.answers);
+            setLoggedIn(true);
           } else {
-            handleSignUp(result.user)
+            handleSignUp(result.user);
           }
-          console.log(answers)
-          // setDones(data.dones);
-          // setResult(data.result);
-          // setProgreso(data.progreso);
           setLoggedIn(true);
-          console.log("excelente ingresaste");
         });
       })
       .catch((error) => {
         console.error(error.message);
       });
-    console.log("user", userId);
   };
   // Obtener datos
   const fetchData = async (user) => {
-    console.log(user)
-    console.log("fetching data for ", user.uid);
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      console.log("cargando data");
       setData(docSnap.data());
-      console.log("data is", docSnap.data());
     } else {
       console.error("no existe el documento");
     }
 
     if (!docSnap.exists()) {
-      console.log("no data, registering");
-      handleSignUp(user)
+      handleSignUp(user);
     } else {
-      // setData(docSnap.data());
-
-      console.log("fetched");
       return docSnap.data();
     }
   };
   //sign up
   const handleSignUp = async (user) => {
-    console.log("registering for user", user.uid);
 
     const docRef = doc(db, "users", user.uid);
     try {
@@ -91,19 +75,15 @@ function App() {
         photo: user.photoURL,
         name: user.displayName,
         phoneNumber: user.phoneNumber,
-        answers: PreguntasData,
+        answers: PreguntasData
       });
       setAnswers(data.answers);
-      console.log("saved");
     } catch (error) {
       console.log(error);
     }
-
   };
   //guardar progreso
   const handleSaveProgress = async (data) => {
-    console.log("saving for user", userId);
-
     const docRef = doc(db, "users", userId);
     try {
       await setDoc(docRef, {
@@ -135,20 +115,20 @@ function App() {
       />
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<Home loggedIn={loggedIn}/>} />
-          
+          <Route path="/" element={<Home loggedIn={loggedIn} />} />
+          {loggedIn && (
             <Route
               path="/test"
               element={
                 <Test
                   user={user}
                   handleSaveProgress={handleSaveProgress}
-                  answers={answers? answers : PreguntasData}
+                  answers={answers ? answers : PreguntasData}
                   setAnswers={setAnswers}
                 />
               }
             />
-       
+          )}
           <Route path="/lista" element={<Dones />} />
         </Routes>
       </Suspense>
