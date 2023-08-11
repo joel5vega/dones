@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdones=self.webpackChunkdones||[]).push([[226],{5226:function(s,e,n){n.r(e);n(2791);var t=n(1373),a=n(3226),u=n(6704),d=n(184);e.default=function(){return(0,d.jsxs)("div",{className:"resultados",children:[(0,d.jsx)(u.Z,{title:"Lista de Dones",result:!0}),(0,d.jsx)("div",{className:"dones",children:t.Z.map((function(s,e){return(0,d.jsx)(a.Z,{data:s},e)}))})]})}}}]);
+//# sourceMappingURL=226.7ff87d1d.chunk.js.map
