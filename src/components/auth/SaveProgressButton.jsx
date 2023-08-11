@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 const SaveProgressButton = ({ onClick }) => {
   return (
     <Button variant="contained" onClick={onClick}>
-        Guardar <FontAwesomeIcon icon={faCloudUploadAlt} /> 
+        <FontAwesomeIcon icon={faCloudUploadAlt} /> 
     </Button>
   );
 };

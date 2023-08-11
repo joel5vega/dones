@@ -10,7 +10,6 @@ import UserProfile from "./auth/UserProfile";
 import { Save } from "@mui/icons-material";
 import SaveProgressButton from "./auth/SaveProgressButton";
 
-
 export default function ImageAvatars(props) {
   return (
     <>
@@ -25,7 +24,9 @@ export default function ImageAvatars(props) {
           top: "0",
           height: "3rem",
           width: "100%",
-          maxWidth: "100%"
+          maxWidth: "100%",
+          padding: "10px",
+
         }}
         direction="row"
         spacing={2}
@@ -34,9 +35,7 @@ export default function ImageAvatars(props) {
           <Avatar alt="dones" src={DonesEspirituales} />
         </Link>
         <h2>{props.title}</h2>
-       
-
-        {!props.result ? (
+        {/* {!props.result ? (
           <Popover
             title="?"
             content={
@@ -53,13 +52,18 @@ export default function ImageAvatars(props) {
               Nuevo Test
             </div>
           </Link>
-        )}
-        {props.user ?
-        <SaveProgressButton onClick={props.handleSaveProgress} />
-        :
-        <></>
-        }
-        <UserProfile user={props.user} handleGoogleSignIn={props.handleGoogleSignIn}/>
+        )} */}
+        {/* {props.user ? (
+          <div className="justify-right">
+            <SaveProgressButton onClick={props.handleSaveProgress} />
+          </div>
+        ) : (
+          <></>
+        )} */}
+        <UserProfile
+          user={props.user}
+          handleGoogleSignIn={props.handleGoogleSignIn}
+        />
       </Stack>
     </>
   );

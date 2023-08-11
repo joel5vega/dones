@@ -27,7 +27,7 @@ function Test(props) {
       }
       return answer;
     })),
-    setAnswers(newAnswers);
+      setAnswers(newAnswers);
     props.setAnswers(newAnswers);
   };
 
@@ -67,13 +67,25 @@ function Test(props) {
     setResult(!result);
     props.handleSaveProgress();
   };
-
+  const handleResetClick = () => {
+    props.answers.forEach((item) => {
+      handleChange(item.id, 0);
+    });
+    console.log(props.answers)
+    props.handleSaveProgress();
+  };
   return (
     <div>
       {!result ? (
         <>
-          <Preguntas answers={props.answers} onChange={handleChange} handleSaveProgress={props.handleSaveProgress} />
-{/* 
+          <Preguntas
+            answers={props.answers}
+            onChange={handleChange}
+            handleSaveProgress={props.handleSaveProgress}
+            buscarDon={buscarDon}
+            handleResetClick={handleResetClick}
+          />
+          {/* 
           <div className="boton" onClick={buscarDon}>
             Buscar mi Don
           </div> */}

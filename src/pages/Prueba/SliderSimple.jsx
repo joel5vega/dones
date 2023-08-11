@@ -15,7 +15,7 @@ const Slider = ({ id, value, onChange ,pregunta}) => {
           min="0"
           max="4"
           value={value}
-          onChange={event => onChange(id, event.target.value)}
+          onChange={event => onChange(id, Number(event.target.value))}
         />
         <span>Si</span>
       </div>

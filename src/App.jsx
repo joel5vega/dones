@@ -94,7 +94,7 @@ function App() {
   return (
     <Router basename="/dones">
       <NavBar
-        title={user ? user.email : "Dones espirituales"}
+        // title={user ? user.email : "Dones espirituales"}
         result={true}
         action={action}
         handleGoogleSignIn={handleGoogleSignIn}

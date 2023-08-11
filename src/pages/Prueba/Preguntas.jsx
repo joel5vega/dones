@@ -52,10 +52,14 @@ function Preguntas(props) {
             )}
           </div>
           {currentPage === totalPages - 1 && (
+            <>
             <button onClick={props.buscarDon} className="boton">
               <FontAwesomeIcon icon={faSearch} />
                Buscar mi don
             </button>
+            {/* <button onClick={props.handleResetClick} className="boton">Reset</button> */}
+            
+            </>
           )}
         </>
       ) : (

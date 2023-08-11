@@ -86,28 +86,10 @@ a{
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: left;
 }
 
-.pregunta {
-  padding: 0.1rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  margin: 0.1rem;
-  
-  background-color: var(--fondo);
-}
-.pregunta-text {
-  color:var(--primario);
-  flex-shrink: 2;
-  align-items: center;
-  font-size: 1rem;
-  min-width: 250px;
-  flex-wrap: wrap;
-  /* margin-top: 0.2rem; */
-  /* min-width: 15rem; */
-}
+
 .respuesta{
   flex-grow: 4;
   min-width: 200px;
@@ -132,6 +114,10 @@ a{
   gap: 0.5rem;
   margin-top: 3rem;
 }
+.justify-right {
+  text-align: right;
+}
+
 .dones {
   margin-top: 3rem;
   width: 100%;
@@ -227,15 +213,7 @@ a{
 }
 
 @media screen and (min-width: 800px) {
-  .preguntas {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap:1rem;
-    border: #3952b2;
-    /* font-size: 1rem; */
-    /* background: red; */
-  }
+  
   .pregunta {
     display: flex;
     flex-direction: column;
