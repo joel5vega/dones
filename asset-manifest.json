@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dones/static/css/main.a1e3c6de.css",
-    "main.js": "/dones/static/js/main.5efcc67c.js",
+    "main.css": "/dones/static/css/main.69d9f46c.css",
+    "main.js": "/dones/static/js/main.282a8789.js",
     "static/js/701.a78464cd.chunk.js": "/dones/static/js/701.a78464cd.chunk.js",
     "static/js/226.aff60c1b.chunk.js": "/dones/static/js/226.aff60c1b.chunk.js",
     "static/css/395.01f75f86.chunk.css": "/dones/static/css/395.01f75f86.chunk.css",
@@ -25,8 +25,8 @@
     "static/media/evangelismo.png": "/dones/static/media/evangelismo.95b46cbad14c881d38fc.png",
     "static/media/dones-espirituales.svg": "/dones/static/media/dones-espirituales.cb512c3060540ec29178845da8b3776a.svg",
     "index.html": "/dones/index.html",
-    "main.a1e3c6de.css.map": "/dones/static/css/main.a1e3c6de.css.map",
-    "main.5efcc67c.js.map": "/dones/static/js/main.5efcc67c.js.map",
+    "main.69d9f46c.css.map": "/dones/static/css/main.69d9f46c.css.map",
+    "main.282a8789.js.map": "/dones/static/js/main.282a8789.js.map",
     "701.a78464cd.chunk.js.map": "/dones/static/js/701.a78464cd.chunk.js.map",
     "226.aff60c1b.chunk.js.map": "/dones/static/js/226.aff60c1b.chunk.js.map",
     "395.01f75f86.chunk.css.map": "/dones/static/css/395.01f75f86.chunk.css.map",
@@ -36,7 +36,7 @@
     "948.4a0cbb12.chunk.js.map": "/dones/static/js/948.4a0cbb12.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a1e3c6de.css",
-    "static/js/main.5efcc67c.js"
+    "static/css/main.69d9f46c.css",
+    "static/js/main.282a8789.js"
   ]
 }
