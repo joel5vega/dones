@@ -63,7 +63,9 @@ function Preguntas(props) {
           )}
         </>
       ) : (
-        <div>no puedes ver preguntas</div>
+        <section>
+       
+          no puedes ver preguntas</section>
       )}
     </div>
   );

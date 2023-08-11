@@ -135,8 +135,8 @@ function App() {
       />
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          {loggedIn ? (
+          <Route path="/" element={<Home loggedIn={loggedIn}/>} />
+          
             <Route
               path="/test"
               element={
@@ -148,9 +148,7 @@ function App() {
                 />
               }
             />
-          ) : (
-            () => <div>no estas logueado</div>
-          )}
+       
           <Route path="/lista" element={<Dones />} />
         </Routes>
       </Suspense>

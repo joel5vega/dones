@@ -147,11 +147,18 @@ a{
   border-radius: 1rem;
   text-align: center;
   font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;;
+  
 }
 .boton:hover {
   background-color: var(--fondo);
   color: var(--activo);
   border: 1px solid var(--activo);
+}
+.boton-parte{
+  margin:2px
 }
 .resultados{
   display: flex;

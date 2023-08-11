@@ -4,6 +4,7 @@ import DonesEspirituales from "../../assets/pictures/dones-espirituales.png";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { padding } from "@mui/system";
+import GoogleSignInButton from "../../components/auth/GoogleSignInButton";
 const Referencias = [
   {
     title: "Romanos 12:6-8",
@@ -27,7 +28,7 @@ const Referencias = [
       "9 Hospedaos los unos a los otros sin murmuraciones. 10 Cada uno según el don que ha recibido, minístrelo a los otros, como buenos administradores de la multiforme gracia de Dios. 11 Si alguno habla, hable conforme a las palabras de Dios; si alguno ministra, ministre conforme al poder que Dios da, para que en todo sea Dios glorificado por Jesucristo, a quien pertenecen la gloria y el imperio por los siglos de los siglos. Amén."
   }
 ];
-function Home() {
+function Home(props) {
   return (
     <section>
       {/* <h1>Dones espirituales</h1> */}
@@ -90,20 +91,29 @@ function Home() {
         <p>¡Que Dios te bendiga!</p>
       </article>
       <div className="stack">
-        <Link
-          style={{
-            margin: "1rem",
-            color: "var(--fondo)",
-            background: "var(--activo)",
-            padding: "1rem",
-            minHeight: "1rem ",
-            borderRadius: "1rem"
-          }}
-          to="/test"
-        >
-          Ir al Test de dones
-        </Link>
-
+        
+          <Link
+            style={{
+              margin: "1rem",
+              color: "var(--fondo)",
+              background: "var(--activo)",
+              padding: "1rem",
+              minHeight: "1rem ",
+              borderRadius: "1rem"
+            }}
+            to="/test"
+            title="Por favor inicia sesion con google para tomar el test"
+            onClick={e => {
+              if (!props.loggedIn) {
+                e.preventDefault();
+                alert("Inicia sesión para poder tomar el test");
+                console.log("inicie sesion")
+              }
+            }}
+          >
+            Ir al Test de dones
+          </Link>
+        
         <Link
           to="/lista"
           style={{
@@ -118,7 +128,11 @@ function Home() {
           Ver lista de dones
         </Link>
       </div>
-      <img src={DonesEspirituales} alt="dones espirituales" className="portada" />
+      <img
+        src={DonesEspirituales}
+        alt="dones espirituales"
+        className="portada"
+      />
     </section>
   );
 }
