@@ -16,32 +16,30 @@ function Test(props) {
   const [loggedIn, setLoggedIn] = useState(false);
   const userId = props.user ? props.user.uid : null;
   const subgroups = {
-    Liderazgo: 'Mayordomia',
-    Administración: 'Mayordomia',
-    Pastoreo: 'Mayordomia',
-    
+    Liderazgo: "Mayordomia",
+    Administración: "Mayordomia",
+    Pastoreo: "Mayordomia",
 
-    Enseñanza: 'Comunicar',
-    Conocimiento: 'Comunicar',
-    Sabiduría: 'Comunicar',
-    Profecía: 'Comunicar',
+    Enseñanza: "Comunicar",
+    Conocimiento: "Comunicar",
+    Sabiduría: "Comunicar",
+    Profecía: "Comunicar",
 
-    Evangelismo: 'Comunicar',
-    Apostolado: 'Comunicar',
-    
-    Fe: 'Poder',
+    Evangelismo: "Comunicar",
+    Apostolado: "Comunicar",
 
-    Discernimiento: 'Poder',
-    
-    Exhortación: 'Ministrar',
-    Servicio: 'Ministrar',
-    Misericordia: 'Ministrar',
-    Dar: 'Ministrar',
-    Hospitalidad: 'Ministrar',
-    
+    Fe: "Poder",
+
+    Discernimiento: "Poder",
+
+    Exhortación: "Ministrar",
+    Servicio: "Ministrar",
+    Misericordia: "Ministrar",
+    Dar: "Ministrar",
+    Hospitalidad: "Ministrar"
   };
   const handleChange = (id, value) => {
-    // console.log(id, value);
+    console.log("handlechange on test", id, value);
     var newAnswers = [];
     (newAnswers = answers.map((answer) => {
       if (answer.id === id) {
@@ -53,6 +51,7 @@ function Test(props) {
       return answer;
     })),
       setAnswers(newAnswers);
+    // console.log("newAnswers", newAnswers);
     props.setAnswers(newAnswers);
   };
 
@@ -74,7 +73,7 @@ function Test(props) {
           }
         });
       });
-      console.log(categoria.name, puntaje);
+      // console.log(categoria.name, puntaje);
       resultado[categoria.name] = puntaje;
       (actDones = actDones.map((don) => {
         if (don.id == categoria.id) {
@@ -89,11 +88,11 @@ function Test(props) {
         setDones(actDones);
       props.setDones(actDones);
       if (puntaje) {
-        console.log("actualiza", categoria.name, actDones);
+        // console.log("actualiza", categoria.name, actDones);
       }
     });
     setResult(!result);
-    console.log("res", resultado);
+    // console.log("res", resultado);
     setResultado(resultado);
     props.setResultado(resultado);
     props.handleSaveProgress();
@@ -104,7 +103,7 @@ function Test(props) {
     props.answers.forEach((item) => {
       handleChange(item.id, 0);
     });
-    console.log(props.answers);
+    // console.log(props.answers);
     props.handleSaveProgress();
   };
   return (
@@ -121,7 +120,7 @@ function Test(props) {
         </>
       ) : (
         <Results
-          resultado={resultado?resultado:[]}
+          resultado={resultado ? resultado : []}
           subgroups={subgroups}
           user={props.user}
           name={props.user.displayName}

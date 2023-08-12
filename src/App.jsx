@@ -8,7 +8,7 @@ import NavBar from "./components/NavBar";
 import "./app.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc,updateDoc } from "firebase/firestore";
 import db from "./services/Firebase";
 const Test = lazy(() => import("./pages/Prueba/Test"));
 const Dones = lazy(() => import("./pages/Dones/Dones"));
@@ -37,6 +37,7 @@ function App() {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
+        console.log("get data from",result.user.email);
         fetchData(result.user).then((data) => {
           if (data) {
             setAnswers(data.answers);
@@ -59,6 +60,7 @@ function App() {
       setData(docSnap.data());
     } else {
       console.error("no existe el documento");
+      handleSignUp(user);
     }
 
     if (!docSnap.exists()) {
@@ -69,7 +71,7 @@ function App() {
   };
   //sign up
   const handleSignUp = async (user) => {
-
+    console.log("registrando");
     const docRef = doc(db, "users", user.uid);
     try {
       await setDoc(docRef, {
@@ -80,6 +82,7 @@ function App() {
         answers: PreguntasData
       });
       setAnswers(data.answers);
+      console.log("registrado",user.email);
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +91,7 @@ function App() {
   const handleSaveProgress = async (data) => {
     const docRef = doc(db, "users", userId);
     try {
-      await setDoc(docRef, {
+      await updateDoc(docRef, {
         answers: answers,
         result: result,
         progreso: progreso
@@ -99,23 +102,23 @@ function App() {
     }
   };
   ///
-  const handleSaveResultado = async (dones,resultado) => {
+  const handleSaveResultado = async (dones, resultado) => {
     // console.log(dones,resultado)
-    setDones(dones)
-    setResultado(resultado)
+    setDones(dones);
+    setResultado(resultado);
     const docRef = doc(db, "users", userId);
     try {
-      await setDoc(docRef, {
+      await updateDoc(docRef, {
         answers: answers,
         dones: dones,
-        resultado: resultado,
+        resultado: resultado
       });
       console.log("saved");
     } catch (error) {
       console.log(error);
     }
-  }
-////
+  };
+  ////
   return (
     <Router basename="/dones">
       <NavBar
@@ -141,7 +144,7 @@ function App() {
                   setAnswers={setAnswers}
                   setDones={setDones}
                   setResultado={setResultado}
-                  resultado={resultado?resultado:[]}
+                  resultado={resultado ? resultado : []}
                   handleSaveResultado={handleSaveResultado}
                 />
               }

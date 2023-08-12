@@ -20,8 +20,7 @@
 }
 
 .footer {
-  /* background-color: var(--fondo); */
-  /* position: absolute; */
+  margin-top: 1rem;
   bottom: 0;
   width: 100%;
   color: var(--informacion);
@@ -102,7 +101,7 @@ a {
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
-  
+
   justify-content: left;
 }
 
@@ -129,12 +128,12 @@ a {
   flex-wrap: wrap;
   margin-top: 3rem;
 }
-.result-graphic{
+.result-graphic {
   max-height: fit-content;
   /* border:#0a3f64 1px solid; */
 }
-.results .dones{
-margin-top: -3rem;
+.results .dones {
+  margin-top: -3rem;
 }
 .justify-right {
   text-align: right;
@@ -161,43 +160,46 @@ margin-top: -3rem;
   align-items: left;
   background-color: var(--fondo);
   border-radius: 10px;
-  border:10px var(--informacion);
-  padding: 20px;
+  /* border: var(--informacion) 1px solid; */
+  padding: 5px;
 }
 
 .don h3 {
   margin-bottom: 0;
 }
-.don-head{
+.don-head {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content:left;
+  justify-content: left;
   gap: 1rem;
 }
-.don-definition{
+.don-definition {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: baseline;
-  gap: 0.5rem;
+  /* gap: 0.5rem; */
+  /* font-size: 0.2rem; */
 }
 .don img {
   width: 50px;
   height: 50px;
-  padding:5px;
+  padding: 5px;
   /* border-radius: 50%; */
   background-color: var(--fondo);
 }
 
-.don p {
+.don .don-definition p {
   margin-top: 0;
+  font-size: small;
 }
 
 .don h4 {
   margin-top: 0;
   font-style: italic;
-  color:var(--informacion)
+  color: var(--informacion);
+  font-size: small;
 }
 
 .boton {
@@ -235,7 +237,7 @@ margin-top: -3rem;
   width: 100%; /* Set the width of the image to 100% of its parent */
   max-height: 2rem;
 }
-.action-bar{
+.action-bar {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -257,7 +259,6 @@ margin-top: -3rem;
   width: 30px;
   height: 30px;
   margin: 5px;
-  
 }
 
 .pagination button.active {
@@ -319,7 +320,6 @@ margin-top: -3rem;
   .input-range {
     max-width: 100px;
   }
-
 }
 .icon {
   width: 5rem;

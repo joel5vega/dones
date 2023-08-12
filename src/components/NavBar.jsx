@@ -8,7 +8,7 @@ import UserProfile from "./auth/UserProfile";
 export default function ImageAvatars(props) {
   const navigate = useNavigate();
   const onLogin = () => {
-    navigate("/test");
+    // navigate("/test");
     console.log("login exitoso");
     props.handleGoogleSignIn();
   };

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -8,9 +8,9 @@ import {
   Tooltip,
   Legend
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
 import { Link } from "react-router-dom";
 import Don from "../Dones/Don";
+import { WhatsappShareButton, WhatsappIcon } from "react-share";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -67,12 +67,12 @@ const ComponentToPrint = React.forwardRef((props, ref) => (
         <Don key={index} data={don} />
       ))}
     </div>
-
     Fuente: joel5vega.github.io/dones
   </div>
 ));
 
 function Results(props) {
+  const [dataUrl, setDataUrl] = useState("");
   var dones = props.dones;
   var labels = props.dones.map((don) => don.name).slice(0, 4);
   const componentRef = useRef();
@@ -86,6 +86,17 @@ function Results(props) {
       }
     ]
   };
+  const handleShare = () => {
+    exportComponentAsJPEG(componentRef).then((file) => {
+      console.log(file); // Check the value of the file variable
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setDataUrl(event.target.result);
+      };
+      reader.readAsDataURL(file);
+    });
+  };
+
   return (
     <div className="resultados">
       {props.show && (
@@ -99,30 +110,49 @@ function Results(props) {
             subgroups={props.subgroups}
             user={props.user.displayName.split(" ")[0]}
           />
-          <div
-            className="boton"
-            onClick={() =>
-              exportComponentAsJPEG(componentRef, { fileName: "misdones" })
-            }
-          >
-            Descargar resultados
+          <div className="stack">
+            <div
+              className="boton"
+              onClick={() =>
+                exportComponentAsJPEG(componentRef, { fileName: "misdones" })
+              }
+            >
+              Descargar resultados
+            </div>
+            <button onClick={handleShare}>Generate Image</button>
+            <WhatsappShareButton
+              url={dataUrl}
+              title="My Image"
+              onClick={() =>
+                exportComponentAsJPEG(componentRef).then((file) => {
+                  console.log(file); // Check the value of the file variable
+                  const reader = new FileReader();
+                  reader.onload = (event) => {
+                    setDataUrl(event.target.result);
+                  };
+                  reader.readAsDataURL(file);
+                })
+              }
+            >
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+            <Link
+              style={{
+                margin: "1rem",
+                color: "var(--informacion)",
+                background: "var(--activo)",
+                padding: "1rem",
+                minHeight: "1rem ",
+                borderRadius: "1rem"
+              }}
+              to="/lista"
+              onClick={() =>
+                exportComponentAsJPEG(componentRef, { fileName: "misdones" })
+              }
+            >
+              Ver listado de todos los dones
+            </Link>
           </div>
-          <Link
-            style={{
-              margin: "2rem",
-              color: "var(--fondo)",
-              background: "var(--activo)",
-              padding: "1rem",
-              minHeight: "1rem ",
-              borderRadius: "1rem"
-            }}
-            to="/lista"
-            onClick={() =>
-              exportComponentAsJPEG(componentRef, { fileName: "misdones" })
-            }
-          >
-            Ver listado de todos los dones
-          </Link>
         </React.Fragment>
       )}
     </div>
