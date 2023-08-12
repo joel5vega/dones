@@ -12,7 +12,7 @@
   --primario: #131112;
   --fondo: white;
   --activo: #4db5ff;
-  --informacion: #0a3f64;
+  --informacion: #4059ad;
 }
 
 .body {
@@ -29,7 +29,7 @@
 }
 
 section {
-  margin-top: 2rem;
+  margin-top: 3rem;
   background: var(--fondo);
   display: flex;
   flex-direction: column;
@@ -95,7 +95,7 @@ a {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  
+
 } */
 .preguntas {
   margin-top: 2rem;
@@ -222,6 +222,10 @@ a {
 }
 .boton-parte {
   margin: 2px;
+  color:var(--fondo);
+}
+.boton-parte:hover {
+  color: var(--activo);
 }
 .resultados {
   display: flex;
@@ -282,13 +286,14 @@ a {
   display: inline-block;
   width: 0;
   height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 15px solid var(--activo);
+  margin-left: 10px;
+  border-top: 15px solid transparent;
+  border-bottom: 15px solid transparent;
+  border-left: 25px solid var(--activo);
 }
 
 .buscar-don {
-  background-color: blue;
+  background-color: var(--informacion);
   color: white;
   border: none;
   padding: 10px 20px;
@@ -297,9 +302,18 @@ a {
 
 .buscar-don i {
   margin-right: 5px;
+color: white;
 }
 
 @media screen and (min-width: 800px) {
+  .preguntas{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: right;
+    gap: 0.5rem;
+    width: 75%;
+  }
   .pregunta {
     display: flex;
     flex-direction: column;

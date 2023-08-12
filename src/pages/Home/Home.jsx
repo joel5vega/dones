@@ -110,7 +110,7 @@ function Home(props) {
               }
             }}
           >
-            Ir al Test de dones
+            Test de dones
           </Link>
         
         <Link
@@ -123,7 +123,7 @@ function Home(props) {
             borderRadius: "1rem"
           }}
         >
-          Ver lista de dones
+          Ver dones
         </Link>
       </div>
       <img

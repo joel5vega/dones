@@ -59,7 +59,6 @@ function Preguntas(props) {
                 <div className="boton-parte"><FontAwesomeIcon icon={faSearch} /></div>
                 <div className="boton-parte">Buscar mi don</div>
               </button>
-              {/* <button onClick={props.handleResetClick} className="boton">Reset</button> */}
             </>
           )}
           </div>

@@ -21,10 +21,9 @@ ChartJS.register(
 );
 import {
   exportComponentAsJPEG,
-  exportComponentAsPNG
+  componentToDataURL
 } from "react-component-export-image";
 
-import { Button } from "@mui/material";
 import SpiderChart from "./SpiderChart";
 export const options = {
   indexAxis: "y",
@@ -52,7 +51,6 @@ export const options = {
 
 const ComponentToPrint = React.forwardRef((props, ref) => (
   <div ref={ref} className="results">
-    {/* <Bar options={props.options} data={props.data} /> */}
     <div className="result-graphic">
       {props.resultado && (
         <SpiderChart
@@ -87,16 +85,15 @@ function Results(props) {
     ]
   };
   const handleShare = () => {
-    exportComponentAsJPEG(componentRef).then((file) => {
-      console.log(file); // Check the value of the file variable
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setDataUrl(event.target.result);
-      };
-      reader.readAsDataURL(file);
-    });
+    try {
+      componentToDataURL(componentRef, "image/jpeg").then((dataUrl) => {
+        console.log(dataUrl);
+        setDataUrl(dataUrl);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
-
   return (
     <div className="resultados">
       {props.show && (
@@ -117,46 +114,32 @@ function Results(props) {
                 exportComponentAsJPEG(componentRef, { fileName: "misdones" })
               }
             >
-              Descargar resultados
+              Descargar
             </div>
-            <button onClick={handleShare}>Generate Image</button>
-            <WhatsappShareButton
-              url={dataUrl}
-              title="My Image"
-              onClick={() =>
-                exportComponentAsJPEG(componentRef).then((file) => {
-                  console.log(file); // Check the value of the file variable
-                  const reader = new FileReader();
-                  reader.onload = (event) => {
-                    setDataUrl(event.target.result);
-                  };
-                  reader.readAsDataURL(file);
-                })
-              }
-            >
-              <WhatsappIcon size={32} round />
-            </WhatsappShareButton>
             <Link
               style={{
-                margin: "1rem",
-                color: "var(--informacion)",
-                background: "var(--activo)",
-                padding: "1rem",
+                // margin: "1rem",
+                color: "var(--fondo)",
+                background: "var(--informacion)",
+                padding: "0.5rem",
                 minHeight: "1rem ",
                 borderRadius: "1rem"
               }}
               to="/lista"
-              onClick={() =>
-                exportComponentAsJPEG(componentRef, { fileName: "misdones" })
-              }
             >
-              Ver listado de todos los dones
+              Lista de dones
             </Link>
+            <WhatsappShareButton
+              url={"https://joel5vega.github.io/dones"}
+              title="Mira esta app para conocer tus dones espirituales!"
+            >
+              <WhatsappIcon size={32} round />
+            </WhatsappShareButton>
+
           </div>
         </React.Fragment>
       )}
     </div>
   );
 }
-
 export default Results;

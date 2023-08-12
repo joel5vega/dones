@@ -7,7 +7,7 @@ const SpiderChart = ({ data, subgroups ,title}) => {
 
   const series = [
     {
-    //   name: 'Series 1',
+      name: 'Dones',
       data: values,
     },
   ];
