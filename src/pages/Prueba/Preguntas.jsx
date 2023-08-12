@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Slider from "./SliderSimple";
+import Slider from "../../components/SliderSimple";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 function Preguntas(props) {

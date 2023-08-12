@@ -1,5 +1,6 @@
 .slider-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
     align-items: center;
     padding-bottom:0.3rem ;
     /* margin:1rem; */
@@ -8,8 +9,13 @@
   .slider-label {
     margin-left:10px;
     margin-right: 10px;
-    min-width: 100px;
+    /* min-width: 100px; */
     /* text-align: right; */
+  }
+  .slider-value{
+    margin-left:10px;
+    font-size: larger;
+    /* margin-right: 10px; */
   }
   
   .slider-input-container {
@@ -17,6 +23,7 @@
     align-items: center;
     justify-content: flex-end;
     flex-grow: 1;
+    max-width: fit-content;
   }
   
   .slider-input-container span {
