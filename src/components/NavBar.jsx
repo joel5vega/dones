@@ -4,12 +4,13 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import { Link, useNavigate } from "react-router-dom";
 import UserProfile from "./auth/UserProfile";
-
+import GoogleSignInButton from "./auth/GoogleSignInButton";
 export default function ImageAvatars(props) {
   const navigate = useNavigate();
   const onLogin = () => {
     // navigate("/test");
     console.log("login exitoso");
+    props.onTabClick("test");
     props.handleGoogleSignIn();
   };
   return (
@@ -31,11 +32,18 @@ export default function ImageAvatars(props) {
         direction="row"
         spacing={2}
       >
-        <Link to="/">
-          <Avatar alt="dones" src={DonesEspirituales} />
-        </Link>
+        <Avatar
+          alt="dones"
+          src={DonesEspirituales}
+          onClick={() => props.onTabClick("home")}
+        />
         <h2>{props.title}</h2>
-        <UserProfile user={props.user} handleGoogleSignIn={onLogin} />
+        {/* {props.user&&<button onClick={()=>props.onTabClick('test')}>Test</button>} */}
+        {props.user ? (
+          <UserProfile user={props.user}  />
+        ) : (
+          <GoogleSignInButton onClick={onLogin} />
+        )}
       </Stack>
     </>
   );

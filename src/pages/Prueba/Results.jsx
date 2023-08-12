@@ -116,7 +116,7 @@ function Results(props) {
             >
               Descargar
             </div>
-            <Link
+            {/* <Link
               style={{
                 // margin: "1rem",
                 color: "var(--fondo)",
@@ -128,7 +128,8 @@ function Results(props) {
               to="/lista"
             >
               Lista de dones
-            </Link>
+            </Link> */}
+            <button onClick={() => props.onTabClick("dones")}className="boton-info">Ver Dones</button>
             <WhatsappShareButton
               url={"https://joel5vega.github.io/dones"}
               title="Mira esta app para conocer tus dones espirituales!"

@@ -1,7 +1,7 @@
 import React from "react";
 import CategoriaData from "../../data/CategoriasData";
 import Don from "./Don";
-function Dones() {
+function Dones({onTabClick}) {
   return (
     <section className="resultados">
       <div className="dones">
@@ -9,6 +9,7 @@ function Dones() {
           <Don key={index} data={don} />
         ))}
       </div>
+      <button onClick={() => onTabClick("test")} className="boton">Tomar Test</button>
     </section>
   );
 }

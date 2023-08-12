@@ -91,40 +91,25 @@ function Home(props) {
         <p>¡Que Dios te bendiga!</p>
       </article>
       <div className="stack">
-        
-          <Link
-            style={{
-              color: "var(--fondo)",
-              background: "var(--activo)",
-              padding: "1rem",
-              minHeight: "1rem ",
-              borderRadius: "1rem"
-            }}
-            to="/test"
-            title="Por favor inicia sesion con google para tomar el test"
-            onClick={e => {
-              if (!props.loggedIn) {
-                e.preventDefault();
-                alert("Inicia sesión para poder tomar el test");
-                console.log("inicie sesion")
-              }
-            }}
-          >
-            Test de dones
-          </Link>
-        
-        <Link
-          to="/lista"
-          style={{
-            color: "var(--fondo)",
-            background: "var(--informacion)",
-            padding: "1rem",
-            minHeight: "1rem ",
-            borderRadius: "1rem"
+        <button
+          onClick={() => {
+            if (!props.user) {
+              console.log("aun no ingresa")
+              props.handleGoogleSignIn();
+            }
+            props.onTabClick("test");
           }}
+          className="boton"
         >
-          Ver dones
-        </Link>
+          Test
+        </button>
+        <button
+          onClick={() => props.onTabClick("dones")}
+          className="boton-info"
+        >
+          Ver Dones
+        </button>
+        {/* <button onClick={() => props.onTabClick("resultados")}>Mis resultados</button> */}
       </div>
       <img
         src={DonesEspirituales}

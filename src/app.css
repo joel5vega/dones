@@ -227,6 +227,24 @@ a {
 .boton-parte:hover {
   color: var(--activo);
 }
+.boton-info{
+  padding: 0.5rem;
+  max-width: fit-content;
+  background-color: var(--informacion);
+  color: var(--fondo);
+  justify-self: center;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.boton-info:hover {
+  background-color: var(--fondo);
+  color: var(--informacion);
+  border: 1px solid var(--informacion);
+}
 .resultados {
   display: flex;
   flex-direction: column;

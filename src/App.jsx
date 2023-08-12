@@ -8,8 +8,9 @@ import NavBar from "./components/NavBar";
 import "./app.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { doc, getDoc, setDoc,updateDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import db from "./services/Firebase";
+import PageContent from "./components/PageContent";
 const Test = lazy(() => import("./pages/Prueba/Test"));
 const Dones = lazy(() => import("./pages/Dones/Dones"));
 
@@ -27,6 +28,11 @@ function App() {
   const auth = getAuth();
   const provider = new GoogleAuthProvider();
 
+  //Navegacion por pestanas
+  const [activeTab, setActiveTab] = useState("home");
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
   //funciones extras
 
   const action = () => {
@@ -37,7 +43,7 @@ function App() {
     signInWithPopup(auth, provider)
       .then((result) => {
         setUser(result.user);
-        console.log("get data from",result.user.email);
+        console.log("get data from", result.user.email);
         fetchData(result.user).then((data) => {
           if (data) {
             setAnswers(data.answers);
@@ -82,7 +88,7 @@ function App() {
         answers: PreguntasData
       });
       setAnswers(data.answers);
-      console.log("registrado",user.email);
+      console.log("registrado", user.email);
     } catch (error) {
       console.log(error);
     }
@@ -129,9 +135,25 @@ function App() {
         user={user}
         handleSaveProgress={handleSaveProgress}
         handleSaveResultado={handleSaveResultado}
+        onTabClick={handleTabClick}
       />
+
       <Suspense fallback={<Loader />}>
-        <Routes>
+        <PageContent
+          activeTab={activeTab}
+          user={user}
+          handleSaveProgress={handleSaveProgress}
+          answers={answers ? answers : PreguntasData}
+          setAnswers={setAnswers}
+          setDones={setDones}
+          setResultado={setResultado}
+          resultado={resultado ? resultado : []}
+          handleSaveResultado={handleSaveResultado}
+          loggedIn={loggedIn}
+          onTabClick={handleTabClick}
+          handleGoogleSignIn={handleGoogleSignIn}
+        />
+        {/* <Routes>
           <Route path="/" element={<Home loggedIn={loggedIn} />} />
           {loggedIn && (
             <Route
@@ -151,7 +173,7 @@ function App() {
             />
           )}
           <Route path="/lista" element={<Dones />} />
-        </Routes>
+        </Routes> */}
       </Suspense>
 
       <Footer />

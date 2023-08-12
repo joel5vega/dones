@@ -121,6 +121,7 @@ function Test(props) {
       ) : (
         <Results
           resultado={resultado ? resultado : []}
+          onTabClick={props.onTabClick} 
           subgroups={subgroups}
           user={props.user}
           name={props.user.displayName}
