@@ -326,7 +326,7 @@ color: white;
     justify-content: space-around;
     align-items: right;
     gap: 0.5rem;
-    width: 75%;
+    width: 40%;
   }
   .pregunta {
     display: flex;
