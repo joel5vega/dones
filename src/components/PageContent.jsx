@@ -21,9 +21,21 @@ const PageContent = ({
 }) => {
   switch (activeTab) {
     case "home":
-      return <Home onTabClick={onTabClick} user={user} handleGoogleSignIn={handleGoogleSignIn}/>;
+      return (
+        <Home
+          onTabClick={onTabClick}
+          user={user}
+          handleGoogleSignIn={handleGoogleSignIn}
+        />
+      );
     case "dones":
-      return <Dones onTabClick={onTabClick} />;
+      return (
+        <Dones
+          onTabClick={onTabClick}
+          user={user}
+          handleGoogleSignIn={handleGoogleSignIn}
+        />
+      );
     case "test":
       return (
         <Test

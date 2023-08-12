@@ -1,14 +1,10 @@
 {
   "files": {
-    "main.css": "/dones/static/css/main.3fe722b8.css",
-    "main.js": "/dones/static/js/main.3d6eb84b.js",
-    "static/js/702.815eeac8.chunk.js": "/dones/static/js/702.815eeac8.chunk.js",
-    "static/js/226.bebc53b4.chunk.js": "/dones/static/js/226.bebc53b4.chunk.js",
+    "main.css": "/dones/static/css/main.291438e2.css",
+    "main.js": "/dones/static/js/main.2b5e2805.js",
     "static/css/395.01f75f86.chunk.css": "/dones/static/css/395.01f75f86.chunk.css",
-    "static/js/395.4e16d17a.chunk.js": "/dones/static/js/395.4e16d17a.chunk.js",
-    "static/js/99.0b3e2894.chunk.js": "/dones/static/js/99.0b3e2894.chunk.js",
+    "static/js/395.10404667.chunk.js": "/dones/static/js/395.10404667.chunk.js",
     "static/js/632.3b8c7d79.chunk.js": "/dones/static/js/632.3b8c7d79.chunk.js",
-    "static/js/948.082098f3.chunk.js": "/dones/static/js/948.082098f3.chunk.js",
     "static/media/enseñanza.png": "/dones/static/media/enseñanza.28c5125ba878a338b7f3.png",
     "static/media/exhortacion.png": "/dones/static/media/exhortacion.8b7db95b3c24e2762bee.png",
     "static/media/profecia.png": "/dones/static/media/profecia.eebf4a0dc8a9a9b08ce4.png",
@@ -25,18 +21,14 @@
     "static/media/evangelismo.png": "/dones/static/media/evangelismo.95b46cbad14c881d38fc.png",
     "static/media/dones-espirituales.svg": "/dones/static/media/dones-espirituales.cb512c3060540ec29178845da8b3776a.svg",
     "index.html": "/dones/index.html",
-    "main.3fe722b8.css.map": "/dones/static/css/main.3fe722b8.css.map",
-    "main.3d6eb84b.js.map": "/dones/static/js/main.3d6eb84b.js.map",
-    "702.815eeac8.chunk.js.map": "/dones/static/js/702.815eeac8.chunk.js.map",
-    "226.bebc53b4.chunk.js.map": "/dones/static/js/226.bebc53b4.chunk.js.map",
+    "main.291438e2.css.map": "/dones/static/css/main.291438e2.css.map",
+    "main.2b5e2805.js.map": "/dones/static/js/main.2b5e2805.js.map",
     "395.01f75f86.chunk.css.map": "/dones/static/css/395.01f75f86.chunk.css.map",
-    "395.4e16d17a.chunk.js.map": "/dones/static/js/395.4e16d17a.chunk.js.map",
-    "99.0b3e2894.chunk.js.map": "/dones/static/js/99.0b3e2894.chunk.js.map",
-    "632.3b8c7d79.chunk.js.map": "/dones/static/js/632.3b8c7d79.chunk.js.map",
-    "948.082098f3.chunk.js.map": "/dones/static/js/948.082098f3.chunk.js.map"
+    "395.10404667.chunk.js.map": "/dones/static/js/395.10404667.chunk.js.map",
+    "632.3b8c7d79.chunk.js.map": "/dones/static/js/632.3b8c7d79.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3fe722b8.css",
-    "static/js/main.3d6eb84b.js"
+    "static/css/main.291438e2.css",
+    "static/js/main.2b5e2805.js"
   ]
 }

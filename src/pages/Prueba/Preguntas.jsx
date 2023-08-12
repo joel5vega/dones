@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 function Preguntas(props) {
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 12;
+  const itemsPerPage = 10;
 
   const handlePageClick = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -16,7 +16,19 @@ function Preguntas(props) {
   );
 
   return (
-    <div className="preguntas">
+    <section>
+      {/* {currentPage} */}
+      {currentPage == 0 && (
+        <>
+          <p className="instruccion">
+            Responde con sinceridad, si estas de acuerdo con cada declaración.{" "}
+          </p>
+          <p className="instruccion">
+            No: es Completamente en desacuerdo (Nunca)
+          </p>
+          <p className="instruccion"> Si: Completamente de Acuerdo (Siempre)</p>
+        </>
+      )}
       {props.answers !== undefined ? (
         <>
           <div className="preguntas">
@@ -36,37 +48,39 @@ function Preguntas(props) {
               ))}
           </div>
           <div className="action-bar">
-          <div className="pagination">
-            {[...Array(totalPages).keys()].map((pageNumber) => (
-              <button
-                key={pageNumber}
-                onClick={() => handlePageClick(pageNumber)}
-                className={pageNumber === currentPage ? "active" : ""}
-              >
-                {pageNumber + 1}
-              </button>
-            ))}
-            {currentPage < totalPages - 1 && (
-              <button
-                onClick={() => handlePageClick(currentPage + 1)}
-                className="next"
-              ></button>
+            <div className="pagination">
+              {[...Array(totalPages).keys()].map((pageNumber) => (
+                <button
+                  key={pageNumber}
+                  onClick={() => handlePageClick(pageNumber)}
+                  className={pageNumber === currentPage ? "active" : ""}
+                >
+                  {pageNumber + 1}
+                </button>
+              ))}
+              {currentPage < totalPages - 1 && (
+                <button
+                  onClick={() => handlePageClick(currentPage + 1)}
+                  className="next"
+                ></button>
+              )}
+            </div>
+            {currentPage === totalPages - 1 && (
+              <>
+                <button onClick={props.buscarDon} className="boton">
+                  <div className="boton-parte">
+                    <FontAwesomeIcon icon={faSearch} />
+                  </div>
+                  <div className="boton-parte">Buscar mi don</div>
+                </button>
+              </>
             )}
-          </div>
-          {currentPage === totalPages - 1 && (
-            <>
-              <button onClick={props.buscarDon} className="boton">
-                <div className="boton-parte"><FontAwesomeIcon icon={faSearch} /></div>
-                <div className="boton-parte">Buscar mi don</div>
-              </button>
-            </>
-          )}
           </div>
         </>
       ) : (
         <section>no puedes ver preguntas</section>
       )}
-    </div>
+    </section>
   );
 }
 export default Preguntas;
