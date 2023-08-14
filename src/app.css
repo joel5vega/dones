@@ -76,14 +76,12 @@ a {
 }
 .instrucciones {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  margin:10px;
   justify-content: space-between;
   background: var(--fondo);
-  position: fixed;
-  z-index: 1;
-  top: 0;
   padding: 0.5rem;
-  width: 80%;
+  width: 100%;
   border-radius: 2rem;
   border: 1px solid var(--primario);
 }

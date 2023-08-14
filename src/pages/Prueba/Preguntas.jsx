@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import Slider from "../../components/SliderSimple";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSearch,
+  faGrimace,
+  faMeh,
+  faSmile,
+  faGrin,
+  faFaceSmileBeam,
+} from "@fortawesome/free-solid-svg-icons";
 function Preguntas(props) {
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
@@ -19,15 +26,27 @@ function Preguntas(props) {
     <section>
       {/* {currentPage} */}
       {currentPage == 0 && (
-        <>
+        <div className="instrucciones">
           <p className="instruccion">
             Responde con sinceridad, si estas de acuerdo con cada declaración.{" "}
           </p>
           <p className="instruccion">
-            No: es Completamente en desacuerdo (Nunca)
+            <FontAwesomeIcon icon={faGrimace} />: Poco, muy raras veces.
           </p>
-          <p className="instruccion"> Si: Completamente de Acuerdo (Siempre)</p>
-        </>
+          <p className="instruccion">
+            <FontAwesomeIcon icon={faSmile} />: A veces, me falta mejorar
+          </p>
+
+          <p className="instruccion">
+            <FontAwesomeIcon icon={faGrin} />: Generalmente, me siento cómodo
+            con esto.
+          </p>
+
+          <p className="instruccion">
+            <FontAwesomeIcon icon={faFaceSmileBeam} />: Siempre, es algo que me
+            encanta.
+          </p>
+        </div>
       )}
       {props.answers !== undefined ? (
         <>
