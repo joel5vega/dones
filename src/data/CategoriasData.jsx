@@ -6,7 +6,7 @@ const CategoriaData = [
     score: 0,
     definicion:
       "Animar a otros a estar involucrados y entusiasmados con el trabajo del Señor, ser buenos consejeros, motivar a otros a servir y manifestarse en la predicación, la enseñanza y el ministerio. ",
-    texto: "Romanos 12:8)"
+    texto: "Romanos 12:8"
   },
   {
     id: "d16",
