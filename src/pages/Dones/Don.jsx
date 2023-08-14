@@ -19,32 +19,34 @@ import hospitalidad from "../../assets/icons/hospitalidad.png";
 const iconObj = {
   d1: liderazgo,
   d2: administracion,
-  d3: enseñanza,
-  d4: conocimiento,
-  d5: sabiduria,
-  d6: profecia,
-  d7: discernimiento,
-  d8: exhortacion,
-  d9: pastor,
-  d16: fe,
-  d10: evangelismo,
-  d11: misionero,
-  d12: servicio,
-  d13: misericordia,
-  d14: dar,
-  d15: hospitalidad
+  d3: pastor,
+  d4: enseñanza,
+  d5: conocimiento,
+  d6: sabiduria,
+  d7: profecia,
+  d8: evangelismo,
+  d9: misionero,
+  d10: fe,
+  d11: discernimiento,
+  d12: exhortacion,
+  d13: servicio,
+  d14: misericordia,
+  d15: dar,
+  d16: hospitalidad
 };
 function Don(props) {
   const { id, name, score, definicion, texto } = props.data;
   return (
     <div className="don" key={id}>
-      <div>
-        <h3>{name}</h3>
+      <div className="don-head">
         <img className="icon" src={iconObj[id]} alt={name} />
+        <div className="don-title">
+          <h3>{name}</h3>
+          <h4>{texto}</h4>
+        </div>
       </div>
-      <div>
+      <div className="don-definition">
         <p>{definicion}</p>
-        <h4>{texto}</h4>
       </div>
     </div>
   );

@@ -1,11 +1,18 @@
 import * as React from "react";
-import DonesEspirituales from "../assets/pictures/dones-espirituales.png";
+import DonesEspirituales from "../assets/pictures/dones-espirituales.svg";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import { Button } from "@mui/material";
-import Popover from "./Popover";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import UserProfile from "./auth/UserProfile";
+import GoogleSignInButton from "./auth/GoogleSignInButton";
 export default function ImageAvatars(props) {
+  const navigate = useNavigate();
+  const onLogin = () => {
+    // navigate("/test");
+    console.log("login exitoso");
+    props.onTabClick("test");
+    props.handleGoogleSignIn();
+  };
   return (
     <>
       <Stack
@@ -19,32 +26,24 @@ export default function ImageAvatars(props) {
           top: "0",
           height: "3rem",
           width: "100%",
-          maxWidth: "100%"
+          maxWidth: "100%",
+          padding: "10px",
         }}
         direction="row"
         spacing={2}
       >
-        <Link to="/">
-          <Avatar alt="dones" src={DonesEspirituales} />
-        </Link>
+        <Avatar
+          className="icon"
+          alt="dones"
+          src={DonesEspirituales}
+          onClick={() => props.onTabClick("home")}
+        />
         <h2>{props.title}</h2>
-        {!props.result ? (
-          <Popover
-            title="?"
-            content={
-              <div className="instruccioness">
-                <p>Responde honestamente </p>
-                <p>No: Totalmente en desacuerdo</p>
-                <p>Si: Totalmente de acuerdo</p>
-              </div>
-            }
-          />
+        {/* {props.user&&<button onClick={()=>props.onTabClick('test')}>Test</button>} */}
+        {props.user ? (
+          <UserProfile user={props.user} />
         ) : (
-          <Link to="/test">
-            <div className="boton" variant="contained" onClick={props.action}>
-              Nuevo Test
-            </div>
-          </Link>
+          <GoogleSignInButton onClick={onLogin} />
         )}
       </Stack>
     </>
