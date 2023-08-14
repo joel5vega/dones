@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/dones/static/css/main.c804f543.css",
-    "main.js": "/dones/static/js/main.1d189b0b.js",
+    "main.js": "/dones/static/js/main.7d20b839.js",
     "static/css/52.d02ec9a8.chunk.css": "/dones/static/css/52.d02ec9a8.chunk.css",
-    "static/js/52.a74ef283.chunk.js": "/dones/static/js/52.a74ef283.chunk.js",
+    "static/js/52.ad8ea4d6.chunk.js": "/dones/static/js/52.ad8ea4d6.chunk.js",
     "static/js/632.6316f52d.chunk.js": "/dones/static/js/632.6316f52d.chunk.js",
     "static/media/enseñanza.png": "/dones/static/media/enseñanza.28c5125ba878a338b7f3.png",
     "static/media/exhortacion.png": "/dones/static/media/exhortacion.8b7db95b3c24e2762bee.png",
@@ -22,13 +22,13 @@
     "static/media/dones-espirituales.svg": "/dones/static/media/dones-espirituales.cb512c3060540ec29178845da8b3776a.svg",
     "index.html": "/dones/index.html",
     "main.c804f543.css.map": "/dones/static/css/main.c804f543.css.map",
-    "main.1d189b0b.js.map": "/dones/static/js/main.1d189b0b.js.map",
+    "main.7d20b839.js.map": "/dones/static/js/main.7d20b839.js.map",
     "52.d02ec9a8.chunk.css.map": "/dones/static/css/52.d02ec9a8.chunk.css.map",
-    "52.a74ef283.chunk.js.map": "/dones/static/js/52.a74ef283.chunk.js.map",
+    "52.ad8ea4d6.chunk.js.map": "/dones/static/js/52.ad8ea4d6.chunk.js.map",
     "632.6316f52d.chunk.js.map": "/dones/static/js/632.6316f52d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c804f543.css",
-    "static/js/main.1d189b0b.js"
+    "static/js/main.7d20b839.js"
   ]
 }
