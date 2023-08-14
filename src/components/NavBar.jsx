@@ -27,12 +27,13 @@ export default function ImageAvatars(props) {
           height: "3rem",
           width: "100%",
           maxWidth: "100%",
-          padding: "10px"
+          padding: "10px",
         }}
         direction="row"
         spacing={2}
       >
         <Avatar
+          className="icon"
           alt="dones"
           src={DonesEspirituales}
           onClick={() => props.onTabClick("home")}
@@ -40,7 +41,7 @@ export default function ImageAvatars(props) {
         <h2>{props.title}</h2>
         {/* {props.user&&<button onClick={()=>props.onTabClick('test')}>Test</button>} */}
         {props.user ? (
-          <UserProfile user={props.user}  />
+          <UserProfile user={props.user} />
         ) : (
           <GoogleSignInButton onClick={onLogin} />
         )}

@@ -53,7 +53,7 @@ const ComponentToPrint = React.forwardRef((props, ref) => (
   <div ref={ref} className="results">
     <div className="result-graphic">
       {props.resultado && (
-        <SpiderChart
+        <SpiderChart className="spider"
           title={"Mis dones: " + props.user}
           data={props.resultado}
           subgroups={props.subgroups}

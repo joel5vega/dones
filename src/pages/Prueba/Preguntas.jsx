@@ -88,7 +88,7 @@ function Preguntas(props) {
               <>
                 <button onClick={props.buscarDon} className="boton">
                   <div className="boton-parte">
-                    <FontAwesomeIcon icon={faSearch} />
+                    <FontAwesomeIcon  className='boton-parte' icon={faSearch} />
                   </div>
                   <div className="boton-parte">Buscar mi don</div>
                 </button>

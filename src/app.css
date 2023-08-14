@@ -7,13 +7,21 @@
   list-style: none;
   text-decoration: none;
   color: var(--primario);
+  background-color: var(--fondo);
 }
 :root {
+  --primario: #e6efe9;
+  --fondo: #052f5f;
+  --activo: #06a77d;
+  --informacion: #6b9ac4;
+  --resaltar:#FBAF00;
+}
+/* :root {
   --primario: #131112;
   --fondo: white;
   --activo: #4db5ff;
   --informacion: #4059ad;
-}
+} */
 
 .body {
   background: var(--fondo);
@@ -37,6 +45,9 @@ section {
   justify-content: center;
   padding: 1rem;
   flex-wrap: wrap;
+}
+.boton-info{
+  color:var(--primario);
 }
 .versiculo {
   font-size: 1.2rem;
@@ -119,6 +130,7 @@ a {
   max-width: 100px;
 }
 .results {
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,10 +140,19 @@ a {
 }
 .result-graphic {
   max-height: fit-content;
-  /* border:#0a3f64 1px solid; */
+  background-color: transparent;
+
+}
+.spider{
+  max-width: 100%;
+  max-height: 100%;
+  background-color: transparent;
+  /* border:#6b9ac4 1px solid; */
+  z-index: 1;
 }
 .results .dones {
-  margin-top: -3rem;
+  margin-top: -1rem;
+  /* z-index: 10; */
 }
 .justify-right {
   text-align: right;
@@ -180,8 +201,8 @@ a {
   width: 50px;
   height: 50px;
   padding: 5px;
-  /* border-radius: 50%; */
-  background-color: var(--fondo);
+  border-radius: 50%;
+  background-color: var(--resaltar);
 }
 
 .don .don-definition p {
@@ -216,7 +237,7 @@ a {
 }
 .boton-parte {
   margin: 2px;
-  color:var(--fondo);
+  background-color: var(--activo);
 }
 .boton-parte:hover {
   color: var(--activo);
@@ -269,7 +290,7 @@ a {
 
 .pagination button {
   background-color: white;
-  color: --var(primario);
+  color: var(--informacion);
   border: 2px solid var(--primario);
   border-radius: 50%;
   width: 30px;
@@ -279,7 +300,7 @@ a {
 
 .pagination button.active {
   background-color: var(--activo);
-  color: white;
+  color: var(--primario);
 }
 
 .pagination span {
@@ -350,5 +371,10 @@ color: white;
 .icon {
   width: 5rem;
   height: 5rem;
+  background-color: #FBAF00;
+  /* background-color: #131112; */
   /* margin-right: 0.5rem; */
+}
+.img icon{
+  background-color: #FBAF00;
 }

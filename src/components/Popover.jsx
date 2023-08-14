@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import * as React from "react";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 export default function BasicPopover(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
@@ -11,20 +11,20 @@ export default function BasicPopover(props) {
     setAnchorEl(null);
   };
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
   return (
     <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick} sx={{"color":"var(--fondo)","background":"var(--informacion)","textTransform":"capitalize","fontSize":"0.8rem"}}>
+      <button onClick={handleClick} className="boton-info">
         {props.title}
-      </Button>
+      </button>
       <Popover
         id={id}
         open={open}
         anchorEl={anchorEl}
         onClose={handleClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left",
         }}
       >
         <Typography sx={{ p: 1 }}>{props.content}</Typography>
