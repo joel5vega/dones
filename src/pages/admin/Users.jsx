@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import User from "./User";
-const Users = ({ db, user }) => {
+const Users = ({ db, user, onTabClick }) => {
   const [data, setData] = useState([]);
+  const [admin, setAdmin] = useState(false);
   const [usuario, setUsuario] = useState(null);
   const [exito, setExito] = useState(0);
   const [intentos, setIntentos] = useState(0);
@@ -14,11 +15,12 @@ const Users = ({ db, user }) => {
     setUsuario(docSnap.data());
     // console.log("usuario", usuario);
     if (docSnap.data().admin) {
-    //   console.log("es admin");
+      //   console.log("es admin");
+      setAdmin(true);
       const querySnapshot = await getDocs(collection(db, "users"));
       const allDocs = querySnapshot.docs.map((doc) => doc.data());
       setData(allDocs);
-    //   console.log(allDocs);
+      //   console.log(allDocs);
       const count = Object.values(allDocs).reduce((acc, curr) => {
         if (curr.hasOwnProperty("resultado")) {
           acc += 1;
@@ -29,12 +31,12 @@ const Users = ({ db, user }) => {
       setExito(count);
       setIntentos(Object.keys(allDocs).length - count);
     } else {
-    //   console.log("no es admin");
+      //   console.log("no es admin");
       const querySnapshot = await getDocs(collection(db, "users"));
       const allDocs = querySnapshot.docs.map((doc) => doc.data());
       const filtered = allDocs.filter((item) => item.email === user.email);
       setData(filtered);
-    //   console.log(filtered);
+      //   console.log(filtered);
     }
   };
   useEffect(() => {
@@ -46,7 +48,7 @@ const Users = ({ db, user }) => {
 
   return (
     <section className="usuarios">
-      {Object.keys(data) > 10 && (
+      {admin && (
         <h1>
           Total: {total} -- Exito: {exito}{" "}
         </h1>
@@ -59,6 +61,16 @@ const Users = ({ db, user }) => {
             </div>
           ))}
       </div>
+      {!admin && (
+        <button
+          onClick={() => {
+            onTabClick("test");
+          }}
+          className="boton"
+        >
+         Tomar Test
+        </button>
+      )}
     </section>
   );
 };
