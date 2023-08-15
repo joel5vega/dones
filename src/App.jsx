@@ -152,28 +152,9 @@ function App() {
           loggedIn={loggedIn}
           onTabClick={handleTabClick}
           handleGoogleSignIn={handleGoogleSignIn}
+          db={db}
         />
-        {/* <Routes>
-          <Route path="/" element={<Home loggedIn={loggedIn} />} />
-          {loggedIn && (
-            <Route
-              path="/test"
-              element={
-                <Test
-                  user={user}
-                  handleSaveProgress={handleSaveProgress}
-                  answers={answers ? answers : PreguntasData}
-                  setAnswers={setAnswers}
-                  setDones={setDones}
-                  setResultado={setResultado}
-                  resultado={resultado ? resultado : []}
-                  handleSaveResultado={handleSaveResultado}
-                />
-              }
-            />
-          )}
-          <Route path="/lista" element={<Dones />} />
-        </Routes> */}
+      
       </Suspense>
 
       <Footer />

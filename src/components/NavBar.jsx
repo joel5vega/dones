@@ -39,9 +39,8 @@ export default function ImageAvatars(props) {
           onClick={() => props.onTabClick("home")}
         />
         <h2>{props.title}</h2>
-        {/* {props.user&&<button onClick={()=>props.onTabClick('test')}>Test</button>} */}
         {props.user ? (
-          <UserProfile user={props.user} />
+          <UserProfile user={props.user} onTabClick={props.onTabClick}/>
         ) : (
           <GoogleSignInButton onClick={onLogin} />
         )}

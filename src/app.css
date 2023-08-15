@@ -98,7 +98,12 @@ a {
   border: 1px solid var(--primario);
   padding: 1rem;
 }
-
+.user-pic{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--resaltar);
+}
 .preguntas {
   /* margin-top: 2rem; */
   display: flex;
@@ -370,6 +375,34 @@ a {
   margin-right: 5px;
 color: white;
 }
+.usuarios{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.usuarios-resultado{
+  /* max-width: 50%; */
+  display: flex;
+  flex-direction: row;
+  /* border:#06a77d 1px solid; */
+  flex-wrap: wrap;
+
+}
+.perfil-usuario{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  /* width: 100%; */
+}
+.usuario-anonimo{
+  color:var(--primario)
+}
+
+
 
 @media screen and (min-width: 800px) {
   .preguntas{

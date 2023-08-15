@@ -21,14 +21,12 @@ const Slider = ({ id, value, onChange, pregunta }) => {
   return (
     <div className="slider-container">
       <label htmlFor={id}>{pregunta}</label>
-      {/* <br /> */}
       <div className="slider-value">
-        <FontAwesomeIcon icon={options[value].icon} />
+        <FontAwesomeIcon icon={options[value].icon} color="#FBAF00" />
       </div>
       <div className="slider-input-container">
         <label>Poco</label>
         <input
-          // className="slider-input-container"
           id={id}
           type="range"
           min="0"

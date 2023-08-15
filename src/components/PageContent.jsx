@@ -4,7 +4,7 @@ import Home from "../pages/Home/Home";
 import Dones from "../pages/Dones/Dones";
 import Test from "../pages/Prueba/Test";
 import Results from "../pages/Prueba/Results";
-
+import Users from "../pages/admin/Users";
 const PageContent = ({
   activeTab,
   user,
@@ -17,7 +17,7 @@ const PageContent = ({
   handleSaveResultado,
   loggedIn,
   onTabClick,
-  handleGoogleSignIn
+  handleGoogleSignIn,db
 }) => {
   switch (activeTab) {
     case "home":
@@ -53,6 +53,8 @@ const PageContent = ({
       );
     case "results":
       return <Results onTabClick={onTabClick} />;
+    case "user":
+      return <Users db={db} onTabClick={onTabClick} user={user}/>;
     default:
       return null;
   }

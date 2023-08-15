@@ -18,8 +18,8 @@
   }
   .slider-value{
     margin-left:10px;
-    font-size: larger;
-    /* margin-right: 10px; */
+    font-size: x-large  ;
+    /* color: #FBAF00; */
   }
   
   .slider-input-container {
@@ -35,6 +35,7 @@
   }
   .slider-input-container input {
     margin: 0 10px;
+    max-width: 85px;
   }
   
   .slider-input-container label {
