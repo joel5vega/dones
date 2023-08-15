@@ -87,10 +87,9 @@ function Preguntas(props) {
             {currentPage === totalPages - 1 && (
               <>
                 <button onClick={props.buscarDon} className="boton">
-                  <div className="boton-parte">
-                    <FontAwesomeIcon  className='boton-parte' icon={faSearch} />
-                  </div>
-                  <div className="boton-parte">Buscar mi don</div>
+                  <div className="boton-con-logo">
+                    <FontAwesomeIcon  className='boton-icon' icon={faSearch} />
+                Buscar mi don</div>
                 </button>
               </>
             )}

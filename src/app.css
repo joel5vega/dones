@@ -8,6 +8,7 @@
   text-decoration: none;
   color: var(--primario);
   background-color: var(--fondo);
+  font-family: 'Red Hat Display', sans-serif;
 }
 :root {
   --primario: #e6efe9;
@@ -95,17 +96,9 @@ a {
   width: 100%;
   border-radius: 2rem;
   border: 1px solid var(--primario);
+  padding: 1rem;
 }
-/* .preguntas {
-  background:var(--fondo);
-  margin-top: 3rem;
-  gap:0.5rem;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
 
-} */
 .preguntas {
   /* margin-top: 2rem; */
   display: flex;
@@ -240,7 +233,34 @@ a {
   background-color: var(--activo);
 }
 .boton-parte:hover {
-  color: var(--activo);
+  /* color: var(--activo); */
+  background-color: var(--fondo);
+}
+.boton-con-logo{
+  /* padding: 0.5rem; */
+  max-width: fit-content;
+  background-color: var(--activo);
+  color: var(--fondo);
+  justify-self: center;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.boton-icon{
+  padding: 0.3rem;
+  max-width: fit-content;
+  background-color: var(--activo);
+  color: var(--fondo);
+  justify-self: center;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .boton-info{
   padding: 0.5rem;
@@ -259,6 +279,19 @@ a {
   background-color: var(--fondo);
   color: var(--informacion);
   border: 1px solid var(--informacion);
+}
+.boton-descripcion{
+  /* padding: 0.5rem; */
+  max-width: fit-content;
+  background-color: var(--activo);
+  color: var(--fondo);
+  justify-self: center;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: bold;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
 }
 .resultados {
   display: flex;
@@ -366,6 +399,19 @@ color: white;
   }
   .input-range {
     max-width: 100px;
+  }
+  .boton-descripcion{
+    /* padding: 0.5rem; */
+    max-width: fit-content;
+    background-color: var(--activo);
+    color: var(--fondo);
+    justify-self: center;
+    border-radius: 1rem;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 .icon {
