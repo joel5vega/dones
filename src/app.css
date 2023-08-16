@@ -9,6 +9,7 @@
   color: var(--primario);
   background-color: var(--fondo);
   font-family: 'Red Hat Display', sans-serif;
+  
 }
 :root {
   --primario: #e6efe9;
@@ -29,7 +30,7 @@
 }
 
 .footer {
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   bottom: 0;
   width: 100%;
   color: var(--informacion);
@@ -46,6 +47,13 @@ section {
   justify-content: center;
   padding: 1rem;
   flex-wrap: wrap;
+}
+.home{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* gap: 1rem; */
 }
 .boton-info{
   color:var(--primario);
@@ -85,6 +93,9 @@ a {
 }
 .portada {
   max-height: 100px;
+  padding: auto;  
+  margin:0px;
+  border-radius: 1rem;
 }
 .instrucciones {
   display: flex;
