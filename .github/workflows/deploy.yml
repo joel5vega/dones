@@ -1,4 +1,4 @@
-name: Deploy React App to GitHub Pages Joel
+name: Deploy página Dones a GitHub Pages
 
 on:
   # Trigger on push to main branch
@@ -34,7 +34,8 @@ jobs:
         with:
           node-version: '18' # Change to '16' or '20' if needed
           cache: 'npm'
-      
+      - name: intall apexcharts
+        run: npm install react-apexcharts apexcharts --legacy-peer-deps
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
       
