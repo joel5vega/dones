@@ -1,6 +1,6 @@
 import React from "react";
 import SpiderChart from "../Prueba/SpiderChart";
-import { getFirestore, doc, setDoc, serverTimestamp, collection } from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import db from "../../services/Firebase";
 function User({ user }) {
   
@@ -19,6 +19,22 @@ function User({ user }) {
   }
   console.log(`Saving historical resultado for user ${user.uid} with submission ID ${submissionId}`);
   const saveHistoricalResultado = async () => {
+    // Reference the 'submissions' subcollection, but don't specify a document ID
+const submissionsCollectionRef = collection(db, "users", user.uid, "submissions");
+
+const dataToSave = {
+  ...user.resultado,
+  // You might still want to keep the original 'id' from user.resultado
+  // as a field *inside* the document if it's important for querying later.
+  // E.g., originalResultadoId: user.resultado.id,
+  createdAt: serverTimestamp()
+};
+delete dataToSave.id; // Still remove if you used it as a temp ID previously
+
+// Use addDoc to automatically create a new document with a unique ID
+await addDoc(submissionsCollectionRef, dataToSave);
+
+console.log(`New historical submission saved successfully for user ${user.uid}`);
     try {
       // 1. Create a new object for the data to store in the subcollection
       // This ensures we don't store the 'id' twice (once as doc ID, once as field)
