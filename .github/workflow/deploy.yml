@@ -42,7 +42,7 @@ jobs:
         run: npm run build
         env:
           CI: false # Prevents treating warnings as errors
-          PUBLIC_URL: https://joel5vega.github.io # Update with your username
+          PUBLIC_URL: https://joel5vega.github.io/dones # Update with your username
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
