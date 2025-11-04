@@ -17,7 +17,7 @@ function User({ user }) {
     console.error("Submission ID (date) is missing from user.resultado. Cannot save history.");
     return;
   }
-
+  console.log(`Saving historical resultado for user ${user.uid} with submission ID ${submissionId}`);
   const saveHistoricalResultado = async () => {
     try {
       // 1. Create a new object for the data to store in the subcollection
