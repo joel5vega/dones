@@ -37,7 +37,7 @@ function User({ user }) {
       await setDoc(submissionDocRef, dataToSave);
 
       console.log(`Historical submission for ${submissionId} saved successfully for user ${user.uid}`);
-    } catch (err: any) { // Catch the error specifically as 'any' for type safety
+    } catch (err) { // Catch the error specifically as 'any' for type safety
       console.error("Failed to save historical resultado:", err);
       // You can also check for specific error codes if needed, e.g., if (err.code === "permission-denied")
     }
