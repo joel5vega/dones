@@ -1,7 +1,7 @@
 import React from "react";
 import SpiderChart from "../Prueba/SpiderChart";
 import { doc, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
+import db from "./services/Firebase";
 function User({ user }) {
   useEffect(() => {
     // save user.resultado into the same user document in Firestore
