@@ -1,4 +1,4 @@
-import React from "react";
+import React , {useEffect} from "react";
 import SpiderChart from "../Prueba/SpiderChart";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import db from "../../services/Firebase";
