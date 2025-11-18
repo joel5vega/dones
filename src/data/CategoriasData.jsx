@@ -141,7 +141,7 @@ const CategoriaData = [
     score: 0,
     definicion:
       "Ayuda al cuerpo al reconocer las intenciones verdaderas de aquellos dentro del cuerpo o de los que están involucrados con él. El discernimiento prueba el mensaje y las acciones de otros para la protección y bienestar del cuerpo",
-    texto: "1 Corintios 12:10)"
+    texto: "1 Corintios 12:10"
   }
 ];
 export default CategoriaData;
