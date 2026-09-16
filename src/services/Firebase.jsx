@@ -15,18 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 // const auth = getAuth(app);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 const analytics = getAnalytics(app);
 
-async function verifyFirestoreConnection() {
-  try {
-    const docRef = doc(db, 'test', 'test');
-    const docSnap = await getDoc(docRef);
-    console.log('Firestore is connected');
-  } catch (e) {
-    console.error('Error connecting to Firestore:', e);
-  }
-}
-// verifyFirestoreConnection();
 
-export default db;
