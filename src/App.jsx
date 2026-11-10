@@ -9,7 +9,7 @@ import "./app.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import db from "./services/Firebase";
+import {db} from "./services/Firebase";
 import PageContent from "./components/PageContent";
 const Test = lazy(() => import("./pages/Prueba/Test"));
 const Dones = lazy(() => import("./pages/Dones/Dones"));
