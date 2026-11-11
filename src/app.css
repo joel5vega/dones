@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
   margin: 0;
   padding: 0;
@@ -12,10 +13,18 @@
   
 }
 :root {
+=======
+/* =========================================================
+   1. DESIGN TOKENS (variables reutilizables)
+   ========================================================= */
+:root {
+  /* Paleta base (tuya, conservada) */
+>>>>>>> refactor
   --primario: #e6efe9;
   --fondo: #052f5f;
   --activo: #06a77d;
   --informacion: #6b9ac4;
+<<<<<<< HEAD
   --resaltar:#FBAF00;
 }
 /* :root {
@@ -25,10 +34,151 @@
   --informacion: #4059ad;
 } */
 
+=======
+  --resaltar: #fbaf00;
+
+  /* Derivados de la paleta (para no repetir literales) */
+  --fondo-suave: rgba(255, 255, 255, 0.06);
+  --fondo-hover: rgba(255, 255, 255, 0.12);
+  --borde: rgba(230, 239, 233, 0.25);
+  --texto-muted: #9bb3c9;
+  --sombra-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --sombra-md: 0 4px 16px rgba(0, 0, 0, 0.25);
+  --sombra-lg: 0 12px 32px rgba(0, 0, 0, 0.35);
+
+  /* Espaciado (escala consistente) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  /* Radios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* Tipografía */
+  --fuente: "Red Hat Display", sans-serif;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+
+  /* Transiciones */
+  --transicion: 160ms ease;
+}
+
+/* =========================================================
+   2. RESET (solo lo necesario, sin pisar fondos)
+   ========================================================= */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background: var(--fondo);
+  color: var(--primario);
+  font-family: var(--fuente);
+  font-size: var(--fs-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color var(--transicion);
+}
+
+a:hover {
+  color: var(--resaltar);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--resaltar);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   3. TIPOGRAFÍA
+   ========================================================= */
+h1,
+h2,
+h3,
+h4 {
+  color: var(--primario);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+h1 { font-size: var(--fs-2xl); font-weight: 700; }
+h2 { font-size: var(--fs-xl);  font-weight: 700; }
+h3 { font-size: var(--fs-lg);  font-weight: 600; }
+h4 { font-size: var(--fs-base); font-weight: 600; }
+
+p {
+  color: var(--primario);
+  font-size: var(--fs-base);
+  margin-top: var(--space-1);
+}
+
+.versiculo,
+.versiculo-cita {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  color: var(--primario);
+}
+
+.instruccion {
+  font-size: var(--fs-sm);
+  color: var(--informacion);
+}
+
+/* =========================================================
+   4. LAYOUT
+   ========================================================= */
+>>>>>>> refactor
 .body {
   background: var(--fondo);
 }
 
+<<<<<<< HEAD
 .footer {
   /* margin-top: 1rem; */
   bottom: 0;
@@ -84,11 +234,25 @@ a {
 }
 .stack {
   margin: 1rem;
+=======
+
+
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.stack {
+>>>>>>> refactor
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   gap: 0.5rem;
 }
 .portada {
@@ -121,6 +285,118 @@ a {
   flex-direction: column;
 
   justify-content: left;
+=======
+  gap: var(--space-2);
+  margin: var(--space-4);
+}
+
+.footer {
+  bottom: 0;
+  width: 100%;
+  padding: var(--space-5);
+  text-align: center;
+  color: var(--informacion);
+}
+
+.portada {
+  max-height: 100px;
+  margin: 0;
+  border-radius: var(--radius-lg);
+}
+
+/* =========================================================
+   5. COMPONENTES BASE: botones
+   ========================================================= */
+.boton,
+.boton-info,
+.boton-con-logo,
+.boton-descripcion,
+.buscar-don {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  font-weight: 700;
+  text-align: center;
+  transition: background var(--transicion), color var(--transicion),
+    border-color var(--transicion), transform var(--transicion);
+}
+
+.boton {
+  background: var(--activo);
+  color: var(--fondo);
+}
+
+.boton:hover {
+  background: transparent;
+  color: var(--activo);
+  border: 1px solid var(--activo);
+  transform: translateY(-1px);
+}
+
+.boton-info {
+  background: var(--informacion);
+  color: var(--fondo);
+}
+
+.boton-info:hover {
+  background: transparent;
+  color: var(--informacion);
+  border: 1px solid var(--informacion);
+}
+
+.boton-con-logo {
+  background: var(--activo);
+  color: var(--fondo);
+}
+
+.boton-icon {
+  padding: var(--space-1);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  color: inherit;
+}
+
+.boton-descripcion {
+  display: none;
+  background: var(--activo);
+  color: var(--fondo);
+}
+
+.buscar-don {
+  background: var(--informacion);
+  color: #fff;
+  font-size: var(--fs-lg);
+  padding: var(--space-3) var(--space-5);
+}
+
+.buscar-don i {
+  margin-right: var(--space-1);
+  color: #fff;
+}
+
+/* =========================================================
+   6. PREGUNTAS / SLIDER
+   ========================================================= */
+.preguntas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  justify-content: flex-start;
+}
+
+.pregunta {
+  display: flex;
+  flex-direction: column;
+}
+
+.pregunta h3 {
+  font-size: 0.75rem;
+  margin: var(--space-2);
+  color: var(--primario);
+>>>>>>> refactor
 }
 
 .respuesta {
@@ -129,6 +405,7 @@ a {
   color: var(--activo);
 }
 
+<<<<<<< HEAD
 .pregunta h3 {
   font-size: 0.7rem;
   margin: 0.5rem;
@@ -331,6 +608,36 @@ a {
   gap: 1rem;
   /* width: 100%; */
 }
+=======
+.input-range {
+  padding: var(--space-2);
+  max-width: 100px;
+}
+
+.instrucciones {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--primario);
+  border-radius: var(--radius-xl);
+  background: var(--fondo);
+}
+
+/* =========================================================
+   7. PAGINACIÓN
+   ========================================================= */
+.action-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+>>>>>>> refactor
 .pagination {
   display: flex;
   flex-direction: row;
@@ -338,6 +645,7 @@ a {
 }
 
 .pagination button {
+<<<<<<< HEAD
   background-color: white;
   color: var(--informacion);
   border: 2px solid var(--primario);
@@ -364,16 +672,58 @@ a {
 }
 
 .pagination button.next:before {
+=======
+  width: 30px;
+  height: 30px;
+  margin: var(--space-1);
+  border-radius: 50%;
+  border: 2px solid var(--primario);
+  background: #fff;
+  color: var(--informacion);
+  font-weight: 600;
+  transition: all var(--transicion);
+}
+
+.pagination button:hover {
+  border-color: var(--activo);
+  color: var(--activo);
+}
+
+.pagination button.active {
+  background: var(--activo);
+  color: var(--primario);
+  border-color: var(--activo);
+}
+
+.pagination span {
+  margin: var(--space-1);
+}
+
+.pagination button.next {
+  width: auto;
+  height: auto;
+  max-width: fit-content;
+  border: none;
+  background: transparent;
+}
+
+.pagination button.next::before {
+>>>>>>> refactor
   content: "";
   display: inline-block;
   width: 0;
   height: 0;
+<<<<<<< HEAD
   margin-left: 10px;
+=======
+  margin-left: var(--space-2);
+>>>>>>> refactor
   border-top: 15px solid transparent;
   border-bottom: 15px solid transparent;
   border-left: 25px solid var(--activo);
 }
 
+<<<<<<< HEAD
 .buscar-don {
   background-color: var(--informacion);
   color: white;
@@ -387,10 +737,25 @@ a {
 color: white;
 }
 .usuarios{
+=======
+/* =========================================================
+   8. RESULTADOS
+   ========================================================= */
+.resultados {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: center;
+}
+
+.results {
+>>>>>>> refactor
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   gap: 1rem;
 }
 .usuarios-resultado{
@@ -402,10 +767,100 @@ color: white;
 
 }
 .perfil-usuario{
+=======
+  flex-wrap: wrap;
+  margin-top: var(--space-6);
+}
+
+.result-graphic,
+.spider {
+  background: transparent;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.results .dones {
+  margin-top: calc(var(--space-4) * -1);
+}
+
+.dones {
+  width: 90%;
+}
+
+/* =========================================================
+   9. DONES
+   ========================================================= */
+.don {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  background: var(--fondo);
+}
+
+.don h3 {
+  margin-bottom: 0;
+}
+
+.don h4 {
+  margin-top: 0;
+  font-style: italic;
+  font-size: var(--fs-sm);
+  color: var(--informacion);
+}
+
+.don-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-4);
+}
+
+.don-definition {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.don .don-definition p {
+  margin-top: 0;
+  font-size: var(--fs-sm);
+}
+
+.don img {
+  width: 50px;
+  height: 50px;
+  padding: var(--space-1);
+  border-radius: 50%;
+  background: var(--resaltar);
+}
+
+/* =========================================================
+   10. USUARIOS / PERFIL
+   ========================================================= */
+.usuarios {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+}
+
+.usuarios-resultado {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.perfil-usuario {
+>>>>>>> refactor
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+<<<<<<< HEAD
   gap: 1rem;
   /* width: 100%; */
 }
@@ -467,4 +922,87 @@ color: white;
 }
 .img icon{
   background-color: #FBAF00;
+=======
+  gap: var(--space-4);
+}
+
+.usuario-anonimo {
+  color: var(--primario);
+}
+
+.user-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--resaltar);
+}
+
+.profile-picture {
+  width: 100%;
+  height: 100%;
+  max-height: 2rem;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+/* =========================================================
+   11. UTILIDADES
+   ========================================================= */
+.justify-right {
+  text-align: right;
+}
+
+.icon {
+  width: 5rem;
+  height: 5rem;
+  background: var(--resaltar);
+}
+
+.img icon {
+  background: var(--resaltar);
+}
+
+/* =========================================================
+   12. RESPONSIVE
+   ========================================================= */
+@media screen and (min-width: 800px) {
+  .preguntas {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    gap: 0.5rem;
+    width: 60%;
+  }
+
+  .pregunta {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--fs-base);
+    max-width: 250px;
+  }
+
+  .pregunta h3 {
+    font-size: var(--fs-base);
+    margin: 0.5rem;
+    color: var(--primario);
+  }
+
+  .input-range {
+    max-width: 100px;
+  }
+
+  .dones {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .boton-descripcion {
+    display: inline-flex;
+    background: var(--activo);
+    color: var(--fondo);
+  }
+>>>>>>> refactor
 }

@@ -1,0 +1,479 @@
+.results-view {
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: 60px 24px 100px;
+  animation: fade-in 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.results-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+  gap: clamp(2.5rem, 6vw, 6rem);
+  align-items: center;
+}
+
+.results-intro h1 {
+  color: var(--primario);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+.results-intro > p:not(.eyebrow) {
+  max-width: 540px;
+  margin: 20px 0 0;
+  color: var(--informacion);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.primary-gift {
+  display: grid;
+  grid-template-columns: 32px 56px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  max-width: 520px;
+  margin-top: 32px;
+  padding: 16px;
+  border: 1px solid rgba(230, 239, 233, 0.15);
+  border-radius: var(--radius-lg);
+  background: rgba(230, 239, 233, 0.05);
+}
+
+.gift-rank { color: var(--informacion); font-size: 11px; font-weight: 600; }
+.gift-icon, .gift-card-icon {
+  display: grid; place-items: center;
+  border-radius: var(--radius-md);
+  background: rgba(251, 175, 0, 0.15);
+}
+.gift-icon { width: 56px; height: 56px; }
+.gift-icon img, .gift-card-icon img { width: 60%; height: 60%; object-fit: contain; }
+.primary-gift small { color: var(--informacion); font-size: 10px; text-transform: uppercase; }
+.primary-gift strong { color: var(--primario); font-size: 16px; font-weight: 700; }
+.primary-gift b { color: var(--resaltar); font-size: 22px; font-weight: 700; margin-right: 8px; }
+
+/* Radar */
+.chart-card {
+  padding: 24px 28px;
+  border: 1px solid rgba(230, 239, 233, 0.15);
+  border-radius: var(--radius-lg);
+  background: rgba(230, 239, 233, 0.05);
+}
+.chart-heading {
+  display: flex; justify-content: space-between;
+  color: var(--primario); font-size: 13px; font-weight: 600;
+}
+.chart-legend { display: flex; align-items: center; gap: 7px; color: var(--informacion); font-size: 11px; }
+.chart-legend i { width: 8px; height: 8px; border-radius: 50%; background: var(--resaltar); }
+
+.radar-wrap { position: relative; width: min(440px, 92%); margin: 12px auto 0; aspect-ratio: 1; }
+.radar-chart { width: 100%; height: 100%; overflow: visible; }
+.radar-grid, .radar-axis { fill: none; stroke: rgba(230, 239, 233, 0.12); stroke-width: 0.8; }
+.radar-result {
+  fill: rgba(251, 175, 0, 0.18);
+  stroke: var(--resaltar);
+  stroke-linejoin: round;
+  stroke-width: 2;
+  animation: radar-grow 900ms 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.radar-dot { fill: var(--fondo); stroke: var(--resaltar); stroke-width: 2; }
+.radar-label { position: absolute; top: var(--y); left: var(--x); width: 100px; color: var(--informacion); font-size: 9.5px; text-align: center; transform: translate(-50%, -50%); }
+
+/* Dones Cards */
+.gift-section { display: flex; flex-direction: column; gap: 28px; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 40px; }
+.section-heading h2 { margin: 0; color: var(--primario); font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; }
+.section-heading > p { max-width: 300px; color: var(--informacion); font-size: 12.5px; }
+
+.gift-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gift-card {
+  display: flex; flex-direction: column; gap: 18px; min-height: 300px; padding: 22px;
+  border: 1px solid rgba(230, 239, 233, 0.15); border-radius: var(--radius-lg);
+  color: var(--primario); background: rgba(230, 239, 233, 0.04); text-align: left; cursor: pointer;
+  transition: all 250ms ease;
+}
+.gift-card:hover, .gift-card.expanded {
+  border-color: rgba(251, 175, 0, 0.5); background: rgba(230, 239, 233, 0.08); transform: translateY(-4px);
+}
+.gift-card-top { display: flex; justify-content: space-between; }
+.gift-card-icon { width: 48px; height: 48px; }
+.gift-number { color: var(--informacion); font-size: 11px; font-weight: 600; }
+.gift-card-copy { display: flex; flex-direction: column; flex: 1; }
+.gift-card-copy small { color: var(--activo); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+.gift-card-copy strong { margin-top: 6px; color: var(--primario); font-size: 22px; font-weight: 700; }
+.gift-card-copy em { margin-top: 4px; color: var(--informacion); font-size: 10.5px; font-style: normal; }
+.gift-description { margin-top: 14px; color: var(--informacion); font-size: 12.5px; line-height: 1.55; opacity: 0.85; }
+.gift-card.expanded .gift-description { opacity: 1; color: var(--primario); }
+.gift-score { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; margin-top: auto; padding-top: 14px; }
+.gift-score > span { height: 4px; border-radius: var(--radius-full); background: rgba(230, 239, 233, 0.12); }
+.gift-score i { display: block; height: 100%; border-radius: inherit; background: var(--resaltar); }
+.gift-score b { color: var(--resaltar); font-size: 13px; font-weight: 700; }
+
+/* CTA */
+.results-action {
+  display: flex; align-items: center; justify-content: space-between; gap: 48px;
+  padding: 48px; border: 1px solid rgba(230, 239, 233, 0.15); border-radius: var(--radius-xl);
+  background: rgba(230, 239, 233, 0.06);
+}
+.results-action h2 { color: var(--primario); font-size: 2rem; font-weight: 700; margin: 0; }
+.results-action p:not(.eyebrow) { color: var(--informacion); font-size: 13px; margin-top: 14px; }
+
+.stack { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.restart-button, .btn-outline {
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px;
+  border-radius: var(--radius-lg); font-weight: 700; font-size: 13px; cursor: pointer;
+  transition: all 200ms;
+}
+.restart-button { background: var(--resaltar); color: var(--fondo); border: none; }
+.restart-button:hover { background: var(--activo); }
+.btn-outline { background: transparent; color: var(--primario); border: 1px solid var(--borde); text-decoration: none; }
+.btn-outline:hover { border-color: var(--resaltar); color: var(--resaltar); }
+
+@keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes radar-grow { from { opacity: 0; transform: scale(0.05); } to { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 960px) {
+  .results-hero { grid-template-columns: 1fr; text-align: center; }
+  .results-intro > p, .primary-gift { margin-left: auto; margin-right: auto; }
+  .gift-grid { grid-template-columns: 1fr; }
+  .results-action { flex-direction: column; align-items: flex-start; }
+}
+
+/* =========================================================
+   NUEVOS ESTILOS PARA EL GRÁFICO Y BOTÓN DE DESCARGA
+   ========================================================= */
+
+.chart-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--informacion);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: rgba(230, 239, 233, 0.1);
+  color: var(--primario);
+}
+
+.icon-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.icon-btn.loading {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================================
+   CABECERA DEL USUARIO EN LA EXPORTACIÓN
+   ========================================================= */
+.radar-export-area {
+  background: var(--fondo); /* Asegura el fondo azul */
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================================================
+   CABECERA DEL USUARIO EN LA EXPORTACIÓN
+   ========================================================= */
+.export-user-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Separa la foto a la izquierda y el icono a la derecha */
+  gap: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 20px;
+}
+
+.export-user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Icono del don principal (Derecha) */
+.export-top-gift {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: var(--fondo-suave);
+  border: 2px solid var(--resaltar);
+  border-radius: var(--radius-lg); /* Forma de cuadrado redondeado */
+  padding: 10px;
+  box-shadow: 0 0 15px rgba(251, 175, 0, 0.15); /* Resplandor dorado sutil */
+}
+
+.export-top-gift img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Ajustes de la foto y textos */
+.export-avatar, 
+.export-avatar-placeholder {
+  background: var(--fondo-suave);
+  color: var(--primario); /* Color blanco/primario */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  border: 2px solid var(--resaltar);
+}
+.export-avatar-placeholder {
+  background: var(--fondo-suave);
+  color: var(--resaltar);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.export-greeting {
+  font-size: 11px;
+  color: var(--informacion);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 2px 0;
+}
+
+.export-name {
+  font-size: 22px;
+  color: var(--primario);
+  margin: 0;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.export-avatar, 
+.export-avatar-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid var(--resaltar);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.export-avatar-placeholder {
+  background: var(--fondo-suave);
+  color: var(--resaltar);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.export-greeting {
+  font-size: 11px;
+  color: var(--informacion);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 2px 0;
+}
+
+.export-name {
+  font-size: 18px;
+  color: var(--primario);
+  margin: 0;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+/* =========================================================
+   ARREGLO VISUAL DEL RADAR CHART
+   ========================================================= */
+
+/* Los colores del área y los ejes */
+.radar-result {
+  fill: rgba(251, 175, 0, 0.15); /* Dorado semi-transparente */
+  stroke: var(--resaltar);        /* Borde dorado */
+  stroke-width: 2;
+  stroke-linejoin: round;
+  animation: radar-grow 900ms 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.radar-grid, .radar-axis {
+  fill: none;
+  stroke: rgba(230, 239, 233, 0.15); /* Gris azulado tenue */
+  stroke-width: 0.8;
+}
+
+.radar-dot {
+  fill: var(--fondo);             /* Fondo azul para que parezca un anillo */
+  stroke: var(--resaltar);        /* Borde dorado */
+  stroke-width: 2;
+  animation: dot-pop 400ms 700ms cubic-bezier(0.22, 1.4, 0.36, 1) both;
+}
+
+/* Resaltar el don principal */
+.radar-dot.is-top {
+  fill: var(--resaltar);          /* Punto sólido dorado */
+  stroke: #fff;                   /* Borde blanco para que resalte */
+  stroke-width: 2.5;
+}
+
+.radar-dot-halo {
+  fill: rgba(251, 175, 0, 0.3);   /* Halo de luz */
+  animation: pulse-halo 2s infinite ease-in-out;
+}
+
+.radar-label.is-top {
+  color: var(--resaltar);
+  font-weight: 700;
+  font-size: 11px;                /* Un poco más grande */
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Para que el texto de las etiquetas no se desborde */
+.radar-label {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: 90px;
+  color: var(--informacion);
+  font-size: 9px;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  line-height: 1.2;
+  pointer-events: none; /* No bloquea los clics */
+}
+
+/* =========================================================
+   FOOTER DEL GRÁFICO (FUENTE)
+   ========================================================= */
+.chart-source {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 11px;
+  color: var(--informacion);
+  opacity: 0.7;
+}
+
+.chart-source a {
+  color: var(--informacion);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.chart-source a:hover {
+  color: var(--resaltar);
+}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+@keyframes radar-grow {
+  from { opacity: 0; transform: scale(0.05); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes dot-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulse-halo {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.4); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* =========================================================
+   CABECERA DEL USUARIO
+   ========================================================= */
+.user-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.user-avatar, .user-avatar-placeholder {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--resaltar);
+  object-fit: cover;
+}
+
+.user-avatar-placeholder {
+  background: var(--fondo-suave);
+  color: var(--resaltar);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.user-greeting {
+  font-size: 13px;
+  color: var(--informacion);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 4px 0;
+}
+
+.user-name {
+  font-size: 20px;
+  color: var(--primario);
+  margin: 0;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+/* Ajuste del título principal */
+.results-intro h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 12px;
+}
+
+.results-subtitle {
+  font-size: 15px;
+  color: var(--informacion);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   ANIMACIÓN DEL HALO DEL DON PRINCIPAL
+   ========================================================= */
+.pulse-halo {
+  animation: pulse-halo 2s infinite ease-in-out;
+  transform-origin: center;
+}
+
+@keyframes pulse-halo {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
