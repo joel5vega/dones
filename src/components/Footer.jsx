@@ -1,0 +1,10 @@
+export default function Footer() {
+  return (
+    <div className="footer">
+      Desarrollado por{" "}
+      <a href="https://joel5vega.github.io?utm_source=projects&utm_medium=dones&utm_campaign=footer">
+        Joel Vega
+      </a>
+    </div>
+  );
+}

@@ -1,0 +1,35 @@
+{
+  "name": "dones",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "homepage": "https://joel5vega.github.io/dones/",
+  "license": "ISC",
+  "repository": { "type": "git", "url": "git+https://github.com/joel5vega/dones.git" },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.15.0",
+    "apexcharts": "^4.0.0",
+    "firebase": "^10.7.0",
+    "html-to-image": "^1.11.11",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.7.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.0",
+    "react-share": "^4.4.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.0"
+  }
+}
