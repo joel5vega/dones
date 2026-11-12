@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../contexts/AuthContext";
 import { getAllProfiles, saveRadarImage } from "../../services/userService";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import ResultCard from "./ResultCard";
 import AdminUsers from "./AdminUsers";
 import "./profile.css";

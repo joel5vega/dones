@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTest } from "../../hooks/useTest";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import GoogleSignInButton from "../../components/GoogleSignInButton";
 import Questions from "./Questions";
 import Results from "./Results";

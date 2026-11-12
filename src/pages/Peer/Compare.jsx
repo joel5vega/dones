@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import InvitePanel from "../../components/InvitePanel";
 import CompareRadar from "../../components/CompareRadar";
 import categorias from "../../data/categorias";

@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import Loader from "../../components/Loader";
+import Loader from "../../components/Loader/Loader";
 import GoogleSignInButton from "../../components/GoogleSignInButton";
 import CodeEntry from "../../components/CodeEntry";
 import GiftPicker from "../../components/GiftPicker";
