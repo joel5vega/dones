@@ -87,15 +87,15 @@ export default function Profile() {
           </div>
         )}
       </section>
-
-      <Link to="/test" className="btn btn-primary">
-        {profile?.resultado ? "Repetir el Test" : "Hacer el Test"}
-      </Link>
-      {profile?.resultado && (
+  {profile?.resultado && (
         <Link to="/evaluaciones" className="btn btn-primary">
           Evaluación de otros
         </Link>
       )}
+      <Link to="/test" className="btn btn-primary">
+        {profile?.resultado ? "Repetir el Test" : "Hacer el Test"}
+      </Link>
+    
     </main>
   );
 }

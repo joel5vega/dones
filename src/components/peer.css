@@ -50,3 +50,11 @@
 .code-entry-row .peer-input { flex: 1 1 160px; min-width: 0; }
 .code-entry .btn-finish { display: inline-flex; padding: 12px 20px; border: 0; border-radius: var(--radius-full); background: var(--resaltar); color: var(--fondo); font-weight: 700; cursor: pointer; }
 .code-entry .btn-finish:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.radar-wrap {
+  position: relative; /* ESTO ES CLAVE */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  aspect-ratio: 1;
+}

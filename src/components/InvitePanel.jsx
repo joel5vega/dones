@@ -23,7 +23,7 @@ export default function InvitePanel({ invite, busy, onCreate, canCreate }) {
       <div className="peer-card">
         <h2>Pide que alguien más te evalúe</h2>
         <p className="peer-muted">
-          Genera un enlace corto para que una persona que te conoce responda sobre ti y compara su
+          Genera un enlace  para que una persona que te conoce responda sobre ti y compara su
           visión con tus resultados.
         </p>
         <button className="btn-finish" onClick={onCreate} disabled={busy || !canCreate}>
@@ -38,7 +38,7 @@ export default function InvitePanel({ invite, busy, onCreate, canCreate }) {
     <div className="peer-card">
       <h2>Tu enlace de evaluación</h2>
       <p className="peer-muted">
-        Compártelo con alguien que te conozca bien. Tendrá que iniciar sesión y responder{" "}
+        Compártelo con alguien que te conozca bien. Tendra que responder{" "}
         {invite.questionIds?.length} preguntas.
       </p>
       <div className="invite-box">
@@ -57,9 +57,7 @@ export default function InvitePanel({ invite, busy, onCreate, canCreate }) {
         >
           <WhatsappIcon size={32} round />
         </WhatsappShareButton>
-        <button className="link-btn" onClick={onCreate} disabled={busy}>
-          Actualizar con mi último test
-        </button>
+     
       </div>
     </div>
   );

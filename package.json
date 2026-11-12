@@ -33,7 +33,7 @@
     "react-apexcharts": "^1.7.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.18.5",
-    "react-share": "^4.4.1"
+    "react-share": "^6.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^5.2.0",

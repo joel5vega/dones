@@ -1,4 +1,4 @@
-import { forwardRef, useRef, useState } from "react";
+import { forwardRef, useRef, useState, useMemo } from "react";
 import { toJpeg } from "html-to-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDownload, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +15,15 @@ const ExportableResultCard = forwardRef(function ExportableResultCard(
   const [isDownloading, setIsDownloading] = useState(false);
 
   const top = ranking[0];
+
+    const top8Axes = useMemo(() => {
+    return ranking.slice(0, 7).map((g) => ({ 
+      id: g.id, 
+      label: g.name, 
+      score: g.score 
+    }));
+  }, [ranking]);
+
   const radarAxes = ranking.map((g) => ({ id: g.id, label: g.name, score: g.score }));
 
   const download = async () => {
@@ -42,7 +51,7 @@ const ExportableResultCard = forwardRef(function ExportableResultCard(
   return (
     <div className="exportable-card-wrapper">
       <div className="exportable-header">
-        <span>Tu perfil completo</span>
+        <span>Perfil de dones</span>
         <button
           className={`icon-btn ${isDownloading ? "loading" : ""}`}
           onClick={download}
@@ -70,8 +79,7 @@ const ExportableResultCard = forwardRef(function ExportableResultCard(
               </div>
             )}
             <div>
-              <p className="export-greeting">Perfil de dones de</p>
-              <h2 className="export-name">{userName || "Invitado"}</h2>
+              <span className="export-name">{userName || "Invitado"}</span>
             </div>
           </div>
           {top && topIcon && (
@@ -81,8 +89,9 @@ const ExportableResultCard = forwardRef(function ExportableResultCard(
           )}
         </div>
 
-        <RadarChart ref={chartRef} axes={radarAxes} topGiftName={top?.name} />
-
+        {/* <RadarChart ref={chartRef} axes={radarAxes} topGiftName={top?.name} /> */}
+      <RadarChart axes={top8Axes} topGiftName={top?.name} />
+      
         <div className="chart-source">
           Fuente:{" "}
           <a href={SITE_URL} target="_blank" rel="noopener noreferrer">
