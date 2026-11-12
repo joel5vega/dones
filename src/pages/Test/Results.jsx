@@ -90,6 +90,7 @@ export default function Results({ ranking, userName, userPhoto, onRestart }) {
             <FontAwesomeIcon icon={faArrowRotateRight} />
           </button>
           <Link to="/dones" className="btn-outline">Ver Dones</Link>
+          <Link to="/evaluaciones" className="btn-outline">Pedir que me evalúen</Link>
           <WhatsappShareButton url={SITE_URL} title="Mira esta app para conocer tus dones espirituales!">
             <WhatsappIcon size={32} round />
           </WhatsappShareButton>

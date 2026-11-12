@@ -36,11 +36,22 @@ const TEMPLATES = {
   ],
 };
 
+// Mismas escalas en tercera persona (evaluador externo). "le" evita marcar género.
+const TEMPLATES_PEER = {
+  habilidad: ["Nunca lo hace", "Lo hace pocas veces", "Lo hace casi siempre", "Siempre lo hace"],
+  disfrute: ["No lo disfruta", "Lo disfruta poco", "Lo disfruta bastante", "Lo disfruta mucho"],
+  sensibilidad: ["No lo nota", "Lo nota pocas veces", "Lo nota casi siempre", "Siempre lo nota"],
+  frecuencia: ["Nunca lo hace", "Lo hace pocas veces", "Lo hace casi siempre", "Siempre lo hace"],
+  identidad: ["No le describe", "Le describe poco", "Le describe bastante", "Le describe totalmente"],
+};
+
 // Etiqueta corta para el círculo (1–2 palabras), siempre la misma para no saturar
 const SHORT_LABELS = ["Nunca", "Poco", "Bastante", "Siempre"];
 
-export function scaleFor(tipo) {
-  const phrases = TEMPLATES[tipo] ?? TEMPLATES.habilidad;
+/** perspective: "self" (primera persona) | "peer" (tercera persona) */
+export function scaleFor(tipo, perspective = "self") {
+  const templates = perspective === "peer" ? TEMPLATES_PEER : TEMPLATES;
+  const phrases = templates[tipo] ?? templates.habilidad;
   return phrases.map((phrase, i) => ({
     value: i + 1,
     label: SHORT_LABELS[i],

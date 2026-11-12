@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext"; 
 import Popover from "../../components/Popover";
+import CodeEntry from "../../components/CodeEntry";
 import referencias from "../../data/referencias";
 import logo from "../../assets/pictures/dones-espirituales.svg";
 import portada from "../../assets/pictures/praying-and-bible.webp";
@@ -46,6 +47,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* EVALUAR A ALGUIEN CON UN CÓDIGO */}
+      <section className="home-info-card">
+        <CodeEntry />
+      </section>
+
       {/* TARJETA DE INFORMACIÓN */}
       <section className="home-info-card">
         <div className="info-text">
@@ -61,7 +67,7 @@ export default function Home() {
               rel="noreferrer"
               className="text-link"
             >
-              test original
+              test
             </a>{" "}
             para simplificar el proceso y hacerlo más accesible.
           </p>

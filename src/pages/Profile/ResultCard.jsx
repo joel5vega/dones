@@ -1,11 +1,9 @@
-import { Link } from "react-router-dom";
+import { forwardRef } from "react";
 import ExportableResultCard from "../../components/ExportableResultCard";
 import categorias from "../../data/categorias";
 import iconos from "../../data/iconos";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
-export default function ResultCard({ profile, isAdmin }) {
+const ResultCard = forwardRef(function ResultCard({ profile, isAdmin }, chartRef) {
   if (!profile.resultado) return null;
 
   const ranking = Object.entries(profile.resultado)
@@ -20,19 +18,23 @@ export default function ResultCard({ profile, isAdmin }) {
   return (
     <article className="result-card-profile">
       <div className="result-card-header">
-        <span className="result-date" style={{ fontSize: "14px", fontWeight: "bold", color: "var(--primario)" }}>
+        <span
+          className="result-date"
+          style={{ fontSize: "14px", fontWeight: "bold", color: "var(--primario)" }}
+        >
           {isAdmin ? `Resultado de ${profile.name}` : ""}
         </span>
       </div>
 
       <ExportableResultCard
+        ref={chartRef}
         ranking={ranking}
         userName={profile.name}
         userPhoto={profile.photo}
         topIcon={topIcon}
       />
-
-   
     </article>
   );
-}
+});
+
+export default ResultCard;

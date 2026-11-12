@@ -9,6 +9,8 @@ import "./app.css";
 const Dones = lazy(() => import("./pages/Dones/Dones"));
 const Test = lazy(() => import("./pages/Test/Test"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
+const Evaluate = lazy(() => import("./pages/Peer/Evaluate"));
+const Compare = lazy(() => import("./pages/Peer/Compare"));
 
 // HashRouter: las rutas funcionan en GitHub Pages sin 404.html ni redirects
 export default function App() {
@@ -21,6 +23,8 @@ export default function App() {
             <Route path="dones" element={<Dones />} />
             <Route path="test" element={<Test />} />
             <Route path="perfil" element={<Profile />} />
+            <Route path="evaluar/:code?" element={<Evaluate />} />
+            <Route path="evaluaciones" element={<Compare />} />
             <Route path="*" element={<Home />} />
           </Route>
         </Routes>

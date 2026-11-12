@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTest } from "../../hooks/useTest";
+import Loader from "../../components/Loader";
 import GoogleSignInButton from "../../components/GoogleSignInButton";
 import Questions from "./Questions";
 import Results from "./Results";
@@ -9,7 +11,11 @@ import "./test.css";
 
 export default function Test() {
   const { user, signInWithGoogle } = useAuth();
-  const { answers, setAnswer, save, finish, result } = useTest();
+  const { answers, setAnswer, reset, finish, result, ready } = useTest();
+  const [started, setStarted] = useState(false);
+  const [resumeAt, setResumeAt] = useState(0);
+
+  if (!ready) return <Loader />;
 
   // 1. Si ya terminó el test, mostramos los resultados
   if (result) {
@@ -72,12 +78,43 @@ export default function Test() {
     );
   }
 
-  // 3. Si hay usuario, mostramos el test normal
+  // 3. Test a medias: ofrecer continuar o empezar de nuevo
+  const answered = answers.filter((a) => a.respuesta > 0).length;
+  const firstPending = answers.findIndex((a) => a.respuesta === 0);
+  if (!started && answered > 0 && firstPending !== -1) {
+    return (
+      <div className="auth-welcome-wrapper">
+        <div className="auth-card">
+          <h1 className="auth-title">Tienes un test en progreso</h1>
+          <p className="auth-description">
+            Llevas <strong>{answered} de {answers.length}</strong> preguntas respondidas.
+            Puedes continuar desde la pregunta <strong>{firstPending + 1}</strong>.
+          </p>
+          <div className="auth-actions">
+            <button
+              className="btn-continue"
+              onClick={() => { setResumeAt(firstPending); setStarted(true); }}
+            >
+              Continuar desde la pregunta {firstPending + 1}
+            </button>
+            <p className="auth-skip">
+              <button className="link-btn" onClick={() => { reset(); setResumeAt(0); setStarted(true); }}>
+                Empezar de nuevo
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 4. Test normal
   return (
-    <Questions 
-      answers={answers} 
-      onChange={setAnswer} 
-      onFinish={finish} 
+    <Questions
+      answers={answers}
+      onChange={setAnswer}
+      onFinish={finish}
+      initialStep={resumeAt}
     />
   );
 }

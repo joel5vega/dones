@@ -4,8 +4,18 @@ import { faChevronLeft, faChevronRight, faMugHot, faCheckCircle } from "@fortawe
 import { scaleFor } from "../../utils/scale";
 import "./questions.css";
 
-export default function Questions({ answers, onChange, onFinish }) {
-  const [step, setStep] = useState(0);
+export default function Questions({
+  answers,
+  onChange,
+  onFinish,
+  perspective = "self",                 // "self" | "peer"
+  textFor = (q) => q.pregunta,          // texto mostrado por pregunta
+  milestoneAt = 18,                     // pantalla de descanso (null = sin descanso)
+  finishLabel = "Ver resultados",
+  extraSteps = 0,                       // pasos posteriores que cuentan en la barra (p. ej. elegir 3 dones)
+  initialStep = 0,                      // -1 o fuera de rango = empezar desde el inicio
+}) {
+  const [step, setStep] = useState(() => (initialStep > 0 && initialStep < answers.length ? initialStep : 0));
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [milestone, setMilestone] = useState(null);
 
@@ -14,10 +24,10 @@ export default function Questions({ answers, onChange, onFinish }) {
   const isLast = step === total - 1;
   const selected = question ? question.respuesta : 0;
 
-  const scale = useMemo(() => scaleFor(question?.tipo ?? "habilidad"), [question?.tipo]);
+  const scale = useMemo(() => scaleFor(question?.tipo ?? "habilidad", perspective), [question?.tipo, perspective]);
   
   const answeredCount = answers.filter((a) => a.respuesta > 0).length;
-  const progress = Math.round((answeredCount / total) * 100);
+  const progress = Math.round((answeredCount / (total + extraSteps)) * 100);
 
   const selectAnswer = (value) => {
     if (!question || isTransitioning) return;
@@ -31,9 +41,9 @@ export default function Questions({ answers, onChange, onFinish }) {
       const completed = step + 1;
       
       // ✨ AQUI CAMBIAMOS LA LÓGICA DEL DESCANSO: Cada 18 preguntas
-      if (completed === 18) {
+      if (milestoneAt && completed === milestoneAt) {
         // Calculamos el porcentaje basado en las respuestas dadas (18 de total)
-        const currentProgress = Math.round((18 / total) * 100);
+        const currentProgress = Math.round((completed / total) * 100);
         setMilestone({ completed, percentage: currentProgress });
         setIsTransitioning(false);
         return;
@@ -112,7 +122,7 @@ export default function Questions({ answers, onChange, onFinish }) {
         <div className="quiz-container">
           <div className="quiz-header">
             {/* <span className="quiz-step">Pregunta {step + 1} de {total}</span> */}
-            <h1 className="quiz-question">{question.pregunta}</h1>
+            <h1 className="quiz-question">{textFor(question)}</h1>
             <p className="quiz-hint">Elige la respuesta más honesta y continúa a tu ritmo.</p>
           </div>
 
@@ -153,7 +163,7 @@ export default function Questions({ answers, onChange, onFinish }) {
                   onClick={onFinish} 
                   disabled={!selected}
                 >
-                  Ver resultados <FontAwesomeIcon icon={faCheckCircle} />
+                  {finishLabel} <FontAwesomeIcon icon={faCheckCircle} />
                 </button>
               ) : (
                 <span className="auto-hint">Avance automático</span>

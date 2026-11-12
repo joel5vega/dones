@@ -20,5 +20,30 @@ service cloud.firestore {
         allow write: if request.auth != null && request.auth.uid == uid;
       }
     }
+
+    // Evaluación externa: el enlace/código identifica la invitación.
+    match /invites/{code} {
+      allow get: if true;   // el evaluador ve nombre/foto del dueño antes de iniciar sesión
+      allow create: if request.auth != null && request.resource.data.ownerUid == request.auth.uid;
+      allow update: if request.auth != null && resource.data.ownerUid == request.auth.uid
+                    && request.resource.data.ownerUid == request.auth.uid;
+      allow delete: if request.auth != null && resource.data.ownerUid == request.auth.uid;
+
+      match /responses/{evaluatorUid} {
+        allow create, update: if request.auth != null
+          && request.auth.uid == evaluatorUid
+          && request.resource.data.evaluatorUid == request.auth.uid
+          && get(/databases/$(database)/documents/invites/$(code)).data.ownerUid != request.auth.uid;
+        // lo lee quien la escribió y el dueño de la invitación
+        allow read: if request.auth != null
+          && (request.auth.uid == evaluatorUid
+              || get(/databases/$(database)/documents/invites/$(code)).data.ownerUid == request.auth.uid);
+      }
+    }
+
+    // Cola de correos (extensión "Trigger Email from Firestore"): solo el admin
+    match /mail/{id} {
+      allow create, read: if request.auth != null && isAdmin();
+    }
   }
 }

@@ -1,0 +1,52 @@
+/* Evaluación externa y comparación */
+.peer-page { padding: 88px 20px 80px; max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px; }
+.peer-card { background: var(--fondo-suave); border: 1px solid var(--borde); border-radius: var(--radius-xl); padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+.peer-card h2 { font-size: var(--fs-xl); color: var(--primario); }
+.peer-muted { color: var(--texto-muted); font-size: var(--fs-sm); }
+.peer-error { color: #ff7b7b; font-size: var(--fs-sm); }
+.peer-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.peer-owner { display: flex; align-items: center; gap: 14px; }
+.peer-owner img { width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--resaltar); object-fit: cover; }
+.peer-input { background: transparent; border: 1px solid var(--borde); border-radius: var(--radius-md); color: var(--primario); padding: 12px 14px; font-size: var(--fs-lg); letter-spacing: 0.15em; text-transform: uppercase; }
+
+.invite-box { background: rgba(0,0,0,0.2); border-radius: var(--radius-md); padding: 12px; overflow-x: auto; font-size: var(--fs-sm); }
+.invite-code { letter-spacing: 0.2em; color: var(--resaltar); }
+
+/* Selector de 3 dones */
+.picker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.picker-item { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 12px 6px; background: var(--fondo-suave); border: 1px solid var(--borde); border-radius: var(--radius-md); color: var(--primario); font-size: var(--fs-sm); cursor: pointer; transition: var(--transicion); }
+.picker-item img { width: 40px; height: 40px; }
+.picker-item:hover { background: var(--fondo-hover); }
+.picker-item.selected { border-color: var(--resaltar); background: rgba(251,175,0,0.12); }
+.picker-badge { position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%; background: var(--resaltar); color: var(--fondo); font-weight: 700; font-size: 12px; display: grid; place-items: center; }
+
+/* Comparación */
+.peer-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.peer-chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: var(--radius-full); border: 2px solid var(--chip-color, var(--borde)); background: transparent; color: var(--primario); cursor: pointer; opacity: 0.55; transition: var(--transicion); }
+.peer-chip.on { opacity: 1; background: var(--fondo-suave); }
+.peer-chip img, .chip-fallback { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; background: var(--fondo-hover); }
+.radar-axis-label { position: absolute; transform: translate(-50%, -50%); width: 80px; text-align: center; font-size: 9px; color: #8fa6c0; pointer-events: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: var(--fs-sm); color: var(--texto-muted); justify-content: center; }
+.legend i { display: inline-block; width: 14px; height: 3px; margin-right: 6px; vertical-align: middle; }
+.top-rows { display: flex; flex-direction: column; gap: 10px; }
+.top-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.top-row-name { width: 110px; font-size: var(--fs-sm); color: var(--texto-muted); }
+.top-gift { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 4px; border-radius: var(--radius-full); border: 1px solid var(--borde); font-size: var(--fs-sm); }
+.top-gift img { width: 26px; height: 26px; }
+.top-gift.match { border-color: var(--activo); background: rgba(6,167,125,0.15); }
+
+/* Botones propios (para no depender del CSS de otras páginas) */
+.peer-card .btn-finish, .peer-card .btn-outline { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: var(--radius-full); font-weight: 700; cursor: pointer; text-decoration: none; transition: var(--transicion); }
+.peer-card .btn-finish { background: var(--resaltar); color: var(--fondo); border: 0; width: fit-content; }
+.peer-card .btn-finish:disabled { opacity: 0.4; cursor: not-allowed; }
+.peer-card .btn-outline { background: transparent; color: var(--primario); border: 1px solid var(--borde); }
+.peer-card .btn-outline:hover { border-color: var(--resaltar); color: var(--resaltar); }
+.peer-card .link-btn { background: none; border: 0; color: var(--resaltar); text-decoration: underline; cursor: pointer; }
+
+/* Entrada de código */
+.code-entry { display: flex; flex-direction: column; gap: 10px; }
+.code-entry h3 { color: var(--primario); }
+.code-entry-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.code-entry-row .peer-input { flex: 1 1 160px; min-width: 0; }
+.code-entry .btn-finish { display: inline-flex; padding: 12px 20px; border: 0; border-radius: var(--radius-full); background: var(--resaltar); color: var(--fondo); font-weight: 700; cursor: pointer; }
+.code-entry .btn-finish:disabled { opacity: 0.4; cursor: not-allowed; }
