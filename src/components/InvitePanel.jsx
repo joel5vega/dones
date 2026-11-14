@@ -38,26 +38,24 @@ export default function InvitePanel({ invite, busy, onCreate, canCreate }) {
     <div className="peer-card">
       <h2>Tu enlace de evaluación</h2>
       <p className="peer-muted">
-        Compártelo con alguien que te conozca bien. Tendra que responder{" "}
-        {invite.questionIds?.length} preguntas.
+        Compártelo con quien te conozca bien. 
       </p>
-      <div className="invite-box">
-        <code>{inviteUrl(invite.code)}</code>
-      </div>
-      <p className="peer-muted">
-        Código: <strong className="invite-code">{invite.code}</strong>
-      </p>
+   
+      
       <div className="peer-actions">
+             <p className="invite-code">{invite.code}</p>
+    
         <button className="btn-outline" onClick={copy}>
-          <FontAwesomeIcon icon={copied ? faCheck : faCopy} /> {copied ? "Copiado" : "Copiar enlace"}
+          <FontAwesomeIcon icon={copied ? faCheck : faCopy} /> {copied ? "Copiado" : "Copiar"}
         </button>
+      
         <WhatsappShareButton
           url={inviteUrl(invite.code)}
           title={`${firstName(invite.ownerName)} te pide que lo/la ayudes a descubrir sus dones espirituales:`}
         >
           <WhatsappIcon size={32} round />
         </WhatsappShareButton>
-     
+   
       </div>
     </div>
   );

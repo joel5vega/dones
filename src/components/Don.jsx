@@ -1,20 +1,27 @@
-import iconos from "../data/iconos";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp, faBookOpen, faTimes } from "@fortawesome/free-solid-svg-icons";
+import iconos from "../../data/iconos";
+import referencias from "../../data/referencias";
 
-export default function Don({ data: { id, name, definicion, texto } }) {
+function Don({ data }) {
+  const { id, name, definicion, texto } = data;
+  const [isOpen, setIsOpen] = useState(false);
+  const [showVerse, setShowVerse] = useState(false);
+
+  const libro = texto ? texto.split(" ")[0].replace("1", "").trim() : "";
+  const fullReference = referencias.find((ref) => ref.title.includes(libro));
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+    if (isOpen) setShowVerse(false);
+  };
+
   return (
-    <article className="don-card">
-      <header className="don-header">
-        <div className="don-icon-wrapper">
-          <img src={iconos[id]} alt={name} className="don-icon" />
-        </div>
-        <div className="don-title">
-          <h3>{name}</h3>
-          <span className="don-reference">{texto}</span>
-        </div>
-      </header>
-      <div className="don-body">
-        <p>{definicion}</p>
-      </div>
-    </article>
-  );
+  <div style={{ color: "red", fontSize: "50px" }}>
+    ¡ESTO ES UNA PRUEBA!
+  </div>
+);
 }
+
+export default Don;

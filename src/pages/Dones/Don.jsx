@@ -1,53 +1,74 @@
-import React from "react";
-import liderazgo from "../../assets/icons/liderazgo.png";
-import administracion from "../../assets/icons/administracion.png";
-import enseñanza from "../../assets/icons/enseñanza.png";
-import conocimiento from "../../assets/icons/conocimiento.png";
-import sabiduria from "../../assets/icons/sabiduria.png";
-import profecia from "../../assets/icons/profecia.png";
-import discernimiento from "../../assets/icons/discernimiento.png";
-import exhortacion from "../../assets/icons/exhortacion.png";
-import pastor from "../../assets/icons/pastor.png";
-import fe from "../../assets/icons/fe.png";
-import evangelismo from "../../assets/icons/evangelismo.png";
-import misionero from "../../assets/icons/misionero.png";
-import servicio from "../../assets/icons/servicio.png";
-import misericordia from "../../assets/icons/misericordia.png";
-import dar from "../../assets/icons/dar.png";
-import hospitalidad from "../../assets/icons/hospitalidad.png";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown, faChevronUp, faBookOpen, faTimes } from "@fortawesome/free-solid-svg-icons";
+import iconos from "../../data/iconos";
+import referencias from "../../data/referencias";
 
-const iconObj = {
-  d1: liderazgo,
-  d2: administracion,
-  d3: pastor,
-  d4: enseñanza,
-  d5: conocimiento,
-  d6: sabiduria,
-  d7: profecia,
-  d8: evangelismo,
-  d9: misionero,
-  d10: fe,
-  d11: discernimiento,
-  d12: exhortacion,
-  d13: servicio,
-  d14: misericordia,
-  d15: dar,
-  d16: hospitalidad
-};
-function Don(props) {
-  const { id, name, score, definicion, texto } = props.data;
+function Don({ data }) {
+  const { id, name, definicion, texto } = data;
+  const [isOpen, setIsOpen] = useState(false);
+  const [showVerse, setShowVerse] = useState(false);
+
+  // Búsqueda exacta de la referencia
+  const fullReference = referencias.find((ref) => 
+    ref.title.toLowerCase() === texto.toLowerCase()
+  );
+
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+    if (isOpen) setShowVerse(false);
+  };
+
   return (
-    <div className="don" key={id}>
-      <div className="don-head">
-        <img className="icon" src={iconObj[id]} alt={name} />
-        <div className="don-title">
-          <h3>{name}</h3>
-          <h4>{texto}</h4>
+    <div className={`don-card ${isOpen ? "is-open" : ""}`}>
+      {/* CABECERA */}
+      <div className="don-header-clickable" onClick={toggleOpen}>
+        <div className="don-icon-wrapper">
+          <img className="don-icon" src={iconos[id]} alt={name} />
+        </div>
+        
+        <h3 className="don-title-text">{name}</h3>
+        
+        <div className="don-toggle-icon">
+          <FontAwesomeIcon icon={isOpen ? faChevronUp : faChevronDown} />
         </div>
       </div>
-      <div className="don-definition">
-        <p>{definicion}</p>
-      </div>
+
+      {/* CONTENIDO */}
+      {isOpen && (
+        <div className="don-content">
+          <p className="don-definition">{definicion}</p>
+          
+          <div className="don-actions">
+            {fullReference ? (
+              <button 
+                className={`btn-verse ${showVerse ? "active" : ""}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowVerse(!showVerse);
+                }}
+              >
+                <FontAwesomeIcon icon={showVerse ? faTimes : faBookOpen} />
+                {showVerse ? "Ocultar versículo" : "Leer versículo"}
+              </button>
+            ) : (
+              <span style={{ fontSize: "12px", color: "var(--informacion)" }}>
+                Cita bíblica
+              </span>
+            )}
+            
+            <span className="don-ref-tag">{texto}</span>
+          </div>
+
+          {showVerse && fullReference && (
+            <div className="verse-box">
+              <p className="verse-text">
+                "{fullReference.content}"
+              </p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

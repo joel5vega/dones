@@ -2,15 +2,15 @@
    PÁGINA DE DONES
    ========================================================= */
 .dones-page {
-  padding-top: 64px; /* Para el NavBar fijo */
-  max-width: 1100px;
+  padding-top: 64px;
+  max-width: 900px;
   margin: 0 auto;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 80px;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 32px;
 }
 
 .dones-header {
@@ -34,12 +34,12 @@
 }
 
 /* =========================================================
-   REJILLA DE DONES (GRID)
+   LISTA DE DONES
    ========================================================= */
-.dones-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 24px;
+.dones-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 /* =========================================================
@@ -49,29 +49,32 @@
   background: var(--fondo-suave);
   border: 1px solid var(--borde);
   border-radius: var(--radius-lg);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
 }
 
 .don-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(251, 175, 0, 0.4); /* Toque dorado sutil */
-  box-shadow: var(--sombra-md);
+  border-color: rgba(251, 175, 0, 0.3);
 }
 
-.don-header {
+.don-card.is-open {
+  border-color: var(--resaltar);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Cabecera (siempre visible) */
+.don-header-clickable {
   display: flex;
   align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
   gap: 16px;
 }
 
 .don-icon-wrapper {
-  width: 52px;
-  height: 52px;
-  border-radius: var(--radius-md);
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
   background: rgba(251, 175, 0, 0.1);
   display: flex;
   align-items: center;
@@ -80,44 +83,115 @@
 }
 
 .don-icon {
-  width: 32px;
-  height: 32px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
-.don-title {
+.don-title-text {
+  flex: 1;
+  font-size: 17px;
+  color: var(--primario);
+  margin: 0;
+  font-weight: 600;
+}
+
+.don-toggle-icon {
+  color: var(--informacion);
+  font-size: 14px;
+}
+
+.don-card.is-open .don-toggle-icon {
+  color: var(--resaltar);
+}
+
+/* Contenido (solo visible al abrir) */
+.don-content {
+  padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
+  gap: 16px;
+  animation: fadeIn 0.3s ease-in-out;
 }
 
-.don-title h3 {
-  font-size: 18px;
-  color: var(--primario);
-  margin: 0 0 4px 0;
-  font-weight: 700;
-}
-
-.don-reference {
-  font-size: 12px;
-  color: var(--resaltar);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.don-body p {
+.don-definition {
   font-size: 14px;
-  color: var(--informacion);
+  color: var(--primario);
   line-height: 1.6;
   margin: 0;
+  opacity: 0.9;
+}
+
+.don-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.btn-verse {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid var(--borde);
+  color: var(--resaltar);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-verse:hover {
+  background: rgba(251, 175, 0, 0.1);
+  border-color: var(--resaltar);
+}
+
+.btn-verse.active {
+  background: var(--resaltar);
+  color: var(--fondo);
+  border-color: var(--resaltar);
+}
+
+.don-ref-tag {
+  font-size: 12px;
+  color: var(--informacion);
+  font-style: italic;
+}
+
+.verse-box {
+  background: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid var(--resaltar);
+  padding: 16px;
+  border-radius: 0 8px 8px 0;
+  margin-top: 8px;
+}
+
+.verse-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--primario);
+  margin: 0;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================================
-   FOOTER (CTA)
+   FOOTER
    ========================================================= */
 .dones-footer {
-  margin-top: 40px;
-  padding: 40px;
+  margin-top: 20px;
+  padding: 32px;
   background: var(--fondo-suave);
   border: 1px solid var(--borde);
   border-radius: var(--radius-xl);
@@ -125,55 +199,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
 }
 
 .dones-footer p {
-  font-size: 18px;
-  color: var(--primario);
-  font-weight: 500;
-  margin: 0;
-}
-
-/* Botones (Reutilizables) */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 32px;
-  border-radius: var(--radius-lg);
-  font-weight: 700;
   font-size: 16px;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  cursor: pointer;
+  color: var(--primario);
+  margin: 0;
 }
 
 .btn-primary {
   background: var(--activo);
   color: var(--fondo);
-  border: 2px solid var(--activo);
-}
-
-.btn-primary:hover {
-  background: var(--resaltar);
-  border-color: var(--resaltar);
-  transform: translateY(-2px);
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-@media (max-width: 600px) {
-  .dones-page {
-    gap: 24px;
-  }
-  
-  .dones-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .dones-footer {
-    padding: 24px;
-  }
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
 }
