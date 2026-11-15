@@ -3,7 +3,6 @@ import {
   collection, doc, getDoc, getDocs, setDoc, updateDoc, serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
-import { SCORING_VERSION } from "../utils/migration";
 
 const userRef = (uid) => doc(db, "users", uid);
 // Guardamos solo lo necesario: [{ id, respuesta }]
@@ -18,25 +17,22 @@ export async function getOrCreateProfile(user) {
     name: user.displayName,
     photo: user.photoURL,
     answers: [],
+    createdAt: serverTimestamp(),
+    updatedAt: serverTimestamp(),
   };
   await setDoc(userRef(user.uid), profile);
   return { uid: user.uid, ...profile };
 }
 
 export const saveProgress = (uid, answers) =>
-  updateDoc(userRef(uid), { answers: slim(answers) });
+  updateDoc(userRef(uid), { answers: slim(answers), updatedAt: serverTimestamp() });
 
 export async function saveResult(uid, answers, resultado) {
   const { id: submissionId, ...scores } = resultado;
-  await updateDoc(userRef(uid), {
-    answers: slim(answers),
-    resultado,
-    scoringVersion: SCORING_VERSION,
-  });
+  await updateDoc(userRef(uid), { answers: slim(answers), resultado, updatedAt: serverTimestamp() });
   // Historial: un documento por día
   await setDoc(doc(db, "users", uid, "submissions", submissionId), {
     ...scores,
-    scoringVersion: SCORING_VERSION,
     createdAt: serverTimestamp(),
   });
 }
@@ -46,8 +42,3 @@ export async function getAllProfiles() {
   const snap = await getDocs(collection(db, "users"));
   return snap.docs.map((d) => ({ uid: d.id, ...d.data() }));
 }
-
-export async function saveRadarImage(uid, base64) {
-  await updateDoc(doc(db, "users", uid), { radarImageBase64: base64 });
-}
-
