@@ -5,8 +5,26 @@ import Loader from "./Loader/Loader";
 export default function RedirectAfterLogin() {
   const { user, profile, loading } = useAuth();
 
-  if (loading) return <Loader />;                            // espera a que cargue el perfil
-  if (!user) return <Navigate to="/" replace />;             // no logueado → home
-  if (!profile?.resultado) return <Navigate to="/test" replace />; // sin test → test
-  return <Navigate to="/perfil" replace />;                  // con test → perfil
+  console.log("[RedirectAfterLogin] render →", {
+    loading,
+    hasUser: !!user,
+    uid: user?.uid,
+    hasProfile: !!profile,
+    tieneResultado: !!profile?.resultado,
+  });
+
+  if (loading) {
+    console.log("[RedirectAfterLogin] → Loader (loading=true)");
+    return <Loader />;
+  }
+  if (!user) {
+    console.log("[RedirectAfterLogin] → / (sin user)");
+    return <Navigate to="/" replace />;
+  }
+  if (!profile?.resultado) {
+    console.log("[RedirectAfterLogin] → /test (sin resultado)");
+    return <Navigate to="/test" replace />;
+  }
+  console.log("[RedirectAfterLogin] → /perfil (con resultado)");
+  return <Navigate to="/perfil" replace />;
 }

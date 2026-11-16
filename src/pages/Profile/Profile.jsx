@@ -90,7 +90,7 @@ export default function Profile() {
 
       {/* Botón de evaluación de otros (solo si ya hizo el test) */}
       {profile?.resultado && (
-        <Link to="/compare" className="btn btn-primary">
+        <Link to="/evaluaciones" className="btn btn-primary">
           Evaluación de otros
         </Link>
       )}

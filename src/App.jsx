@@ -22,7 +22,7 @@ export default function App() {
             <Route path="dones" element={<Dones />} />
             <Route path="test" element={<Test />} />
             <Route path="perfil" element={<Profile />} />
-            <Route path="compare" element={<Compare />} />
+            <Route path="evaluaciones" element={<Compare />} />
             <Route path="seguimiento" element={<Seguimiento />} />
             <Route path="entrar" element={<RedirectAfterLogin />} />
             <Route path="*" element={<Home />} />

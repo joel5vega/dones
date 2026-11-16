@@ -12,21 +12,28 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   // Mantiene la sesión al recargar la página
-  useEffect(
-    () =>
-      onAuthStateChanged(auth, async (u) => {
-        setUser(u);
-        try {
-          setProfile(u ? await getOrCreateProfile(u) : null);
-        } catch (e) {
-          console.error("No se pudo cargar el perfil:", e);
-          setProfile(null);
-        }
-        setLoading(false);
-      }),
-    []
-  );
-
+ useEffect(
+  () =>
+    onAuthStateChanged(auth, async (u) => {
+      console.log("[AuthContext] onAuthStateChanged →", u?.uid ?? null);
+      setLoading(true);        // ← ✅ CLAVE: marcar loading mientras se resuelve el perfil
+      setUser(u);
+      try {
+        const p = u ? await getOrCreateProfile(u) : null;
+        console.log("[AuthContext] profile cargado →", {
+          uid: p?.uid,
+          tieneResultado: !!p?.resultado,
+        });
+        setProfile(p);
+      } catch (e) {
+        console.error("[AuthContext] No se pudo cargar el perfil:", e);
+        setProfile(null);
+      } finally {
+        setLoading(false);     // ← ✅ solo aquí bajamos loading
+      }
+    }),
+  []
+);
   const value = useMemo(
     () => ({
       user,

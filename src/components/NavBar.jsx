@@ -41,13 +41,16 @@ export default function NavBar({ title }) {
   };
 
   const login = async () => {
-    try {
-      await signInWithGoogle();
-      navigate("/test");
-    } catch (e) {
-      console.error("Login failed:", e);
-    }
-  };
+  console.log("[NavBar] login() iniciado");
+  try {
+    await signInWithGoogle();
+    console.log("[NavBar] signInWithGoogle OK → navegando a /entrar");
+    navigate("/entrar");
+    console.log("[NavBar] navigate('/entrar') ejecutado");
+  } catch (e) {
+    console.error("[NavBar] Login failed:", e);
+  }
+};
 
   const handleLogout = async () => {
     handleClose();
@@ -138,7 +141,7 @@ export default function NavBar({ title }) {
             </Menu>
           </>
         ) : (
-          <GoogleSignInButton onClick={login} />
+        <GoogleSignInButton onClick={login} label="Iniciar sesión" />
         )}
       </div>
     </Stack>
