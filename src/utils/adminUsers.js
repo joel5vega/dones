@@ -20,7 +20,7 @@ export function toRow(p) {
     date: p.resultado?.id ?? null, profile: p,
   };
 }
-export const toRows = (profiles) => profiles.filter(Boolean).map(toRow);
+export const toRows = (profiles = []) => (profiles ?? []).filter(Boolean).map(toRow);
 
 /** status: todos | completo | sin-test ; gift: todos | nombre del don (cuenta empates). */
 export function filterRows(rows, { query = "", status = "todos", gift = "todos" } = {}) {

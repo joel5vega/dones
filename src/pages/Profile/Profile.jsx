@@ -64,7 +64,7 @@ export default function Profile() {
 
       <section className="profile-content">
         {isAdmin ? (
-          <AdminUsers users={all} />
+          <AdminUsers profiles={all} />
         ) : list.length === 0 ? (
           <div className="empty-state">
             <FontAwesomeIcon icon={faClockRotateLeft} className="empty-icon" />

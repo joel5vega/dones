@@ -169,7 +169,9 @@ export default function Compare() {
       {!own && (
         <div className="peer-card">
           <p className="peer-muted">Completa tu test para poder comparar.</p>
-          <Link to="/test" className="btn-outline">Hacer el test</Link>
+          <Link to="/test" className="btn-outline">
+  {profile?.resultado ? "Repetir el Test" : "Hacer el Test"}
+</Link>
         </div>
       )}
 

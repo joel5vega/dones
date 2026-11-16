@@ -22,8 +22,8 @@ export default function Dones() {
       <footer className="dones-footer">
         <p>¿Aún no sabes cuáles son tus dones?</p>
         <Link to="/test" className="btn btn-primary">
-          Hacer el Test
-        </Link>
+  {profile?.resultado ? "Repetir el Test" : "Hacer el Test"}
+</Link>
       </footer>
     </main>
   );

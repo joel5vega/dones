@@ -9,7 +9,7 @@ import "./admin-users.css";
 const TABS = [["lista", "Lista"], ["dones", "Por don principal"]];
 
 /** Vista admin del perfil: pestañas Lista / Por don + detalle en ventana. */
-export default function AdminUsers({ profiles }) {
+export default function AdminUsers({ profiles = [] }) {
   const rows = useMemo(() => toRows(profiles), [profiles]);
   const [tab, setTab] = useState("lista");
   const [openUid, setOpenUid] = useState(null);

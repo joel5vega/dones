@@ -1,25 +1,30 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext"; 
+import { useAuth } from "../../contexts/AuthContext";
 import Popover from "../../components/Popover";
 import CodeEntry from "../../components/CodeEntry";
 import referencias from "../../data/referencias";
 import logo from "../../assets/pictures/dones-espirituales.svg";
 import portada from "../../assets/pictures/praying-and-bible.webp";
-import "./home.css"; // Asegúrate de crear este archivo
+import "./home.css";
 
 function Acciones() {
-  const { user } = useAuth();
+  const { user, profile } = useAuth();
+
+  const yaHizoTest = Boolean(profile?.resultado);
 
   return (
     <div className="home-actions">
       <Link to="/test" className="btn btn-primary">
-        {user ? "Repetir Test" : "Hacer el Test"}
+        {yaHizoTest ? "Repetir el Test" : "Hacer el Test"}
       </Link>
       <Link to="/dones" className="btn btn-secondary">Ver Dones</Link>
-      
-      {/* ✨ BOTÓN CONDICIONAL PARA EL PERFIL */}
+
       {user && (
-        <Link to="/perfil" className="btn btn-secondary" style={{ borderColor: "var(--resaltar)", color: "var(--resaltar)" }}>
+        <Link
+          to="/perfil"
+          className="btn btn-secondary"
+          style={{ borderColor: "var(--resaltar)", color: "var(--resaltar)" }}
+        >
           Mi Perfil
         </Link>
       )}
@@ -30,7 +35,6 @@ function Acciones() {
 export default function Home() {
   return (
     <main className="home-page">
-      {/* SECCIÓN HERO */}
       <section className="home-hero">
         <div className="hero-content">
           <img src={logo} alt="Dones Espirituales" className="hero-logo" />
@@ -47,12 +51,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* EVALUAR A ALGUIEN CON UN CÓDIGO */}
       <section className="home-info-card">
         <CodeEntry />
       </section>
 
-      {/* TARJETA DE INFORMACIÓN */}
       <section className="home-info-card">
         <div className="info-text">
           <p>
