@@ -37,6 +37,13 @@ export async function saveResult(uid, answers, resultado) {
   });
 }
 
+// Guarda la imagen del radar en base64 en el perfil del usuario
+export const saveRadarImage = (uid, base64) =>
+  updateDoc(userRef(uid), {
+    radarImageBase64: base64,
+    updatedAt: serverTimestamp(),
+  });
+
 // Solo el admin puede listar todos (lo garantizan las reglas de Firestore)
 export async function getAllProfiles() {
   const snap = await getDocs(collection(db, "users"));
