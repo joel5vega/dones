@@ -36,10 +36,23 @@ function OwnerHeader({ invite }) {
   );
 }
 
+/**
+ * Detecta si estamos dentro de un iframe o WebView in-app
+ * (Facebook, Instagram, Messenger, etc.), donde Firebase Auth
+ * falla por storage particionado.
+ */
+function useInAppOrIframe() {
+  const ua = typeof navigator !== "undefined" ? navigator.userAgent || "" : "";
+  const isInApp = /FBAN|FBAV|Instagram|Messenger|Line|WhatsApp|Twitter/i.test(ua);
+  const isIframe = typeof window !== "undefined" && window.self !== window.top;
+  return isInApp || isIframe;
+}
+
 function EvaluateFlow({ code }) {
   const { signInWithGoogle } = useAuth();
   const ev = usePeerEvaluation(code);
   const { status, invite, user, authLoading } = ev;
+  const inAppOrIframe = useInAppOrIframe();
 
   if (status === "loading" || authLoading) return <Loader />;
 
@@ -53,14 +66,70 @@ function EvaluateFlow({ code }) {
       <p className="peer-muted">Compártela con otra persona. Tus resultados los ves en la comparación.</p>
       <Link to="/evaluaciones" className="btn-outline">Ver evaluaciones</Link></div></Shell>;
 
-  if (!user)
-    return <Shell><div className="peer-card"><OwnerHeader invite={invite} />
-      <p className="peer-muted">
-        Responderás {invite.questionIds.length} preguntas cortas (≈ 2 min) sobre cómo ves a{" "}
-        {firstName(invite.ownerName)}. Inicia sesión para guardar tu evaluación.
-      </p>
-      <GoogleSignInButton onClick={() => signInWithGoogle().catch(console.error)} />
-    </div></Shell>;
+  if (!user) {
+    // Si venimos de un iframe / WebView (Facebook, etc.),
+    // el login con Google aquí va a fallar por storage particionado.
+    if (inAppOrIframe) {
+      const returnTo = `/evaluar/${code}`;
+      const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+      const externalUrl = `https://www.google.com/url?q=${encodeURIComponent(currentUrl)}`;
+
+      const handleGoLogin = () => {
+        try { sessionStorage.setItem("returnTo", returnTo); } catch {}
+      };
+
+      return (
+        <Shell>
+          <div className="peer-card">
+            <OwnerHeader invite={invite} />
+            <p className="peer-muted">
+              Responderás {invite.questionIds.length} preguntas cortas (≈ 2 min) sobre cómo ves a{" "}
+              {firstName(invite.ownerName)}.
+            </p>
+            <p className="peer-muted">
+              Para iniciar sesión con Google, abre este enlace en tu navegador habitual
+              (Chrome, Safari, etc.). El navegador integrado de Facebook bloquea el login.
+            </p>
+
+            <a
+              href={externalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+              onClick={handleGoLogin}
+            >
+              Abrir en navegador
+            </a>
+
+            <p className="peer-muted" style={{ marginTop: 12, fontSize: 13 }}>
+              ¿Ya lo abriste en tu navegador? Puedes intentar iniciar sesión aquí de todos modos:
+            </p>
+            <button
+              type="button"
+              onClick={() => signInWithGoogle().catch(console.error)}
+              className="link-btn"
+            >
+              Iniciar sesión aquí
+            </button>
+          </div>
+        </Shell>
+      );
+    }
+
+    // Navegador normal: login con Google en el sitio, como antes
+    return (
+      <Shell>
+        <div className="peer-card">
+          <OwnerHeader invite={invite} />
+          <p className="peer-muted">
+            Responderás {invite.questionIds.length} preguntas cortas (≈ 2 min) sobre cómo ves a{" "}
+            {firstName(invite.ownerName)}. Inicia sesión para guardar tu evaluación.
+          </p>
+          <GoogleSignInButton onClick={() => signInWithGoogle().catch(console.error)} />
+        </div>
+      </Shell>
+    );
+  }
 
   if (status === "done")
     return <Shell><div className="peer-card"><h2>¡Gracias!</h2>
