@@ -94,6 +94,15 @@ function EvaluateFlow({ code }) {
       <Link to="/evaluaciones" className="btn-outline">Ver evaluaciones</Link></div></Shell>;
 
   if (!user) {
+     // DEBUG TEMPORAL: quitar en producción
+  const debugInfo = {
+    inAppOrIframe,
+    ua: navigator.userAgent,
+    isIframe: window.self !== window.top,
+    href: window.location.href,
+    referrer: document.referrer,
+  };
+
     // En WebView/iframe (Facebook, etc.) forzamos apertura en navegador externo
     if (inAppOrIframe) {
       const currentUrl = typeof window !== "undefined" ? window.location.href : "";
