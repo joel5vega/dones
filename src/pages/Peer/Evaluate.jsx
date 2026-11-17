@@ -12,17 +12,28 @@ import "../../components/peer.css";
 /** /evaluar → pide el código · /evaluar/:code → flujo del evaluador */
 export default function Evaluate() {
   const { code } = useParams();
+
+  // DEBUG: si no hay code, lo mostramos en pantalla
   if (!code || code === "undefined") {
     return (
       <main className="peer-page">
         <div className="peer-card">
           <h2>Enlace incompleto</h2>
           <p className="peer-muted">Falta el código de evaluación en la URL.</p>
+          <pre style={{ fontSize: 11, whiteSpace: "pre-wrap", wordBreak: "break-all", background: "#111", color: "#0f0", padding: 8, borderRadius: 4 }}>
+            {JSON.stringify({
+              href: window.location.href,
+              hash: window.location.hash,
+              pathname: window.location.pathname,
+              search: window.location.search,
+            }, null, 2)}
+          </pre>
           <Link to="/evaluar" className="btn-outline">Escribir código manualmente</Link>
         </div>
       </main>
     );
   }
+
   return <EvaluateFlow code={normalizeCode(code)} />;
 }
 
@@ -57,7 +68,27 @@ function EvaluateFlow({ code }) {
   const ev = usePeerEvaluation(code);
   const { status, invite, user, authLoading } = ev;
 
-  if (status === "loading" || authLoading) return <Loader />;
+  // DEBUG: panel visible mientras carga
+  if (status === "loading" || authLoading) {
+    return (
+      <Shell>
+        <div className="peer-card">
+          <h2>Cargando…</h2>
+          <pre style={{ fontSize: 11, whiteSpace: "pre-wrap", wordBreak: "break-all", background: "#111", color: "#0f0", padding: 8, borderRadius: 4 }}>
+            {JSON.stringify({
+              code,
+              status,
+              authLoading,
+              href: window.location.href,
+              hash: window.location.hash,
+              ua: navigator.userAgent,
+              isIframe: (() => { try { return window.self !== window.top; } catch { return "error"; } })(),
+            }, null, 2)}
+          </pre>
+        </div>
+      </Shell>
+    );
+  }
 
   if (status === "notFound")
     return (
@@ -65,6 +96,15 @@ function EvaluateFlow({ code }) {
         <div className="peer-card">
           <h2>Enlace no válido</h2>
           <p className="peer-muted">No encontramos esa invitación. Revisa el enlace o el código.</p>
+          <pre style={{ fontSize: 11, whiteSpace: "pre-wrap", wordBreak: "break-all", background: "#111", color: "#0f0", padding: 8, borderRadius: 4 }}>
+            {JSON.stringify({
+              code,
+              status,
+              hasInvite: !!invite,
+              href: window.location.href,
+              hash: window.location.hash,
+            }, null, 2)}
+          </pre>
           <Link to="/evaluar" className="btn-outline">Escribir otro código</Link>
         </div>
       </Shell>
@@ -83,6 +123,19 @@ function EvaluateFlow({ code }) {
 
   if (!user) {
     const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+    const debugInfo = {
+      code,
+      status,
+      authLoading,
+      hasInvite: !!invite,
+      href: currentUrl,
+      hash: window.location.hash,
+      pathname: window.location.pathname,
+      ua: navigator.userAgent,
+      isIframe: (() => { try { return window.self !== window.top; } catch { return "error"; } })(),
+      sessionStorageKeys: (() => { try { return Object.keys(sessionStorage); } catch { return "blocked"; } })(),
+    };
+
     return (
       <Shell>
         <div className="peer-card">
@@ -91,13 +144,21 @@ function EvaluateFlow({ code }) {
             Responderás {invite.questionIds.length} preguntas cortas (≈ 2 min) sobre cómo ves a{" "}
             {firstName(invite.ownerName)}.
           </p>
+          <pre style={{
+            fontSize: 10,
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-all",
+            background: "#111",
+            color: "#0f0",
+            padding: 8,
+            borderRadius: 4,
+            maxHeight: 300,
+            overflow: "auto",
+          }}>
+            {JSON.stringify(debugInfo, null, 2)}
+          </pre>
           <p className="peer-muted">
-            Para iniciar sesión con Google, abre este enlace en tu navegador habitual
-            (Chrome, Safari, etc.). El navegador integrado de Facebook bloquea el login.
-          </p>
-          <p className="peer-muted" style={{ fontSize: 13, marginTop: 8 }}>
-            Si el botón no funciona, toca el menú <strong>⋯</strong> de Facebook y elige{" "}
-            <strong>"Abrir en navegador"</strong>.
+            Para iniciar sesión con Google, abre este enlace en tu navegador habitual.
           </p>
           <a
             href={externalBrowserUrl(currentUrl)}
@@ -109,7 +170,8 @@ function EvaluateFlow({ code }) {
             Abrir en navegador
           </a>
           <p className="peer-muted" style={{ marginTop: 16, fontSize: 13 }}>
-            ¿Ya lo abriste en tu navegador? Puedes intentar iniciar sesión aquí de todos modos:
+            Si el botón no funciona, toca el menú <strong>⋯</strong> de Facebook y elige{" "}
+            <strong>"Abrir en navegador"</strong>.
           </p>
           <GoogleSignInButton onClick={() => signInWithGoogle().catch(console.error)} />
         </div>
