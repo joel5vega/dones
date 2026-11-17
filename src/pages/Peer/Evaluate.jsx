@@ -59,8 +59,30 @@ function EvaluateFlow({ code }) {
   const { status, invite, user, authLoading } = ev;
   const inAppOrIframe = useInAppOrIframe();
 
-  if (status === "loading" || authLoading) return <Loader />;
-
+ if (status === "loading" || authLoading) {
+  return (
+    <Shell>
+      <div className="peer-card">
+        <h2>Cargando…</h2>
+        <p className="peer-muted">Debug (quita esto en producción):</p>
+        <pre style={{ fontSize: 11, whiteSpace: "pre-wrap", wordBreak: "break-all" }}>
+          {JSON.stringify({
+            code,
+            status,
+            authLoading,
+            inAppOrIframe,
+            ua: navigator.userAgent,
+            href: window.location.href,
+            isIframe: window.self !== window.top,
+            sessionStorage: (() => {
+              try { return Object.keys(sessionStorage); } catch { return "blocked"; }
+            })(),
+          }, null, 2)}
+        </pre>
+      </div>
+    </Shell>
+  );
+}
   if (status === "notFound")
     return <Shell><div className="peer-card"><h2>Enlace no válido</h2>
       <p className="peer-muted">No encontramos esa invitación. Revisa el enlace o el código.</p>

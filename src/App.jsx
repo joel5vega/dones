@@ -1,4 +1,4 @@
-import { lazy,useEffect } from "react";
+import { lazy, useEffect } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/Layout";
@@ -11,10 +11,13 @@ const Profile = lazy(() => import("./pages/Profile/Profile"));
 const Compare = lazy(() => import("./pages/Peer/Compare"));
 const Seguimiento = lazy(() => import("./pages/admin/Seguimiento"));
 const RedirectAfterLogin = lazy(() => import("./components/RedirectAfterLogin"));
-useEffect(() => {
-  try { sessionStorage.removeItem("returnTo"); } catch {}
-}, []);
+
 export default function App() {
+  // ✅ dentro del componente
+  useEffect(() => {
+    try { sessionStorage.removeItem("returnTo"); } catch {}
+  }, []);
+
   return (
     <AuthProvider>
       <HashRouter>
