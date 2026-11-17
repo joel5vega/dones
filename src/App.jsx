@@ -9,6 +9,7 @@ const Dones = lazy(() => import("./pages/Dones/Dones"));
 const Test = lazy(() => import("./pages/Test/Test"));
 const Profile = lazy(() => import("./pages/Profile/Profile"));
 const Compare = lazy(() => import("./pages/Peer/Compare"));
+const Evaluate = lazy(() => import("./pages/Peer/Evaluate")); // ✅ AÑADIDO
 const Seguimiento = lazy(() => import("./pages/admin/Seguimiento"));
 const RedirectAfterLogin = lazy(() => import("./components/RedirectAfterLogin"));
 
@@ -28,6 +29,8 @@ export default function App() {
             <Route path="test" element={<Test />} />
             <Route path="perfil" element={<Profile />} />
             <Route path="evaluaciones" element={<Compare />} />
+            <Route path="evaluar" element={<Evaluate />} />             {/* ✅ AÑADIDO */}
+            <Route path="evaluar/:code" element={<Evaluate />} />       {/* ✅ AÑADIDO */}
             <Route path="seguimiento" element={<Seguimiento />} />
             <Route path="entrar" element={<RedirectAfterLogin />} />
             <Route path="*" element={<Home />} />
