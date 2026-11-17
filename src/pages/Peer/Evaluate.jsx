@@ -48,6 +48,11 @@ function useInAppOrIframe() {
   return isInApp || isIframe;
 }
 
+/** Fuerza apertura en navegador externo (Android/iOS) */
+function externalBrowserUrl(url) {
+  return `https://www.google.com/url?q=${encodeURIComponent(url)}`;
+}
+
 function EvaluateFlow({ code }) {
   const { signInWithGoogle } = useAuth();
   const ev = usePeerEvaluation(code);
@@ -67,17 +72,9 @@ function EvaluateFlow({ code }) {
       <Link to="/evaluaciones" className="btn-outline">Ver evaluaciones</Link></div></Shell>;
 
   if (!user) {
-    // Si venimos de un iframe / WebView (Facebook, etc.),
-    // el login con Google aquí va a fallar por storage particionado.
+    // En WebView/iframe (Facebook, etc.) forzamos apertura en navegador externo
     if (inAppOrIframe) {
-      const returnTo = `/evaluar/${code}`;
       const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-      const externalUrl = `https://www.google.com/url?q=${encodeURIComponent(currentUrl)}`;
-
-      const handleGoLogin = () => {
-        try { sessionStorage.setItem("returnTo", returnTo); } catch {}
-      };
-
       return (
         <Shell>
           <div className="peer-card">
@@ -90,33 +87,20 @@ function EvaluateFlow({ code }) {
               Para iniciar sesión con Google, abre este enlace en tu navegador habitual
               (Chrome, Safari, etc.). El navegador integrado de Facebook bloquea el login.
             </p>
-
             <a
-              href={externalUrl}
+              href={externalBrowserUrl(currentUrl)}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-outline"
-              onClick={handleGoLogin}
             >
               Abrir en navegador
             </a>
-
-            <p className="peer-muted" style={{ marginTop: 12, fontSize: 13 }}>
-              ¿Ya lo abriste en tu navegador? Puedes intentar iniciar sesión aquí de todos modos:
-            </p>
-            <button
-              type="button"
-              onClick={() => signInWithGoogle().catch(console.error)}
-              className="link-btn"
-            >
-              Iniciar sesión aquí
-            </button>
           </div>
         </Shell>
       );
     }
 
-    // Navegador normal: login con Google en el sitio, como antes
+    // Navegador normal: login con Google en el sitio
     return (
       <Shell>
         <div className="peer-card">

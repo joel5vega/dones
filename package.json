@@ -15,7 +15,9 @@
     "preview": "vite preview",
     "migrate": "vite-node scripts/migrate-scores.js",
     "diagnose": "vite-node scripts/diagnose-users.js",
-    "campaign": "vite-node scripts/send-campaign.js"
+    "campaign": "vite-node scripts/send-campaign.js",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -36,9 +38,14 @@
     "react-share": "^6.1.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.12",
     "@vitejs/plugin-react": "^5.2.0",
     "firebase-admin": "^14.5.1",
+    "jsdom": "^31.0.1",
     "vite": "^8.3.8",
-    "vite-node": "^6.0.0"
+    "vite-node": "^6.0.0",
+    "vitest": "^5.1.0"
   }
 }

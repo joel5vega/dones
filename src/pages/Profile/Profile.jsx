@@ -40,12 +40,12 @@ export default function Profile() {
   if (loading) return <Loader />;
   if (!user) return <Navigate to="/" replace />;
 
-  const list = isAdmin ? all.filter(Boolean) : profile ? [profile] : [];
-  const completed = isAdmin
-    ? all.filter((p) => p.resultado).length
-    : profile?.resultado
-      ? 1
-      : 0;
+const list = isAdmin ? (all ?? []).filter(Boolean) : profile ? [profile] : [];
+const completed = isAdmin
+  ? (all ?? []).filter((p) => p.resultado).length
+  : profile?.resultado
+    ? 1
+    : 0;
 
   return (
     <main className="profile-page">
@@ -64,7 +64,7 @@ export default function Profile() {
 
       <section className="profile-content">
         {isAdmin ? (
-          <AdminUsers profiles={all} />
+          <AdminUsers profiles={all ?? []} />
         ) : list.length === 0 ? (
           <div className="empty-state">
             <FontAwesomeIcon icon={faClockRotateLeft} className="empty-icon" />

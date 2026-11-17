@@ -6,4 +6,10 @@ export default defineConfig({
   base: "/dones/",
   plugins: [react()],
   build: { outDir: "build" },
+  test: {
+    environment: "jsdom",
+    globals: true,
+    setupFiles: "./src/test/setup.js",
+    css: false,
+  },
 });
