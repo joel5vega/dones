@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import GoogleSignInButton from "../../components/GoogleSignInButton";
@@ -8,7 +9,7 @@ import { usePeerEvaluation } from "../../hooks/usePeerEvaluation";
 import { firstName, normalizeCode } from "../../utils/peer";
 import { useAuth } from "../../contexts/AuthContext";
 import "../../components/peer.css";
-
+import SuccessAnimation from "../../components/SuccessAnimation";
 /** /evaluar → pide el código · /evaluar/:code → flujo del evaluador */
 export default function Evaluate() {
   const { code } = useParams();
@@ -26,14 +27,6 @@ export default function Evaluate() {
   return <EvaluateFlow code={normalizeCode(code)} />;
 }
 
-function EnterCode() {
-  return (
-    <main className="peer-page">
-      <div className="peer-card"><CodeEntry title="Evaluar a alguien" /></div>
-    </main>
-  );
-}
-
 function Shell({ children }) {
   return <main className="peer-page">{children}</main>;
 }
@@ -47,7 +40,6 @@ function OwnerHeader({ invite }) {
   );
 }
 
-/** URL que fuerza apertura en navegador externo (Android/iOS) */
 function externalBrowserUrl(url) {
   return `https://www.google.com/url?q=${encodeURIComponent(url)}`;
 }
@@ -56,6 +48,9 @@ function EvaluateFlow({ code }) {
   const { signInWithGoogle } = useAuth();
   const ev = usePeerEvaluation(code);
   const { status, invite, user, authLoading } = ev;
+
+  // Estado para saber si el usuario decidió saltarse el muro de la mitad
+  const [skippedHalfway, setSkippedHalfway] = useState(false);
 
   if (status === "loading" || authLoading) return <Loader />;
 
@@ -80,55 +75,96 @@ function EvaluateFlow({ code }) {
         </div>
       </Shell>
     );
-
-  if (!user) {
-    const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  // En EvaluateFlow, justo después de verificar status === "self":
+  
+  if (status === "done") {
     return (
       <Shell>
-        <div className="peer-card">
-          <OwnerHeader invite={invite} />
-          <p className="peer-muted">
-            Responderás {invite.questionIds.length} preguntas cortas (≈ 2 min) sobre cómo ves a{" "}
-            {firstName(invite.ownerName)}.
+        <div className="peer-card" style={{ textAlign: "center", padding: "40px 20px" }}>
+          <SuccessAnimation />
+          <h2 style={{ color: "var(--resaltar)" }}>¡Evaluación enviada!</h2>
+          <p className="peer-muted" style={{ fontSize: "16px", marginBottom: "24px" }}>
+            Gracias por tomarte el tiempo de evaluar a {firstName(invite.ownerName)}.
+            <br />Tu opinión es muy valiosa y ya le ha llegado.
           </p>
-          <p className="peer-muted">
-            Para guardar tu evaluación, puedes iniciar sesión directamente o abrir este enlace en tu navegador habitual.
+          <Link to="/" className="btn-primary" style={{ display: "inline-block", marginTop: 16 }}>
+            Volver al inicio
+          </Link>
+        </div>
+      </Shell>
+    );
+  }
+  // --- CÁLCULO DE LA MITAD ---
+  const answeredCount = ev.answers.filter(a => a.respuesta > 0).length;
+  const half = Math.floor(ev.answers.length / 2) || 5; 
+  
+  // Si no hay usuario, ya pasó la mitad y no ha decidido saltarse el muro
+  const showHalfwayWall = !user && answeredCount >= half && !skippedHalfway;
+
+  if (showHalfwayWall) {
+    return (
+      <Shell>
+        <div className="peer-card" style={{ textAlign: "center" }}>
+          <div style={{ fontSize: "48px", marginBottom: "16px" }}>🚀</div>
+          <h2>¡Vas por la mitad!</h2>
+          <p className="peer-muted" style={{ fontSize: "16px", marginBottom: "24px" }}>
+            Inicia sesión ahora para no perder tu progreso y que {firstName(invite.ownerName)} pueda ver tu evaluación.
           </p>
-          <div style={{ marginTop: 12 }}>
-             <GoogleSignInButton onClick={() => signInWithGoogle().catch(console.error)} />
-          </div>
           
-          <div style={{ marginTop: 24, borderTop: "1px solid rgba(255,255,255,0.1)", paddingTop: 16 }}>
+          <div style={{ marginTop: 16, display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
+            <GoogleSignInButton onClick={() => signInWithGoogle().catch(console.error)} />
             <a
-              href={externalBrowserUrl(currentUrl)}
+              href={externalBrowserUrl(window.location.href)}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline"
-              style={{ display: "inline-block" }}
+              className="peer-muted"
+              style={{ fontSize: "13px", textDecoration: "underline" }}
             >
-              Abrir en navegador
+              ¿Problemas para iniciar sesión? Abrir en navegador
             </a>
-            <p className="peer-muted" style={{ fontSize: 12, marginTop: 8 }}>
-              Si el inicio de sesión falla, abre el enlace en Chrome o Safari.
-            </p>
+            <button 
+              onClick={() => setSkippedHalfway(true)}
+              style={{ background: "none", border: "none", color: "var(--primario)", fontSize: "12px", cursor: "pointer", opacity: 0.6, marginTop: 8 }}
+            >
+              Continuar sin guardar (no recomendado)
+            </button>
           </div>
         </div>
       </Shell>
     );
   }
 
-  if (status === "done")
-    return (
-      <Shell>
-        <div className="peer-card">
-          <h2>¡Gracias!</h2>
-          <p className="peer-muted">{firstName(invite.ownerName)} podrá ver tu evaluación.</p>
-          <Link to="/test" className="btn-outline">Descubre tus propios dones</Link>
-        </div>
-      </Shell>
-    );
-
-  if (ev.step === "pick")
+  // --- PANTALLA FINAL ---
+  if (ev.step === "pick") {
+    if (!user) {
+      return (
+        <Shell>
+          <div className="peer-card" style={{ textAlign: "center" }}>
+            <div style={{ fontSize: "48px", marginBottom: "16px" }}>🎉</div>
+            <h2>¡Has terminado las preguntas!</h2>
+            <p className="peer-muted" style={{ fontSize: "16px", marginBottom: "24px" }}>
+              Solo falta un paso para enviarle tu evaluación a {firstName(invite.ownerName)}.
+              <br /><br />
+              <em>Inicia sesión para guardar tus respuestas de forma segura.</em>
+            </p>
+            
+            <div style={{ marginTop: 16, display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
+              <GoogleSignInButton onClick={() => signInWithGoogle().catch(console.error)} />
+              <a
+                href={externalBrowserUrl(window.location.href)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="peer-muted"
+                style={{ fontSize: "13px", textDecoration: "underline" }}
+              >
+                ¿Problemas para iniciar sesión? Abrir en navegador
+              </a>
+            </div>
+          </div>
+        </Shell>
+      );
+    }
+    
     return (
       <Shell>
         <GiftPicker
@@ -140,15 +176,23 @@ function EvaluateFlow({ code }) {
         />
       </Shell>
     );
+  }
+
+  // --- FLUJO NORMAL DE PREGUNTAS ---
+  // Si acabamos de loguearnos en la mitad, le decimos a Questions que empiece en la primera pregunta sin responder
+  const firstPending = ev.answers.findIndex(a => a.respuesta === 0);
+  const initialStep = firstPending !== -1 ? firstPending : 0;
 
   return (
     <>
       {ev.previous && (
-        <p className="peer-muted" style={{ textAlign: "center", paddingTop: 80 }}>
+        <p className="peer-muted" style={{ textAlign: "center", paddingTop: 20 }}>
           Ya evaluaste a {firstName(invite.ownerName)}. Si envías de nuevo, se reemplazará tu respuesta.
         </p>
       )}
+      
       <Questions
+        key={user ? "logged" : "guest"} // 👈 CLAVE: Forzar re-montaje al cambiar de estado de auth
         answers={ev.answers}
         onChange={ev.setAnswer}
         onFinish={() => ev.setStep("pick")}
@@ -157,6 +201,7 @@ function EvaluateFlow({ code }) {
         milestoneAt={null}
         extraSteps={1}
         finishLabel="Continuar"
+        initialStep={initialStep} // 👈 CLAVE: Retomar desde donde se quedó
       />
     </>
   );

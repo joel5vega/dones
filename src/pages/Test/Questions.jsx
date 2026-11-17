@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faMugHot, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { scaleFor } from "../../utils/scale";
+import SuccessAnimation from "../../components/SuccessAnimation"; // Ajusta la ruta si es necesario
 import "./questions.css";
 
 export default function Questions({
@@ -18,6 +19,7 @@ export default function Questions({
   const [step, setStep] = useState(() => (initialStep > 0 && initialStep < answers.length ? initialStep : 0));
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [milestone, setMilestone] = useState(null);
+  const [showSuccess, setShowSuccess] = useState(false); // ✨ NUEVO: Estado para la animación final
 
   const total = answers.length;
   const question = answers[step];
@@ -34,15 +36,20 @@ export default function Questions({
     
     onChange(question.id, value);
 
-    if (isLast) return;
+    if (isLast) {
+      // ✨ NUEVO: Si es la última, hacemos scroll suave hacia el botón para que lo vea
+      setTimeout(() => {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+      }, 100);
+      return;
+    }
 
     setIsTransitioning(true);
     window.setTimeout(() => {
       const completed = step + 1;
       
-      // ✨ AQUI CAMBIAMOS LA LÓGICA DEL DESCANSO: Cada 18 preguntas
+      // Cada 18 preguntas mostramos la pantalla de descanso
       if (milestoneAt && completed === milestoneAt) {
-        // Calculamos el porcentaje basado en las respuestas dadas (18 de total)
         const currentProgress = Math.round((completed / total) * 100);
         setMilestone({ completed, percentage: currentProgress });
         setIsTransitioning(false);
@@ -59,19 +66,40 @@ export default function Questions({
     setStep((current) => current - 1);
   };
 
+  // ✨ NUEVO: Maneja el final del test mostrando la animación antes de avisar al padre
+  const handleFinish = () => {
+    setShowSuccess(true);
+    setTimeout(() => {
+      if (onFinish) onFinish();
+    }, 2000); // 2 segundos de animación
+  };
+
   useEffect(() => {
     const handleKey = (event) => {
-      if (milestone || isTransitioning) return;
+      if (milestone || isTransitioning || showSuccess) return;
       const number = Number(event.key);
       if (number >= 1 && number <= scale.length) selectAnswer(number);
       if (event.key === "ArrowLeft") goBack();
-      if (event.key === "Enter" && selected && isLast) onFinish();
+      if (event.key === "Enter" && selected && isLast) handleFinish(); // ✨ Modificado
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   });
 
   if (!question) return null;
+
+  // ✨ NUEVO: Render de la pantalla de éxito final
+  if (showSuccess) {
+    return (
+      <div className="quiz-page-wrapper" style={{ justifyContent: "center" }}>
+        <div style={{ textAlign: "center" }}>
+          <SuccessAnimation />
+          <h2 style={{ color: "var(--resaltar)", marginTop: 20 }}>¡Test completado!</h2>
+          <p className="peer-muted">Calculando tus resultados...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="quiz-page-wrapper">
@@ -80,7 +108,7 @@ export default function Questions({
       </div>
 
       {milestone ? (
-        // ✨ PANTALLA DE DESCANSO REDISEÑADA
+        // PANTALLA DE DESCANSO (MILESTONE)
         <div className="milestone-screen">
           <div className="milestone-icon-wrapper">
             <FontAwesomeIcon icon={faMugHot} className="milestone-icon" />
@@ -121,7 +149,6 @@ export default function Questions({
       ) : (
         <div className="quiz-container">
           <div className="quiz-header">
-            {/* <span className="quiz-step">Pregunta {step + 1} de {total}</span> */}
             <h1 className="quiz-question">{textFor(question)}</h1>
             <p className="quiz-hint">Elige la respuesta más honesta y continúa a tu ritmo.</p>
           </div>
@@ -140,7 +167,6 @@ export default function Questions({
                 >
                   <span className="option-number">{option.value}</span>
                   <span className="option-content">
-                    {/* ✨ AQUI QUITAMOS LA REDUNDANCIA: Solo mostramos la frase larga */}
                     <strong>{option.phrase}</strong>
                   </span>
                   <span className="option-radio">
@@ -159,8 +185,9 @@ export default function Questions({
             <div className="quiz-footer-hint">
               {isLast ? (
                 <button 
-                  className="btn-finish" 
-                  onClick={onFinish} 
+                  // ✨ NUEVO: Clase dinámica para la animación de pulso
+                  className={`btn-finish ${selected ? "pulse-active" : ""}`} 
+                  onClick={handleFinish} 
                   disabled={!selected}
                 >
                   {finishLabel} <FontAwesomeIcon icon={faCheckCircle} />

@@ -250,7 +250,7 @@
 }
 
 /* =========================================================
-   PANTALLA DE DESCANSO (MILESTONE) - Optimizada para móviles
+   PANTALLA DE DESCANSO (MILESTONE) - Mejorada
    ========================================================= */
 .milestone-screen {
   display: flex;
@@ -261,7 +261,7 @@
   max-width: 520px;
   width: 100%;
   margin: 20px auto;
-  padding: 30px 20px; /* Menos relleno en móvil */
+  padding: 30px 20px;
   background: var(--fondo-suave);
   border: 1px solid var(--borde);
   border-radius: var(--radius-xl);
@@ -275,44 +275,98 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: rgba(251, 175, 0, 0.1);
+  background: rgba(251, 175, 0, 0.15); /* Un fondo más cálido */
   color: var(--resaltar);
-  font-size: 22px;
+  font-size: 24px;
   margin-bottom: 20px;
 }
 
 .milestone-screen h2 {
-  font-size: 24px; /* Reducido */
+  font-size: 24px;
   margin: 0 0 8px 0;
+  color: var(--primario);
 }
 
 .milestone-subtitle {
-  font-size: 14px;
+  font-size: 15px;
   margin: 0 0 24px 0;
-  line-height: 1.4;
+  line-height: 1.5;
+  color: var(--primario);
 }
 
+/* ARREGLO DEL CÍRCULO DE PROGRESO */
 .milestone-progress-ring {
   position: relative;
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.milestone-progress-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* Empieza a llenarse desde arriba */
+}
+
+.milestone-progress-ring .ring-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1); /* Fondo del anillo sutil */
+  stroke-width: 8;
+}
+
+.milestone-progress-ring .ring-fill {
+  fill: none;
+  stroke: var(--resaltar); /* Color naranja/dorado de tu app */
+  stroke-width: 8;
+  stroke-linecap: round; /* Bordes redondeados */
+  transition: stroke-dasharray 1s ease-out;
 }
 
 .milestone-progress-ring span {
-  font-size: 20px;
+  position: absolute;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--resaltar); /* El número del porcentaje en color resaltado */
 }
 
 .milestone-message {
-  font-size: 13px;
-  margin: 0 auto 24px auto;
+  font-size: 14px;
+  margin: 0 auto 12px auto;
+  line-height: 1.6;
+  color: var(--primario);
+  max-width: 90%;
+  font-style: italic;
+}
+
+.milestone-quote {
+  font-size: 14px;
+  margin: 0 0 30px 0;
+  color: var(--informacion);
+  font-weight: 600;
 }
 
 .milestone-screen .btn-continue {
-  padding: 14px 24px;
+  padding: 14px 28px;
   font-size: 15px;
+  font-weight: 700;
+  background: var(--resaltar);
+  color: var(--fondo);
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
+.milestone-screen .btn-continue:hover {
+  transform: translateY(-2px);
+  background: #fcd34d; /* Un tono más claro al pasar el mouse */
+}
 /* =========================================================
    RESPONSIVE (Para pantallas < 400px)
    ========================================================= */
@@ -336,4 +390,16 @@
 @keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.btn-finish.pulse-active {
+  background: var(--resaltar);
+  animation: pulse-glow 2s infinite;
+  transform: scale(1.05);
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(46, 204, 113, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
 }
