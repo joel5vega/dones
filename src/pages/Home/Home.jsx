@@ -46,9 +46,7 @@ export default function Home() {
           </p>
           <Acciones />
         </div>
-        <div className="hero-image-wrapper">
-          <img src={portada} alt="Orando con la Biblia" className="hero-image" />
-        </div>
+        
       </section>
 
       <section className="home-info-card">
@@ -56,6 +54,9 @@ export default function Home() {
       </section>
 
       <section className="home-info-card">
+        <div className="hero-image-wrapper">
+          <img src={portada} alt="Orando con la Biblia" className="hero-image" />
+        </div>
         <div className="info-text">
           <p>
             Un don espiritual es una manifestación soberana del Espíritu Santo en la vida del
