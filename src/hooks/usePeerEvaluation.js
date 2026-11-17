@@ -7,7 +7,7 @@ import { buildPeerQuestions, calculatePartialScores, peerText } from "../utils/p
 
 /**
  * Flujo del evaluador: cargar invitación → responder → elegir 3 dones → enviar.
- * status: loading | notFound | self | ready | done
+ * status: loading | notFound | self | ready | done | error
  * step:   questions | pick
  */
 export function usePeerEvaluation(code) {
@@ -18,10 +18,16 @@ export function usePeerEvaluation(code) {
   const [answers, setAnswers] = useState([]);
   const [error, setError] = useState(null);
 
+  // Cargar invitación con timeout (para WebViews que no responden)
   useEffect(() => {
     let cancelled = false;
     setStatus("loading");
-    getInvite(code)
+
+    const timeout = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("timeout")), 10000)
+    );
+
+    Promise.race([getInvite(code), timeout])
       .then((inv) => {
         if (cancelled) return;
         setInvite(inv);
@@ -29,7 +35,11 @@ export function usePeerEvaluation(code) {
         setAnswers(buildPeerQuestions(inv.questionIds, preguntas));
         setStatus("ready");
       })
-      .catch((e) => { console.error(e); if (!cancelled) setStatus("notFound"); });
+      .catch((e) => {
+        console.error("[usePeerEvaluation] error:", e);
+        if (!cancelled) setStatus("notFound");
+      });
+
     return () => { cancelled = true; };
   }, [code]);
 

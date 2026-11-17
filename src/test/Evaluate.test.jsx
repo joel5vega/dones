@@ -28,16 +28,10 @@ function renderEvaluate(path = "/evaluar/abc123") {
 
 describe("Evaluate", () => {
   beforeEach(() => {
-    sessionStorage.clear();
     vi.clearAllMocks();
   });
 
-  it("WebView Facebook sin user → muestra 'Abrir en navegador' (sin link a /entrar)", async () => {
-    Object.defineProperty(navigator, "userAgent", {
-      value: "Mozilla/5.0 FBAN/FBIOS",
-      configurable: true,
-    });
-
+  it("sin user → SIEMPRE muestra 'Abrir en navegador' y el botón de Google", async () => {
     useAuth.mockReturnValue(mockAuth());
     usePeerEvaluation.mockReturnValue({
       status: "ready",
@@ -52,35 +46,10 @@ describe("Evaluate", () => {
     const link = await screen.findByText("Abrir en navegador");
     expect(link).toBeInTheDocument();
     expect(link.getAttribute("href")).toContain("google.com/url?q=");
-    expect(screen.queryByText("Iniciar sesión y continuar")).not.toBeInTheDocument();
-  });
-
-  it("Navegador normal sin user → muestra botón de Google", async () => {
-    Object.defineProperty(navigator, "userAgent", {
-      value: "Mozilla/5.0 Chrome/120",
-      configurable: true,
-    });
-
-    useAuth.mockReturnValue(mockAuth());
-    usePeerEvaluation.mockReturnValue({
-      status: "ready",
-      invite,
-      user: null,
-      authLoading: false,
-      answers: [],
-    });
-
-    renderEvaluate();
-    expect(await screen.findByRole("button", { name: /iniciar sesión/i })).toBeInTheDocument();
-    expect(screen.queryByText("Abrir en navegador")).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /iniciar sesión/i })).toBeInTheDocument();
   });
 
   it("enlace no válido → muestra mensaje", async () => {
-    Object.defineProperty(navigator, "userAgent", {
-      value: "Mozilla/5.0 Chrome/120",
-      configurable: true,
-    });
-
     useAuth.mockReturnValue(mockAuth());
     usePeerEvaluation.mockReturnValue({
       status: "notFound",
@@ -92,5 +61,40 @@ describe("Evaluate", () => {
 
     renderEvaluate();
     expect(await screen.findByText("Enlace no válido")).toBeInTheDocument();
+  });
+
+  it("invitación propia → muestra 'Esta es tu propia invitación'", async () => {
+    useAuth.mockReturnValue(mockAuth({ user: { uid: "u1" } }));
+    usePeerEvaluation.mockReturnValue({
+      status: "self",
+      invite,
+      user: { uid: "u1" },
+      authLoading: false,
+      answers: [],
+    });
+
+    renderEvaluate();
+    expect(await screen.findByText("Esta es tu propia invitación")).toBeInTheDocument();
+  });
+
+  it("sin código en la URL → muestra 'Enlace incompleto'", async () => {
+    useAuth.mockReturnValue(mockAuth());
+    usePeerEvaluation.mockReturnValue({
+      status: "loading",
+      invite: null,
+      user: null,
+      authLoading: false,
+      answers: [],
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/evaluar/"]}>
+        <Routes>
+          <Route path="/evaluar" element={<Evaluate />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    expect(await screen.findByText("Enlace incompleto")).toBeInTheDocument();
   });
 });
