@@ -3,7 +3,6 @@ import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Loader from "../../components/Loader/Loader";
 import { MINISTRY_STARTERS } from "../../data/ministerios";
-import { CAUSE_OPTIONS, INTEREST_OPTIONS, SKILL_OPTIONS } from "../../data/intereses";
 import {
   createMinistry, getAdminMinistries, getPendingMinistries, importStarterMinistry,
   removeMinistryLogo, reviewMinistry, setMinistryStatus, updateMinistry, uploadMinistryLogo,
