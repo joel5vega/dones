@@ -25,7 +25,7 @@ function MinistryCard({ ministry, proposed = false }) {
     <div className="service-meta"><span><strong>Dones relacionados:</strong> {(ministry.gifts || []).join(", ") || "Por definir"}</span><span><strong>Intereses:</strong> {(ministry.interests || []).join(", ") || "Por definir"}</span><span><strong>Dedicación:</strong> {ministry.commitment || "A conversar"}</span></div>
     {(ministry.websiteUrl || ministry.whatsappPhone) && <div className="ministry-contact-actions">
       {ministry.websiteUrl && <a className="service-button secondary" href={ministry.websiteUrl} target="_blank" rel="noopener noreferrer">Sitio web ↗</a>}
-      {ministry.whatsappPhone && <a className="service-button whatsapp-button" href={`https://wa.me/${String(ministry.whatsappPhone).replace(/\\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label={`Contactar por WhatsApp a ${ministry.name}`}>WhatsApp</a>}
+      {ministry.whatsappPhone && <a className="service-button whatsapp-button" href={`https://wa.me/${String(ministry.whatsappPhone).replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer" aria-label={`Contactar por WhatsApp a ${ministry.name}`}>WhatsApp</a>}
     </div>}
     {ministry.requirements?.length > 0 && <p className="service-hint"><strong>Consideraciones:</strong> {ministry.requirements.join(" · ")}</p>}
     {!proposed && <p className="service-disclaimer">Esta sugerencia es un punto de partida para conversar y probar; no es una asignación ni una confirmación de un don.</p>}
