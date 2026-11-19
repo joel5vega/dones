@@ -115,9 +115,7 @@ export default function Servicio() {
         <ChipGroup title="Intereses relacionados" options={INTEREST_OPTIONS} value={draft.interests} onChange={(v)=>setDraft({...draft,interests:v})}/>
         <ChipGroup title="Necesidades o causas que busca atender" options={CAUSE_OPTIONS} value={draft.causes} onChange={(v)=>setDraft({...draft,causes:v})}/>
         <ChipGroup title="Habilidades necesarias" options={SKILL_OPTIONS} value={draft.skills} onChange={(v)=>setDraft({...draft,skills:v})}/>
-        <label>Actividades principales (una por línea)<textarea rows="3" value={draft.activities} onChange={(e)=>setDraft({...draft,activities:e.target.value})} placeholder={"Visitar familias
-Organizar encuentros
-Preparar recursos"}/></label>
+        <label>Actividades principales (una por línea)<textarea rows="3" value={draft.activities} onChange={(e)=>setDraft({...draft,activities:e.target.value})} placeholder={"Visitar familias\nOrganizar encuentros\nPreparar recursos"}/></label>
         <label>Dedicación estimada<input value={draft.commitment} onChange={(e)=>setDraft({...draft,commitment:e.target.value})} placeholder="Ej. Dos sábados al mes"/></label>
         <label>Requisitos, formación o cuidados (uno por línea)<textarea rows="2" value={draft.requirements} onChange={(e)=>setDraft({...draft,requirements:e.target.value})}/></label>
         <p className="service-hint">La propuesta se guardará como pendiente y no aparecerá en el catálogo hasta que sea revisada por un administrador.</p>
