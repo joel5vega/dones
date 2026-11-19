@@ -25,14 +25,14 @@ function giftScore(results, gifts) {
 
 /**
  * Explainable recommendation score, not a spiritual diagnosis.
- * Gifts 45%, interests 30%, skills 15%, preferred context 10%.
+ * Gifts 40%, interests 25%, skills 15%, causes 10%, preferred context 10%.
  * Missing dimensions are removed from the denominator.
  */
 export function scoreMinistry(ministry, discernment = {}, resultado = {}) {
   const dimensions = [
-    { key: "dones", weight: 0.45, score: giftScore(resultado, ministry.gifts) },
-    { key: "intereses", weight: 0.30, score: overlapScore(discernment.interests, ministry.interests) },
-    { key: "habilidades", weight: 0.15, score: overlapScore(discernment.skills, ministry.skills) },
+    { key: "dones", weight: 0.40, score: giftScore(resultado, ministry.gifts) },
+    { key: "intereses", weight: 0.25, score: overlapScore(discernment.interests, ministry.interests) },
+    { key: "habilidades", weight: 0.15, score: overlapScore(discernment.skills, ministry.skills) },\n    { key: "causas", weight: 0.10, score: overlapScore(discernment.causes, ministry.causes) },
     { key: "ambito", weight: 0.10, score: ministry.scope === "both" || !discernment.context || discernment.context === "both" || ministry.scope === discernment.context ? 100 : 0 },
   ].filter((item) => item.score !== null);
   const totalWeight = dimensions.reduce((sum, item) => sum + item.weight, 0);
@@ -43,7 +43,7 @@ export function scoreMinistry(ministry, discernment = {}, resultado = {}) {
     reasons: dimensions.filter((item) => item.score >= 40).map((item) => ({
       dones: "Dones que podrían ponerse al servicio",
       intereses: "Intereses que expresaste",
-      habilidades: "Habilidades que puedes aportar",
+      habilidades: "Habilidades que puedes aportar",\n      causas: "Necesidades y causas que te conmueven",
       ambito: "Ámbito de servicio que prefieres",
     }[item.key])),
     dimensions: Object.fromEntries(dimensions.map(({ key, score: value }) => [key, Math.round(value)])),
