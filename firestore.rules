@@ -54,8 +54,8 @@ service cloud.firestore {
             || resource.data.ownerUid == request.auth.uid
             || isAdmin());
       allow create: if request.auth != null
-        && request.resource.data.ownerUid == request.auth.uid
-        && request.resource.data.status == "pending";
+        && ((request.resource.data.ownerUid == request.auth.uid && request.resource.data.status == "pending")
+            || (isAdmin() && request.resource.data.status == "active"));
       // Solo administradores pueden aprobar, editar o retirar ministerios.
       allow update, delete: if request.auth != null && isAdmin();
     }
