@@ -29,13 +29,15 @@ function giftScore(results, gifts) {
  * Missing dimensions are removed from the denominator.
  */
 export function scoreMinistry(ministry, discernment = {}, resultado = {}) {
-  const dimensions = [
+  const candidates = [
     { key: "dones", weight: 0.40, score: giftScore(resultado, ministry.gifts) },
     { key: "intereses", weight: 0.25, score: overlapScore(discernment.interests, ministry.interests) },
     { key: "habilidades", weight: 0.15, score: overlapScore(discernment.skills, ministry.skills) },
     { key: "causas", weight: 0.10, score: overlapScore(discernment.causes, ministry.causes) },
     { key: "ambito", weight: 0.10, score: ministry.scope === "both" || !discernment.context || discernment.context === "both" || ministry.scope === discernment.context ? 100 : 0 },
-  ].filter((item) => item.score !== null && (item.key !== "ambito" || dimensions.some((other) => other.key !== "ambito" && other.score !== null)));
+  ];
+  const hasMatchingSignal = candidates.some((item) => item.key !== "ambito" && item.score !== null);
+  const dimensions = candidates.filter((item) => item.score !== null && (item.key !== "ambito" || hasMatchingSignal));
   const totalWeight = dimensions.reduce((sum, item) => sum + item.weight, 0);
   const score = totalWeight ? Math.round(dimensions.reduce((sum, item) => sum + item.score * item.weight, 0) / totalWeight) : 0;
   return {
