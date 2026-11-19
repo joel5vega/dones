@@ -47,6 +47,19 @@ service cloud.firestore {
       allow read: if request.auth != null && isAdmin();
     }
 
+    // Catálogo de ministerios: solo propuestas activas son visibles para todos.
+    match /ministries/{ministryId} {
+      allow read: if request.auth != null
+        && (resource.data.status == "active"
+            || resource.data.ownerUid == request.auth.uid
+            || isAdmin());
+      allow create: if request.auth != null
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.status == "pending";
+      // Solo administradores pueden aprobar, editar o retirar ministerios.
+      allow update, delete: if request.auth != null && isAdmin();
+    }
+
     // Cola de correos (extensión "Trigger Email from Firestore"): solo el admin
     match /mail/{id} {
       allow create, read: if request.auth != null && isAdmin();
