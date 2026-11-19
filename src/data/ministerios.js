@@ -12,4 +12,20 @@ export const MINISTRY_STARTERS = [
   { id:"workplace", name:"Fe y servicio en el entorno laboral", scope:"society", description:"Vivir la fe mediante integridad, excelencia, mentoría y servicio en el trabajo.", gifts:["Sabiduría","Fe","Liderazgo","Administración","Exhortación"], interests:["Emprendimiento y trabajo","Educación","Ayuda social"], skills:["Comunicación","Gestión de proyectos","Organización"], activities:["Mentoría profesional","Ética y apoyo","Iniciativas de servicio"], commitment:"Integrado a la vida cotidiana", requirements:["Respeto al contexto y a las personas"] },
   { id:"media", name:"Comunicación y medios", scope:"both", description:"Comunicar con claridad las actividades, historias y recursos de la comunidad.", gifts:["Enseñanza","Administración","Servicio / Ayuda","Liderazgo"], interests:["Tecnología y comunicación","Arte y creatividad"], skills:["Diseño","Fotografía y video","Escritura","Tecnología"], activities:["Diseño gráfico","Fotografía","Redes y recursos digitales"], commitment:"Por proyectos", requirements:["Cuidado de datos e imagen de las personas"] },
   { id:"prayer", name:"Oración e intercesión", scope:"both", description:"Sostener en oración a personas, equipos y necesidades de la comunidad.", gifts:["Fe","Misericordia","Sabiduría","Pastoreo"], interests:["Oración","Misiones","Consejería y acompañamiento"], skills:["Escucha","Acompañamiento personal"], activities:["Reuniones de oración","Acompañamiento en oración"], commitment:"Flexible", requirements:["Confidencialidad y sensibilidad"] },
-];
+].map((ministry) => ({
+  ...ministry,
+  causes: ({
+    kids: ["Niñez en riesgo", "Educación y alfabetización"],
+    youth: ["Familias y relaciones", "Educación y alfabetización"],
+    discipleship: ["Evangelización y discipulado", "Educación y alfabetización"],
+    worship: ["Evangelización y discipulado"],
+    welcome: ["Soledad y aislamiento", "Familias y relaciones"],
+    care: ["Soledad y aislamiento", "Salud y enfermedad", "Familias y relaciones"],
+    missions: ["Evangelización y discipulado", "Migración y desplazamiento"],
+    social: ["Pobreza y necesidades básicas", "Personas con discapacidad", "Salud y enfermedad"],
+    education: ["Educación y alfabetización", "Niñez en riesgo"],
+    workplace: ["Pobreza y necesidades básicas", "Educación y alfabetización"],
+    media: ["Evangelización y discipulado"],
+    prayer: ["Salud y enfermedad", "Soledad y aislamiento", "Familias y relaciones"],
+  })[ministry.id] || [],
+}));
