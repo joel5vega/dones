@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 import GoogleSignInButton from "../../components/GoogleSignInButton";
 import CodeEntry from "../../components/CodeEntry";
 import GiftPicker from "../../components/GiftPicker";
 import Questions from "../Test/Questions";
+import SuccessAnimation from "../../components/SuccessAnimation";
 import { usePeerEvaluation } from "../../hooks/usePeerEvaluation";
 import { firstName, normalizeCode } from "../../utils/peer";
 import { useAuth } from "../../contexts/AuthContext";
 import "../../components/peer.css";
-import SuccessAnimation from "../../components/SuccessAnimation";
-/** /evaluar → pide el código · /evaluar/:code → flujo del evaluador */
+
 export default function Evaluate() {
   const { code } = useParams();
   if (!code || code === "undefined") {
@@ -49,8 +49,14 @@ function EvaluateFlow({ code }) {
   const ev = usePeerEvaluation(code);
   const { status, invite, user, authLoading } = ev;
 
-  // Estado para saber si el usuario decidió saltarse el muro de la mitad
   const [skippedHalfway, setSkippedHalfway] = useState(false);
+
+  // ✨ Subir scroll cuando haya éxito o cuando pase a la pantalla final
+  useEffect(() => {
+    if (status === "done" || ev.step === "pick") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [status, ev.step]);
 
   if (status === "loading" || authLoading) return <Loader />;
 
@@ -75,14 +81,14 @@ function EvaluateFlow({ code }) {
         </div>
       </Shell>
     );
-  // En EvaluateFlow, justo después de verificar status === "self":
-  
+
+  // ✨ PANTALLA DE ÉXITO
   if (status === "done") {
     return (
       <Shell>
         <div className="peer-card" style={{ textAlign: "center", padding: "40px 20px" }}>
           <SuccessAnimation />
-          <h2 style={{ color: "var(--resaltar)" }}>¡Evaluación enviada!</h2>
+          <h2 style={{ color: "var(--resaltar)", marginTop: 20 }}>¡Evaluación enviada!</h2>
           <p className="peer-muted" style={{ fontSize: "16px", marginBottom: "24px" }}>
             Gracias por tomarte el tiempo de evaluar a {firstName(invite.ownerName)}.
             <br />Tu opinión es muy valiosa y ya le ha llegado.
@@ -94,12 +100,11 @@ function EvaluateFlow({ code }) {
       </Shell>
     );
   }
-  // --- CÁLCULO DE LA MITAD ---
+
   const answeredCount = ev.answers.filter(a => a.respuesta > 0).length;
   const half = Math.floor(ev.answers.length / 2) || 5; 
   
-  // Si no hay usuario, ya pasó la mitad y no ha decidido saltarse el muro
-  const showHalfwayWall = !user && answeredCount >= half && !skippedHalfway;
+  const showHalfwayWall = !user && answeredCount >= half && !skippedHalfway && ev.step !== "pick";
 
   if (showHalfwayWall) {
     return (
@@ -134,7 +139,7 @@ function EvaluateFlow({ code }) {
     );
   }
 
-  // --- PANTALLA FINAL ---
+  // PANTALLA FINAL (Soft Wall)
   if (ev.step === "pick") {
     if (!user) {
       return (
@@ -178,8 +183,6 @@ function EvaluateFlow({ code }) {
     );
   }
 
-  // --- FLUJO NORMAL DE PREGUNTAS ---
-  // Si acabamos de loguearnos en la mitad, le decimos a Questions que empiece en la primera pregunta sin responder
   const firstPending = ev.answers.findIndex(a => a.respuesta === 0);
   const initialStep = firstPending !== -1 ? firstPending : 0;
 
@@ -192,7 +195,7 @@ function EvaluateFlow({ code }) {
       )}
       
       <Questions
-        key={user ? "logged" : "guest"} // 👈 CLAVE: Forzar re-montaje al cambiar de estado de auth
+        key={user ? "logged" : "guest"}
         answers={ev.answers}
         onChange={ev.setAnswer}
         onFinish={() => ev.setStep("pick")}
@@ -201,7 +204,7 @@ function EvaluateFlow({ code }) {
         milestoneAt={null}
         extraSteps={1}
         finishLabel="Continuar"
-        initialStep={initialStep} // 👈 CLAVE: Retomar desde donde se quedó
+        initialStep={initialStep}
       />
     </>
   );

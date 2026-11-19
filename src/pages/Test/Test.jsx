@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTest } from "../../hooks/useTest";
 import Loader from "../../components/Loader/Loader";
@@ -15,9 +15,15 @@ export default function Test() {
   const [started, setStarted] = useState(false);
   const [resumeAt, setResumeAt] = useState(0);
 
+  // ✨ Subir scroll cuando haya resultados
+  useEffect(() => {
+    if (result) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [result]);
+
   if (!ready) return <Loader />;
 
-  // 1. Si ya terminó el test, mostramos los resultados
   if (result) {
     return (
       <Results
@@ -30,7 +36,6 @@ export default function Test() {
     );
   }
 
-  // 2. Si no hay usuario logueado, mostramos la pantalla de bienvenida
   if (!user) {
     const login = async () => {
       try {
@@ -68,7 +73,7 @@ export default function Test() {
             <GoogleSignInButton onClick={login} className="btn-google-large" />
             
             <p className="auth-skip">
-                         <button onClick={login} className="link-btn">
+              <button onClick={login} className="link-btn">
                 Entra con Google, es rápido y gratis
               </button>.
             </p>
@@ -78,7 +83,6 @@ export default function Test() {
     );
   }
 
-  // 3. Test a medias: ofrecer continuar o empezar de nuevo
   const answered = answers.filter((a) => a.respuesta > 0).length;
   const firstPending = answers.findIndex((a) => a.respuesta === 0);
   if (!started && answered > 0 && firstPending !== -1) {
@@ -108,7 +112,6 @@ export default function Test() {
     );
   }
 
-  // 4. Test normal
   return (
     <Questions
       answers={answers}

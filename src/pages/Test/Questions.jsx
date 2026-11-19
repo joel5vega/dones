@@ -2,24 +2,24 @@ import { useMemo, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight, faMugHot, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { scaleFor } from "../../utils/scale";
-import SuccessAnimation from "../../components/SuccessAnimation"; // Ajusta la ruta si es necesario
+import SuccessAnimation from "../../components/SuccessAnimation";
 import "./questions.css";
 
 export default function Questions({
   answers,
   onChange,
   onFinish,
-  perspective = "self",                 // "self" | "peer"
-  textFor = (q) => q.pregunta,          // texto mostrado por pregunta
-  milestoneAt = 18,                     // pantalla de descanso (null = sin descanso)
+  perspective = "self",
+  textFor = (q) => q.pregunta,
+  milestoneAt = 18,
   finishLabel = "Ver resultados",
-  extraSteps = 0,                       // pasos posteriores que cuentan en la barra (p. ej. elegir 3 dones)
-  initialStep = 0,                      // -1 o fuera de rango = empezar desde el inicio
+  extraSteps = 0,
+  initialStep = 0,
 }) {
   const [step, setStep] = useState(() => (initialStep > 0 && initialStep < answers.length ? initialStep : 0));
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [milestone, setMilestone] = useState(null);
-  const [showSuccess, setShowSuccess] = useState(false); // ✨ NUEVO: Estado para la animación final
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const total = answers.length;
   const question = answers[step];
@@ -31,13 +31,27 @@ export default function Questions({
   const answeredCount = answers.filter((a) => a.respuesta > 0).length;
   const progress = Math.round((answeredCount / (total + extraSteps)) * 100);
 
+  // ✨ Efecto para subir el scroll cuando aparece la animación de éxito
+  useEffect(() => {
+    if (showSuccess) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [showSuccess]);
+
+  // ✨ Efecto para subir el scroll cuando aparece la pantalla de descanso
+  useEffect(() => {
+    if (milestone) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [milestone]);
+
   const selectAnswer = (value) => {
-    if (!question || isTransitioning) return;
+    if (!question || isTransitioning || showSuccess) return;
     
     onChange(question.id, value);
 
     if (isLast) {
-      // ✨ NUEVO: Si es la última, hacemos scroll suave hacia el botón para que lo vea
+      // Si es la última, hacemos scroll suave hacia el botón
       setTimeout(() => {
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
       }, 100);
@@ -48,7 +62,6 @@ export default function Questions({
     window.setTimeout(() => {
       const completed = step + 1;
       
-      // Cada 18 preguntas mostramos la pantalla de descanso
       if (milestoneAt && completed === milestoneAt) {
         const currentProgress = Math.round((completed / total) * 100);
         setMilestone({ completed, percentage: currentProgress });
@@ -62,16 +75,16 @@ export default function Questions({
   };
 
   const goBack = () => {
-    if (step === 0 || isTransitioning) return;
+    if (step === 0 || isTransitioning || showSuccess) return;
     setStep((current) => current - 1);
   };
 
-  // ✨ NUEVO: Maneja el final del test mostrando la animación antes de avisar al padre
   const handleFinish = () => {
+    if (!selected) return;
     setShowSuccess(true);
     setTimeout(() => {
       if (onFinish) onFinish();
-    }, 2000); // 2 segundos de animación
+    }, 2000);
   };
 
   useEffect(() => {
@@ -80,7 +93,7 @@ export default function Questions({
       const number = Number(event.key);
       if (number >= 1 && number <= scale.length) selectAnswer(number);
       if (event.key === "ArrowLeft") goBack();
-      if (event.key === "Enter" && selected && isLast) handleFinish(); // ✨ Modificado
+      if (event.key === "Enter" && selected && isLast) handleFinish();
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
@@ -88,7 +101,6 @@ export default function Questions({
 
   if (!question) return null;
 
-  // ✨ NUEVO: Render de la pantalla de éxito final
   if (showSuccess) {
     return (
       <div className="quiz-page-wrapper" style={{ justifyContent: "center" }}>
@@ -108,7 +120,6 @@ export default function Questions({
       </div>
 
       {milestone ? (
-        // PANTALLA DE DESCANSO (MILESTONE)
         <div className="milestone-screen">
           <div className="milestone-icon-wrapper">
             <FontAwesomeIcon icon={faMugHot} className="milestone-icon" />
@@ -185,7 +196,6 @@ export default function Questions({
             <div className="quiz-footer-hint">
               {isLast ? (
                 <button 
-                  // ✨ NUEVO: Clase dinámica para la animación de pulso
                   className={`btn-finish ${selected ? "pulse-active" : ""}`} 
                   onClick={handleFinish} 
                   disabled={!selected}
