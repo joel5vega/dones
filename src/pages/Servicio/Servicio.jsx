@@ -2,11 +2,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Loader from "../../components/Loader/Loader";
-import { INTEREST_OPTIONS, SKILL_OPTIONS, CONTEXT_OPTIONS, AVAILABILITY_OPTIONS } from "../../data/intereses";
+import { INTEREST_OPTIONS, SKILL_OPTIONS, CONTEXT_OPTIONS, AVAILABILITY_OPTIONS, CAUSE_OPTIONS } from "../../data/intereses";
 import { MINISTRY_STARTERS } from "../../data/ministerios";
 import { recommendMinistries } from "../../utils/ministryMatcher";
 import { saveDiscernment } from "../../services/discernmentService";
-import { getMyMinistryProposals, getPublishedMinistries, proposeMinistry } from "../../services/ministerioService";
+import { getMyMinistryProposals, getPendingMinistries, getPublishedMinistries, proposeMinistry, reviewMinistry } from "../../services/ministerioService";
 import "./servicio.css";
 
 const blankMinistry = { name:"", description:"", scope:"church", gifts:[], interests:[], skills:[], activities:"", commitment:"", requirements:"" };
@@ -29,16 +29,16 @@ function MinistryCard({ ministry, proposed = false }) {
 }
 
 export default function Servicio() {
-  const { user, profile, loading, patchProfile } = useAuth();
+  const { user, profile, loading, patchProfile, isAdmin } = useAuth();
   const [form, setForm] = useState({ interests:[], skills:[], causes:[], context:"both", availability:[] });
   const [saved, setSaved] = useState(false);
   const [saving, setSaving] = useState(false);
   const [remote, setRemote] = useState([]);
-  const [proposals, setProposals] = useState([]);
+  const [proposals, setProposals] = useState([]);\n  const [pendingReview, setPendingReview] = useState([]);
   const [loadingData, setLoadingData] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [draft, setDraft] = useState(blankMinistry);
-  const [submitting, setSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(false);\n  const [reviewing, setReviewing] = useState("");
   const [notice, setNotice] = useState("");
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function Servicio() {
       setRemote(published); setProposals(mine.filter((item) => item.status !== "active"));
     } catch (error) { console.error("No se pudieron cargar los ministerios", error); setNotice("No fue posible cargar el catálogo comunitario. Puedes seguir explorando las sugerencias iniciales."); }
     finally { setLoadingData(false); }
-  }, [user]);
+  }, [user, isAdmin]);
 
   useEffect(() => { refresh(); }, [refresh]);
 
@@ -90,7 +90,7 @@ export default function Servicio() {
     <section className="service-section"><div className="service-section-heading"><div><span className="service-eyebrow">ETAPA 1</span><h2>Gustos, intereses y habilidades</h2><p>No hay respuestas correctas. Marca aquello que genuinamente disfrutas o te gustaría explorar.</p></div></div>
       <form onSubmit={save} className="service-form">
         <ChipGroup title="¿Qué temas o personas despiertan tu interés?" options={INTEREST_OPTIONS} value={form.interests} onChange={(v)=>update("interests",v)} hint="Puedes elegir varias opciones."/>
-        <ChipGroup title="¿Qué habilidades o experiencias puedes aportar?" options={SKILL_OPTIONS} value={form.skills} onChange={(v)=>update("skills",v)}/>
+        <ChipGroup title="¿Qué necesidades o causas te conmueven?" options={CAUSE_OPTIONS} value={form.causes} onChange={(v)=>update("causes",v)}/>\n        <ChipGroup title="¿Qué habilidades o experiencias puedes aportar?" options={SKILL_OPTIONS} value={form.skills} onChange={(v)=>update("skills",v)}/>
         <div className="service-fieldset"><label htmlFor="service-context">¿Dónde te gustaría servir?</label><select id="service-context" value={form.context} onChange={(e)=>update("context",e.target.value)}>{CONTEXT_OPTIONS.map((o)=><option key={o.value} value={o.value}>{o.label}</option>)}</select></div>
         <ChipGroup title="¿Cuándo sueles tener disponibilidad?" options={AVAILABILITY_OPTIONS} value={form.availability} onChange={(v)=>update("availability",v)}/>
         <div className="service-form-footer"><span className="service-hint">Puedes volver y actualizar esta información cuando cambien tus intereses o disponibilidad.</span><button className="service-button" disabled={saving}>{saving ? "Guardando…" : "Guardar mis preferencias"}</button></div>
@@ -117,7 +117,7 @@ export default function Servicio() {
         <p className="service-hint">La propuesta se guardará como pendiente y no aparecerá en el catálogo hasta que sea revisada por un administrador.</p>
         <button className="service-button" disabled={submitting}>{submitting ? "Enviando…" : "Enviar propuesta para revisión"}</button>
       </form>}
-      {proposals.length > 0 && <div className="service-proposals"><h3>Mis propuestas</h3><div className="ministry-grid">{proposals.map((p)=><MinistryCard key={p.id} ministry={p} proposed/>)}</div></div>}
+      {isAdmin && pendingReview.length > 0 && <div className="service-proposals"><h3>Propuestas por revisar</h3><div className="ministry-grid">{pendingReview.map((p)=><article className="ministry-card" key={p.id}><MinistryCard ministry={p} proposed/><p className="service-hint">Propuesta de: {p.ownerName || "Usuario"}</p><div className="service-steps"><button className="service-button" disabled={!!reviewing} onClick={async()=>{setReviewing(p.id);try{await reviewMinistry(p.id,"active");await refresh();setNotice("Ministerio aprobado y publicado.");}catch(e){setNotice("No se pudo aprobar la propuesta.");}finally{setReviewing("");}}}>Aprobar y publicar</button><button className="service-button secondary" disabled={!!reviewing} onClick={async()=>{setReviewing(p.id);try{await reviewMinistry(p.id,"rejected");await refresh();setNotice("Propuesta marcada como no aprobada.");}catch(e){setNotice("No se pudo actualizar la propuesta.");}finally{setReviewing("");}}}>No aprobar</button></div></article>)}</div></div>}\n      {proposals.length > 0 && <div className="service-proposals"><h3>Mis propuestas</h3><div className="ministry-grid">{proposals.map((p)=><MinistryCard key={p.id} ministry={p} proposed/>)}</div></div>}
     </section>
     {notice && <p className="service-notice" role="status">{notice}</p>}
     <footer className="service-footer">“Cada uno según el don que ha recibido, minístrelo a los otros…” · 1 Pedro 4:10<Link to="/evaluaciones">Ver mis evaluaciones comunitarias</Link></footer>
