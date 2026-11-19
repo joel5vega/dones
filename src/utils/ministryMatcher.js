@@ -32,9 +32,10 @@ export function scoreMinistry(ministry, discernment = {}, resultado = {}) {
   const dimensions = [
     { key: "dones", weight: 0.40, score: giftScore(resultado, ministry.gifts) },
     { key: "intereses", weight: 0.25, score: overlapScore(discernment.interests, ministry.interests) },
-    { key: "habilidades", weight: 0.15, score: overlapScore(discernment.skills, ministry.skills) },\n    { key: "causas", weight: 0.10, score: overlapScore(discernment.causes, ministry.causes) },
+    { key: "habilidades", weight: 0.15, score: overlapScore(discernment.skills, ministry.skills) },
+    { key: "causas", weight: 0.10, score: overlapScore(discernment.causes, ministry.causes) },
     { key: "ambito", weight: 0.10, score: ministry.scope === "both" || !discernment.context || discernment.context === "both" || ministry.scope === discernment.context ? 100 : 0 },
-  ].filter((item) => item.score !== null);
+  ].filter((item) => item.score !== null && (item.key !== "ambito" || dimensions.some((other) => other.key !== "ambito" && other.score !== null)));
   const totalWeight = dimensions.reduce((sum, item) => sum + item.weight, 0);
   const score = totalWeight ? Math.round(dimensions.reduce((sum, item) => sum + item.score * item.weight, 0) / totalWeight) : 0;
   return {
@@ -43,7 +44,8 @@ export function scoreMinistry(ministry, discernment = {}, resultado = {}) {
     reasons: dimensions.filter((item) => item.score >= 40).map((item) => ({
       dones: "Dones que podrían ponerse al servicio",
       intereses: "Intereses que expresaste",
-      habilidades: "Habilidades que puedes aportar",\n      causas: "Necesidades y causas que te conmueven",
+      habilidades: "Habilidades que puedes aportar",
+      causas: "Necesidades y causas que te conmueven",
       ambito: "Ámbito de servicio que prefieres",
     }[item.key])),
     dimensions: Object.fromEntries(dimensions.map(({ key, score: value }) => [key, Math.round(value)])),
@@ -51,6 +53,9 @@ export function scoreMinistry(ministry, discernment = {}, resultado = {}) {
 }
 
 export function recommendMinistries(ministries, discernment, resultado) {
+  const hasProfile = ["interests", "skills", "causes"].some((key) => normalizeList(discernment?.[key]).length > 0);
+  const hasResults = Object.entries(resultado || {}).some(([key, value]) => key !== "id" && Number.isFinite(Number(value)));
+  if (!hasProfile && !hasResults) return [];
   return ministries
     .map((ministry) => scoreMinistry(ministry, discernment, resultado))
     .filter((ministry) => ministry.matchScore > 0)
