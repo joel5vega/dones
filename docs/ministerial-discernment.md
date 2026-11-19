@@ -3,7 +3,7 @@
 ## Modelo de perfil
 Cada documento `users/{uid}` puede contener `discernment`:
 - `interests: string[]`
-- `skills: string[]`
+- `skills: string[]`\n- `causes: string[]`
 - `causes: string[]` (reservado para ampliación)
 - `context: church | society | both`
 - `availability: string[]`
@@ -29,9 +29,9 @@ Las propuestas de usuarios se guardan como `pending`. Solo un administrador pued
 
 ## Motor de sugerencias
 Ponderaciones orientativas:
-- Dones del test: 45%
-- Intereses declarados: 30%
-- Habilidades: 15%
+- Dones del test: 40%
+- Intereses declarados: 25%
+- Habilidades: 15%\n- Causas que conmueven: 10%
 - Ámbito preferido: 10%
 
 Las dimensiones sin información se excluyen y se renormaliza el peso restante. Las sugerencias incluyen razones legibles. No se utiliza para asignar cargos, certificar dones ni sustituir discernimiento, acompañamiento pastoral o evaluación comunitaria.
