@@ -74,9 +74,7 @@ export default function Servicio() {
   const submitProposal = async (event) => {
     event.preventDefault(); setSubmitting(true); setNotice("");
     try {
-      const payload = { ...draft, gifts:draft.gifts, interests:draft.interests, skills:draft.skills, causes:draft.causes, activities:draft.activities.split("
-").map((v)=>v.trim()).filter(Boolean), requirements:draft.requirements.split("
-").map((v)=>v.trim()).filter(Boolean) };
+      const payload = { ...draft, gifts:draft.gifts, interests:draft.interests, skills:draft.skills, causes:draft.causes, activities:draft.activities.split(/\r?\n/).map((v)=>v.trim()).filter(Boolean), requirements:draft.requirements.split(/\r?\n/).map((v)=>v.trim()).filter(Boolean) };
       await proposeMinistry(user.uid, profile, payload);
       setDraft(blankMinistry); setShowCreate(false); await refresh(); setNotice("Propuesta enviada. Quedará pendiente de revisión antes de publicarse.");
     } catch (error) { console.error(error); setNotice("No se pudo enviar la propuesta. Inténtalo nuevamente."); }
