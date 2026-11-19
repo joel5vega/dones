@@ -8,6 +8,13 @@ export const INTEREST_OPTIONS = [
   "Emprendimiento y trabajo", "Deportes", "Administración y finanzas",
 ];
 
+export const CAUSE_OPTIONS = [
+  "Soledad y aislamiento", "Pobreza y necesidades básicas", "Niñez en riesgo",
+  "Violencia y protección", "Migración y desplazamiento", "Salud y enfermedad",
+  "Educación y alfabetización", "Familias y relaciones", "Personas privadas de libertad",
+  "Personas con discapacidad", "Cuidado de la creación", "Evangelización y discipulado",
+];
+
 export const SKILL_OPTIONS = [
   "Comunicación", "Escucha", "Enseñanza", "Liderazgo", "Organización",
   "Administración", "Música", "Diseño", "Fotografía y video", "Tecnología",
