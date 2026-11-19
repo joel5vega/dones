@@ -36,7 +36,7 @@ export function scoreMinistry(ministry, discernment = {}, resultado = {}) {
     { key: "causas", weight: 0.10, score: overlapScore(discernment.causes, ministry.causes) },
     { key: "ambito", weight: 0.10, score: ministry.scope === "both" || !discernment.context || discernment.context === "both" || ministry.scope === discernment.context ? 100 : 0 },
   ];
-  const hasMatchingSignal = candidates.some((item) => item.key !== "ambito" && item.score !== null);
+  const hasMatchingSignal = candidates.some((item) => item.key !== "ambito" && item.score !== null && item.score > 0);
   const dimensions = candidates.filter((item) => item.score !== null && (item.key !== "ambito" || hasMatchingSignal));
   const totalWeight = dimensions.reduce((sum, item) => sum + item.weight, 0);
   const score = totalWeight ? Math.round(dimensions.reduce((sum, item) => sum + item.score * item.weight, 0) / totalWeight) : 0;
