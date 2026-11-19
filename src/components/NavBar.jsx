@@ -27,7 +27,7 @@ const barSx = {
 };
 
 export default function NavBar({ title }) {
-  const { user, signInWithGoogle, logout } = useAuth();
+  const { user, signInWithGoogle, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -125,7 +125,8 @@ export default function NavBar({ title }) {
               </div>
               <Divider sx={{ borderColor: "rgba(230, 239, 233, 0.1)", mb: 1 }} />
               
-              <MenuItem onClick={() => navigate("/servicio")}>\n                Mi servicio\n              </MenuItem>\n\n              <MenuItem onClick={() => navigate("/perfil")}>
+              <MenuItem onClick={() => navigate("/servicio")}>\n                Mi servicio\n              </MenuItem>\n\n              {isAdmin && <MenuItem onClick={() => navigate("/admin/ministerios")}>Administrar ministerios</MenuItem>}
+              <MenuItem onClick={() => navigate("/perfil")}>
                 <ListItemIcon sx={{ color: "var(--primario)", minWidth: "auto !important" }}>
                   <FontAwesomeIcon icon={faUser} size="sm" />
                 </ListItemIcon>
