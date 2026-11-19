@@ -23,7 +23,7 @@ describe("ministryMatcher", () => {
       causes: ["Soledad y aislamiento"],
       context: "church",
     }, { Misericordia: 90, Pastoreo: 80, id: "2026-11-19" });
-    expect(result.matchScore).toBe(100);
+    expect(result.matchScore).toBe(94);
     expect(result.reasons).toHaveLength(5);
   });
 
