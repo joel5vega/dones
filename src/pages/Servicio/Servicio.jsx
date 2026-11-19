@@ -9,7 +9,7 @@ import { saveDiscernment } from "../../services/discernmentService";
 import { getMyMinistryProposals, getPendingMinistries, getPublishedMinistries, proposeMinistry, reviewMinistry } from "../../services/ministerioService";
 import "./servicio.css";
 
-const blankMinistry = { name:"", description:"", scope:"church", gifts:[], interests:[], skills:[], activities:"", commitment:"", requirements:"" };
+const blankMinistry = { name:"", description:"", scope:"church", gifts:[], interests:[], skills:[], causes:[], activities:"", commitment:"", requirements:"" };
 const giftNames = ["Liderazgo","Administración","Enseñanza","Conocimiento","Sabiduría","Profecía","Discernimiento","Exhortación","Pastoreo","Fe","Evangelismo","Apostolado","Servicio / Ayuda","Misericordia","Dar","Hospitalidad"];
 
 function ChipGroup({ title, options, value, onChange, hint }) {
@@ -74,7 +74,7 @@ export default function Servicio() {
   const submitProposal = async (event) => {
     event.preventDefault(); setSubmitting(true); setNotice("");
     try {
-      const payload = { ...draft, gifts:draft.gifts, interests:draft.interests, skills:draft.skills, activities:draft.activities.split("
+      const payload = { ...draft, gifts:draft.gifts, interests:draft.interests, skills:draft.skills, causes:draft.causes, activities:draft.activities.split("
 ").map((v)=>v.trim()).filter(Boolean), requirements:draft.requirements.split("
 ").map((v)=>v.trim()).filter(Boolean) };
       await proposeMinistry(user.uid, profile, payload);
@@ -115,7 +115,7 @@ export default function Servicio() {
         <label>Ámbito<select value={draft.scope} onChange={(e)=>setDraft({...draft,scope:e.target.value})}><option value="church">Iglesia local</option><option value="society">Sociedad / comunidad</option><option value="both">Ambos ámbitos</option></select></label>
         <ChipGroup title="Dones que podrían contribuir (orientativo)" options={giftNames} value={draft.gifts} onChange={(v)=>setDraft({...draft,gifts:v})}/>
         <ChipGroup title="Intereses relacionados" options={INTEREST_OPTIONS} value={draft.interests} onChange={(v)=>setDraft({...draft,interests:v})}/>
-        <ChipGroup title="Habilidades necesarias" options={SKILL_OPTIONS} value={draft.skills} onChange={(v)=>setDraft({...draft,skills:v})}/>
+        <ChipGroup title="Necesidades o causas que busca atender" options={CAUSE_OPTIONS} value={draft.causes} onChange={(v)=>setDraft({...draft,causes:v})}/>\n        <ChipGroup title="Habilidades necesarias" options={SKILL_OPTIONS} value={draft.skills} onChange={(v)=>setDraft({...draft,skills:v})}/>
         <label>Actividades principales (una por línea)<textarea rows="3" value={draft.activities} onChange={(e)=>setDraft({...draft,activities:e.target.value})} placeholder={"Visitar familias
 Organizar encuentros
 Preparar recursos"}/></label>
