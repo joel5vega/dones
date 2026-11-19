@@ -20,7 +20,7 @@ function ChipGroup({ title, options, value, onChange, hint }) {
 function MinistryCard({ ministry, proposed = false }) {
   return <article className="ministry-card">
     <div className="ministry-card-top"><span className="service-tag">{ministry.scope === "society" ? "Sociedad" : ministry.scope === "both" ? "Iglesia y sociedad" : "Iglesia local"}</span>{proposed ? <span className="service-status">{ministry.status === "rejected" ? "No aprobada" : "Pendiente de revisión"}</span> : Number.isFinite(ministry.matchScore) ? <span className="service-match">{ministry.matchScore}% de afinidad orientativa</span> : null}</div>
-    <h3>{ministry.name}</h3><p>{ministry.description}</p>
+    {ministry.logoUrl && <img className="ministry-card-logo" src={ministry.logoUrl} alt={`Logotipo de ${ministry.name}`}/>}<h3>{ministry.name}</h3><p>{ministry.description}</p>
     {!proposed && ministry.reasons?.length > 0 && <div className="service-reasons"><strong>Por qué podría encajar:</strong><ul>{ministry.reasons.map((reason) => <li key={reason}>{reason}</li>)}</ul></div>}
     <div className="service-meta"><span><strong>Dones relacionados:</strong> {(ministry.gifts || []).join(", ") || "Por definir"}</span><span><strong>Intereses:</strong> {(ministry.interests || []).join(", ") || "Por definir"}</span><span><strong>Dedicación:</strong> {ministry.commitment || "A conversar"}</span></div>
     {ministry.requirements?.length > 0 && <p className="service-hint"><strong>Consideraciones:</strong> {ministry.requirements.join(" · ")}</p>}
