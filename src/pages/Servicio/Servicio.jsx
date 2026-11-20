@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import Loader from "../../components/Loader/Loader";
-import { INTEREST_OPTIONS, SKILL_OPTIONS, CONTEXT_OPTIONS, AVAILABILITY_OPTIONS, CAUSE_OPTIONS } from "../../data/intereses";
+import { INTEREST_OPTIONS, SKILL_OPTIONS, CONTEXT_OPTIONS, AVAILABILITY_OPTIONS, CAUSE_OPTIONS, GIFT_OPTIONS } from "../../data/intereses";
+import { DEFAULT_MINISTRY_TAXONOMY, getMinistryTaxonomy } from "../../services/taxonomyService";
 import { MINISTRY_STARTERS } from "../../data/ministerios";
 import { recommendMinistries } from "../../utils/ministryMatcher";
 import { saveDiscernment } from "../../services/discernmentService";
@@ -10,7 +11,6 @@ import { getMyMinistryProposals, getPendingMinistries, getPublishedMinistries, p
 import "./servicio.css";
 
 const blankMinistry = { name:"", description:"", scope:"church", gifts:[], interests:[], skills:[], causes:[], activities:"", commitment:"", requirements:"" };
-const giftNames = ["Liderazgo","Administración","Enseñanza","Conocimiento","Sabiduría","Profecía","Discernimiento","Exhortación","Pastoreo","Fe","Evangelismo","Apostolado","Servicio / Ayuda","Misericordia","Dar","Hospitalidad"];
 
 function ChipGroup({ title, options, value, onChange, hint }) {
   const toggle = (item) => onChange(value.includes(item) ? value.filter((entry) => entry !== item) : [...value, item]);
@@ -46,6 +46,9 @@ export default function Servicio() {
   const [submitting, setSubmitting] = useState(false);
   const [reviewing, setReviewing] = useState("");
   const [notice, setNotice] = useState("");
+  const [taxonomy, setTaxonomy] = useState(DEFAULT_MINISTRY_TAXONOMY);
+
+  useEffect(() => { getMinistryTaxonomy().then(setTaxonomy).catch((error)=>console.warn("Se usan categorías predeterminadas",error)); }, []);
 
   useEffect(() => {
     if (!profile) return;
@@ -95,9 +98,9 @@ export default function Servicio() {
 
     <section className="service-section"><div className="service-section-heading"><div><span className="service-eyebrow">ETAPA 1</span><h2>Gustos, intereses y habilidades</h2><p>No hay respuestas correctas. Marca aquello que genuinamente disfrutas o te gustaría explorar.</p></div></div>
       <form onSubmit={save} className="service-form">
-        <ChipGroup title="¿Qué temas o personas despiertan tu interés?" options={INTEREST_OPTIONS} value={form.interests} onChange={(v)=>update("interests",v)} hint="Puedes elegir varias opciones."/>
-        <ChipGroup title="¿Qué necesidades o causas te conmueven?" options={CAUSE_OPTIONS} value={form.causes} onChange={(v)=>update("causes",v)}/>
-        <ChipGroup title="¿Qué habilidades o experiencias puedes aportar?" options={SKILL_OPTIONS} value={form.skills} onChange={(v)=>update("skills",v)}/>
+        <ChipGroup title="¿Qué temas o personas despiertan tu interés?" options={taxonomy.interests||INTEREST_OPTIONS} value={form.interests} onChange={(v)=>update("interests",v)} hint="Puedes elegir varias opciones."/>
+        <ChipGroup title="¿Qué necesidades o causas te conmueven?" options={taxonomy.causes||CAUSE_OPTIONS} value={form.causes} onChange={(v)=>update("causes",v)}/>
+        <ChipGroup title="¿Qué habilidades o experiencias puedes aportar?" options={taxonomy.skills||SKILL_OPTIONS} value={form.skills} onChange={(v)=>update("skills",v)}/>
         <div className="service-fieldset"><label htmlFor="service-context">¿Dónde te gustaría servir?</label><select id="service-context" value={form.context} onChange={(e)=>update("context",e.target.value)}>{CONTEXT_OPTIONS.map((o)=><option key={o.value} value={o.value}>{o.label}</option>)}</select></div>
         <ChipGroup title="¿Cuándo sueles tener disponibilidad?" options={AVAILABILITY_OPTIONS} value={form.availability} onChange={(v)=>update("availability",v)}/>
         <div className="service-form-footer"><span className="service-hint">Puedes volver y actualizar esta información cuando cambien tus intereses o disponibilidad.</span><button className="service-button" disabled={saving}>{saving ? "Guardando…" : "Guardar mis preferencias"}</button></div>
@@ -115,7 +118,7 @@ export default function Servicio() {
         <label>Nombre del ministerio<input required maxLength="90" value={draft.name} onChange={(e)=>setDraft({...draft,name:e.target.value})} placeholder="Ej. Acompañamiento a familias"/></label>
         <label>Propósito y descripción<textarea required minLength="25" maxLength="700" rows="3" value={draft.description} onChange={(e)=>setDraft({...draft,description:e.target.value})} placeholder="¿Qué necesidad busca atender y a quiénes servirá?"/></label>
         <label>Ámbito<select value={draft.scope} onChange={(e)=>setDraft({...draft,scope:e.target.value})}><option value="church">Iglesia local</option><option value="society">Sociedad / comunidad</option><option value="both">Ambos ámbitos</option></select></label>
-        <ChipGroup title="Dones que podrían contribuir (orientativo)" options={giftNames} value={draft.gifts} onChange={(v)=>setDraft({...draft,gifts:v})}/>
+        <ChipGroup title="Dones que podrían contribuir (orientativo)" options={taxonomy.gifts||GIFT_OPTIONS} value={draft.gifts} onChange={(v)=>setDraft({...draft,gifts:v})}/>
         <ChipGroup title="Intereses relacionados" options={INTEREST_OPTIONS} value={draft.interests} onChange={(v)=>setDraft({...draft,interests:v})}/>
         <ChipGroup title="Necesidades o causas que busca atender" options={CAUSE_OPTIONS} value={draft.causes} onChange={(v)=>setDraft({...draft,causes:v})}/>
         <ChipGroup title="Habilidades necesarias" options={SKILL_OPTIONS} value={draft.skills} onChange={(v)=>setDraft({...draft,skills:v})}/>
