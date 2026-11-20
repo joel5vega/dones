@@ -60,6 +60,11 @@ service cloud.firestore {
       allow update, delete: if request.auth != null && isAdmin();
     }
 
+    match /settings/{settingId} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && isAdmin();
+    }
+
     // Cola de correos (extensión "Trigger Email from Firestore"): solo el admin
     match /mail/{id} {
       allow create, read: if request.auth != null && isAdmin();
