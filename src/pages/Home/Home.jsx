@@ -18,6 +18,7 @@ function Acciones() {
         {yaHizoTest ? "Repetir el Test" : "Hacer el Test"}
       </Link>
       <Link to="/dones" className="btn btn-secondary">Ver Dones</Link>
+      {user && <Link to="/servicio" className="btn btn-secondary">Explorar mi servicio</Link>}
 
       {user && (
         <Link
