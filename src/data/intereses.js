@@ -33,3 +33,6 @@ export const AVAILABILITY_OPTIONS = [
   "Entre semana", "Fines de semana", "Por las mañanas", "Por las tardes",
   "Por las noches", "Ocasionalmente", "A distancia / remoto",
 ];
+
+export const GIFT_OPTIONS = ["Liderazgo","Administración","Enseñanza","Conocimiento","Sabiduría","Profecía","Discernimiento","Exhortación","Pastoreo","Fe","Evangelismo","Apostolado","Servicio / Ayuda","Misericordia","Dar","Hospitalidad"];
+export const TAXONOMY_LABELS = { gifts:"Dones", interests:"Intereses", skills:"Habilidades", causes:"Causas" };
