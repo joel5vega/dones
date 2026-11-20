@@ -13,8 +13,10 @@ import "./servicio.css";
 const blankMinistry = { name:"", description:"", scope:"church", gifts:[], interests:[], skills:[], causes:[], activities:"", commitment:"", requirements:"" };
 
 function ChipGroup({ title, options, value, onChange, hint }) {
+  const [expanded, setExpanded] = useState(false);
   const toggle = (item) => onChange(value.includes(item) ? value.filter((entry) => entry !== item) : [...value, item]);
-  return <fieldset className="service-fieldset"><legend>{title}</legend>{hint && <p className="service-hint">{hint}</p>}<div className="service-chips">{options.map((item) => <button type="button" key={item} className={value.includes(item) ? "service-chip selected" : "service-chip"} aria-pressed={value.includes(item)} onClick={() => toggle(item)}>{item}</button>)}</div></fieldset>;
+  const visible = expanded ? options : options.filter((item,index)=>index<8 || value.includes(item));
+  return <fieldset className="service-fieldset"><legend>{title} <span className="service-selected-count">{value.length ? `· ${value.length} elegidos` : ""}</span></legend>{hint && <p className="service-hint">{hint}</p>}<div className="service-chips">{visible.map((item) => <button type="button" key={item} className={value.includes(item) ? "service-chip selected" : "service-chip"} aria-pressed={value.includes(item)} onClick={() => toggle(item)}>{item}</button>)}</div>{options.length>8 && <button type="button" className="service-chip-more" onClick={()=>setExpanded((v)=>!v)}>{expanded ? "Mostrar menos" : `Ver todas las opciones (${options.length})`}</button>}</fieldset>;
 }
 
 function MinistryCard({ ministry, proposed = false }) {
